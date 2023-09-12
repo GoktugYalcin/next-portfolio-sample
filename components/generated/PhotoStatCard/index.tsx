@@ -9,7 +9,7 @@ const PhotoStatCard = ({ link, label, stat }: PhotoStatCardProps) => {
         {label}
       </Link>
       <span className="mt-1 text-3xl font-bold spacing-sm text-highlight">
-        {stat.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+        {stat?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "," || "-")}
       </span>
     </div>
   );
