@@ -9,7 +9,7 @@ import { Track } from "@/types";
 export const revalidate: number = 86400;
 
 export async function Footer() {
-  const recentlyListened: Track = await Lastfm.getRecentTracks();
+  /*const recentlyListened: Track = await Lastfm.getRecentTracks();*/
 
   return (
     <div className="mt-16 flex justify-between w-full flex-col-reverse lg:flex-row gap-8 lg:gap-0">
@@ -17,12 +17,12 @@ export async function Footer() {
         <span className="font-medium">Connect with me</span>
         <FooterLinkProvider />
       </div>
-      {!!recentlyListened && (
+      {/*{!!recentlyListened && (
         <div className="flex-col flex justify-start items-start">
           <span className="font-medium mb-4">I recently listened</span>
           <NowListeningCard data={recentlyListened} />
         </div>
-      )}
+      )}*/}
     </div>
   );
 }
