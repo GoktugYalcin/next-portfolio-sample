@@ -1,6 +1,6 @@
 module.exports = {
   name: "A. Göktuğ Yalçın",
-  title: "Mid Frontend Developer",
+  title: "Frontend Developer",
   description:
     "I'm Göktuğ, a Istanbul-based freelance front-end developer. Specializing in JavaScript, React, Vue, Next.js, and TypeScript, I'm passionate about creating engaging and interactive digital experiences.",
   lang: "tr",
