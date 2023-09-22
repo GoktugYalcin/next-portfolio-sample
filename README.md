@@ -1,7 +1,7 @@
 # Next Portfolio Sample
 
 - A portfolio written with Next.js and TypeScript.
-- Also used App Router, Tailwind, Framer Motion, shadcn/ui
+- Also used **App Router**, **Tailwind**, **Framer Motion**, **shadcn/ui**
 
 ![Image](https://github.com/GoktugYalcin/next-portfolio-sample/blob/main/image.jpg?raw=true)
 
