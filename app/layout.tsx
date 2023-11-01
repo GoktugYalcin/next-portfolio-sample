@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`transition-colors duration-200 ease-in-out dark:bg-[#1B2430] relative flex min-h-screen w-screen flex-col`}
+        className={`transition-colors duration-200 ease-in-out dark:bg-[#1B2430] relative flex min-h-screen flex-col`}
       >
         <Seo />
         <NavMenu />
