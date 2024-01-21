@@ -1,12 +1,29 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["images.unsplash.com", "lastfm.freetls.fastly.net", "i.scdn.co"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        port: "",
+      },
+      {
+        protocol: "https",
+        hostname: "lastfm.freetls.fastly.net",
+        port: "",
+      },
+      {
+        protocol: "https",
+        hostname: "i.scdn.co",
+        port: "",
+      },
+    ],
   },
 };
+
 /*
   ==================================================
-  FOR ANALYZING BUNDLE SIZES
+            FOR ANALYZING BUNDLE SIZES
   ==================================================
 
   const withBundleAnalyzer = require("@next/bundle-analyzer")({
