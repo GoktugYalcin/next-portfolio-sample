@@ -64,18 +64,15 @@ export default function Home() {
           <h2 className="mb-2">Currently working on:</h2>
           <ul>
             <RecentProject
-              label={"Portfolio Template"}
+              label={"Short-it"}
               description={
-                "I want to create a template for developers who wants to build a\n" +
-                "                portfolio but too lazy for it. I'm making this portfolio as\n" +
-                "                a template and will publish on GitHub."
+                "A link shortener app built with Supabase, Tailwind, TypeScript and Next.js"
               }
             />
             <RecentProject
-              label={"UI Kit"}
+              label={"Sighttrippr"}
               description={
-                "Since I entered to sector, always I want to build a UI Kit. So,\n" +
-                "                it is not so continuous but can still build."
+                "Trip router and suggestion app. Building with Google API, TypeScript, Firebase, Next.js"
               }
             />
             <RecentProject
