@@ -6,8 +6,10 @@ function Photos(props: IPhotosWrapper) {
   const { data } = props;
   return (
     <div className="grid items-end gap-6 sm:grid-cols-2 md:grid-cols-3 md:gap-x-8 md:gap-y-20 lg:grid-cols-4">
-      {data.map((item: IPhoto) => {
-        return <Photo key={item.id} {...item} />;
+      {data.map((item: IPhoto, index) => {
+        return (
+          <Photo key={item.id} {...item} positiveRotate={Boolean(index % 2)} />
+        );
       })}
     </div>
   );

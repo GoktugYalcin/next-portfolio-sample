@@ -5,15 +5,26 @@ import React from "react";
 import { createShimmer } from "@/lib/utils";
 
 export const Photo = (props: IPhoto) => {
-  const { alt_description, links, urls, description, width, height } = props;
+  const {
+    alt_description,
+    links,
+    urls,
+    description,
+    width,
+    height,
+    positiveRotate,
+  } = props;
+  const figureClasses =
+    (positiveRotate ? "rotate-[2.5deg]" : "rotate-[-2.5deg]") +
+    " hover:rotate-0 transition-all";
 
   return (
-    <figure>
+    <figure className={figureClasses}>
       <Link
         href={links.html}
         target={"_blank"}
         className={
-          "group block overflow-hidden rounded-lg saturate-50 transition-all duration-700 hover:scale-105 hover:saturate-100"
+          "group block overflow-hidden rounded-lg grayscale hover:grayscale-0 transition-all duration-700 hover:scale-110 hover:black"
         }
       >
         <Image

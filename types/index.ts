@@ -18,6 +18,7 @@ export interface IPhoto {
   width: number;
   height: number;
   blur_hash: string;
+  positiveRotate: boolean;
 }
 
 export interface IPhotosWrapper {
