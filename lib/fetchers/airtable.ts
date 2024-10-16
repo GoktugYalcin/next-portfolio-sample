@@ -3,7 +3,7 @@ import { AirtableInfo, AirtableProject } from "@/types/air";
 class AirtableInstance {
   getInfos = async () => {
     const res = await fetch(
-      `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE}/Info?maxRecords=3&view=Grid%20view`,
+      `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE}/Info?maxRecords=10&view=Grid%20view`,
       {
         headers: {
           Authorization: `Bearer ${process.env.AIRTABLE_API_KEY}`,
@@ -11,6 +11,8 @@ class AirtableInstance {
       }
     );
     const data = await res.json();
+
+    console.log(data);
 
     const mappedRecords: AirtableInfo[] = (
       data.records as unknown as Array<{ fields: any }>
