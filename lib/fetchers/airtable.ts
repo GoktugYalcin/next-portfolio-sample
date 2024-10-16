@@ -1,11 +1,6 @@
-import Airtable from "airtable";
 import { AirtableInfo, AirtableProject } from "@/types/air";
 
 class AirtableInstance {
-  private client = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
-    process.env.AIRTABLE_BASE!
-  );
-
   getInfos = async () => {
     const res = await fetch(
       `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE}/Info?maxRecords=3&view=Grid%20view`,
