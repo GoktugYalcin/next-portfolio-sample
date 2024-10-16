@@ -2,7 +2,7 @@ import React from "react";
 import NowListeningCard from "@/components/generated/NowListeningCard";
 import FooterLinkProvider from "@/components/generated/Footer/FooterLinkProvider";
 
-export const revalidate: number = 86400;
+export const revalidate: number = 30;
 
 export async function Footer() {
   return (
