@@ -12,8 +12,6 @@ class AirtableInstance {
     );
     const data = await res.json();
 
-    console.log(data);
-
     const mappedRecords: AirtableInfo[] = (
       data.records as unknown as Array<{ fields: any }>
     ).map((record: any) => ({
