@@ -1,7 +1,5 @@
-import Info from "@/infos";
 import { ProjectCard } from "@/components/generated/ProjectCard";
 import { Metadata } from "next";
-import { Project } from "@/types";
 import air from "@/lib/fetchers/airtable";
 import { AirtableProject } from "@/types/air";
 

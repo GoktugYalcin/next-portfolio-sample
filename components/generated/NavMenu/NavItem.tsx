@@ -21,9 +21,9 @@ const NavItem: React.FC<INavItem> = ({
       {isSelected && (
         <motion.div
           layoutId="bg"
-          className={`rounded-full z-[-4] w-[90%] absolute box-border m-0 h-[49px] opacity-1 bg-gray-200/70 dark:bg-gray-800/70 pointer-events-none`}
+          className={`rounded-full z-[-4] w-[90%] absolute box-border m-0 lg:h-[49px] h-[40px] opacity-1 bg-gray-200/70 dark:bg-gray-800/70 pointer-events-none`}
           transition={{
-            duration: 0.3,
+            duration: 0.2,
           }}
         />
       )}
