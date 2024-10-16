@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { BiEqualizer } from "react-icons/bi";
 import spotify from "@/lib/fetchers/spotify";
+import { FaSpotify } from "react-icons/fa6";
 
 const NowListeningCard = async () => {
   const lastListened = await spotify.getLastListened();
@@ -10,7 +11,8 @@ const NowListeningCard = async () => {
 
   return (
     <div className="flex-col flex justify-start items-start">
-      <span className="font-medium mb-4">
+      <span className="font-medium mb-4 flex items-center justify-start gap-1">
+        <FaSpotify className={"text-green-400"} />
         {lastListened.isNowPlaying
           ? "I'm listening now"
           : "I recently listened"}
