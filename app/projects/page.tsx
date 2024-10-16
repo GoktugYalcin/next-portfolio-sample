@@ -26,7 +26,7 @@ export default async function Home() {
       </div>
       <div className="w-full flex-wrap flex gap-4">
         {showcase.map((project: AirtableProject, index: number) => {
-          return <ProjectCard {...project} />;
+          return <ProjectCard {...project} key={index} />;
         })}
       </div>
     </>
