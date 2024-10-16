@@ -18,4 +18,6 @@ class Medium {
   }
 }
 
-export default new Medium();
+const medium = new Medium();
+
+export default medium;

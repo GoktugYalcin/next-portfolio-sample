@@ -1,8 +1,6 @@
 import React from "react";
-import Lastfm from "@/lib/fetchers/lastfm";
 import NowListeningCard from "@/components/generated/NowListeningCard";
 import FooterLinkProvider from "@/components/generated/Footer/FooterLinkProvider";
-import { Track } from "@/types";
 
 export const revalidate: number = 86400;
 

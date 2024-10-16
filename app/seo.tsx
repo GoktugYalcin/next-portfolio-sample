@@ -17,13 +17,11 @@ const Seo = () => {
       openGraph={{
         type: "website",
         locale: "en_IE",
-        url: "https://gokyalc.in",
+        url:
+          process.env.NODE_ENV === "production"
+            ? "localhost:3000"
+            : "https://gokyalc.in",
         site_name: "goktugyalcin",
-      }}
-      twitter={{
-        handle: "@ordansutuvar",
-        site: "@ordansutuvar",
-        cardType: "summary_large_image",
       }}
     />
   );

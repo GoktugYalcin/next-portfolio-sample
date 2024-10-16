@@ -2,12 +2,22 @@ import React from "react";
 import FooterLink from "@/components/generated/Footer/FooterLink";
 import Info from "@/infos";
 import { FooterLinkProps } from "@/types";
+import air from "@/lib/fetchers/airtable";
 
-const FooterLinkProvider = () => {
+const FooterLinkProvider = async () => {
+  const infos = await air.getInfos();
+
   return (
     <ul className="mt-4 flex flex-col gap-1.5">
-      {Info.contact.map((item: FooterLinkProps, index: number) => {
-        return <FooterLink {...item} key={index} />;
+      {infos.map((i, index) => {
+        return (
+          <FooterLink
+            label={i.label}
+            link={i.url}
+            siteName={i.type}
+            key={index}
+          />
+        );
       })}
     </ul>
   );

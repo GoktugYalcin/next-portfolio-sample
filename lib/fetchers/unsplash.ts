@@ -32,4 +32,6 @@ class Unsplash {
   }
 }
 
-export default new Unsplash();
+const unsplash = new Unsplash();
+
+export default unsplash;

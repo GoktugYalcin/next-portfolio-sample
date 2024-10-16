@@ -37,7 +37,7 @@ const toBase64 = (str: string) =>
 
 export const createShimmer = (w: number = 700, h: number = 475) => {
   const shimmerData = `data:image/svg+xml;base64,${toBase64(
-    shimmer(700, 475)
+    shimmer(w ?? 700, h ?? 475)
   )}`;
   return shimmerData;
 };
