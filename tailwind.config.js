@@ -16,6 +16,10 @@ module.exports = {
       },
     },
     extend: {
+      transitionProperty: {
+        colors:
+          "color, background-color, border-color, text-decoration-color, fill, stroke",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -72,6 +76,11 @@ module.exports = {
         wiggle: "wiggle 1s ease-in-out infinite",
         pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite forwards",
       },
+    },
+  },
+  variants: {
+    extend: {
+      transitionProperty: ["dark"],
     },
   },
   plugins: [require("tailwindcss-animate")],

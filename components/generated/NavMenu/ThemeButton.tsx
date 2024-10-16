@@ -16,7 +16,7 @@ const ThemeButton: React.FC = () => {
   }
 
   function toggleTheme(): void {
-    disableTransitionsTemporarily();
+    //disableTransitionsTemporarily();
 
     if (currentTheme === "dark") {
       setTheme("light");

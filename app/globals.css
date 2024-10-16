@@ -83,3 +83,18 @@ html {
   font-feature-settings: normal;
   font-variation-settings: normal;
 }
+
+:root {
+  --transition-duration: 0.3s;
+}
+
+body {
+  transition: background-color var(--transition-duration) ease,
+  color var(--transition-duration) ease;
+}
+
+button, a, span, h1, h2, h3, h4, h5, h6, p, blockquote, pre {
+  transition: background-color var(--transition-duration) ease,
+  color var(--transition-duration) ease,
+  border-color var(--transition-duration) ease;
+}
