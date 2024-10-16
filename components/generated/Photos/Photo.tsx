@@ -24,7 +24,7 @@ export const Photo = (props: IPhoto) => {
         href={links.html}
         target={"_blank"}
         className={
-          "group block overflow-hidden rounded-lg grayscale hover:grayscale-0 transition-all duration-700 hover:scale-110 hover:black"
+          "group block overflow-hidden rounded-lg grayscale hover:grayscale-0 transition-all duration-700 lg:hover:scale-110 hover:black"
         }
       >
         <Image
