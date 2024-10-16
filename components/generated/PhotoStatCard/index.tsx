@@ -4,7 +4,7 @@ import { PhotoStatCardProps } from "@/types";
 
 const PhotoStatCard = ({ link, label, stat }: PhotoStatCardProps) => {
   return (
-    <div className="border border-gray-200 rounded-xl p-4 dark:border-gray-700 flex flex-col w-4/12">
+    <div className="border border-gray-200 rounded-xl p-4 dark:border-gray-700 flex flex-col w-1/2 lg:w-4/12">
       <Link href={link} className="hover:underline" target="_blank">
         {label}
       </Link>

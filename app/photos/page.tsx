@@ -23,7 +23,7 @@ export default async function Home() {
         and appreciate the beauty that surrounds us.
       </div>
       {stats && (
-        <div className="w-full flex justify-evenly items-center mb-10">
+        <div className="w-full flex justify-evenly items-center mb-10 lg:gap-0 gap-3">
           <PhotoStatCard
             stat={stats?.views?.total}
             label={"Total Views"}
