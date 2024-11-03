@@ -1,5 +1,6 @@
 import React from "react";
 import { TextProps } from "@/types";
+import { clsx } from "clsx";
 
 const ColoredCreepyTextWithIcon = ({
   text,
@@ -12,7 +13,10 @@ const ColoredCreepyTextWithIcon = ({
   ];
   return (
     <span
-      className={`inline-flex justify-center items-center gap-1 dark:${darkColor} ${lightColor}`}
+      className={clsx(`inline-flex justify-center items-center gap-1`, {
+        [lightColor]: true,
+        [`dark:${darkColor}`]: true,
+      })}
     >
       {text}
       {React.createElement(icon, {

@@ -27,7 +27,11 @@ export default function RootLayout({
         <ProviderTheme>
           <Seo />
           <NavMenu />
-          <main className="flex min-h-screen flex-col items-start justify-start mx-auto mb-14 w-full max-w-screen-md flex-1 animate-main-content px-4 py-12 ">
+          <main
+            className={
+              "flex min-h-screen flex-col items-start justify-start lg:max-w-screen-lg max-w-screen-md mx-auto mb-14 w-full flex-1 animate-main-content px-4 py-12"
+            }
+          >
             {children}
             <Footer />
           </main>

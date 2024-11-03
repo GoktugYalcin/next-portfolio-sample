@@ -1,9 +1,13 @@
 import {
+  FormattedTrackInfo,
+  RecentlyPlayedItem,
+  SPOTIFY_RECENT_TRACKS_TYPES,
   SpotifyAccessToken,
   SpotifyClass,
   SpotifyNowListeningResponse,
   SpotifyRecentlyPlayedResponse,
 } from "@/types/spotify";
+import { fetch, Response } from "next/dist/compiled/@edge-runtime/primitives";
 
 class Spotify implements SpotifyClass {
   static readonly ENDPOINTS = {
@@ -89,6 +93,22 @@ class Spotify implements SpotifyClass {
       img: track.album.images[0].url,
       isNowPlaying,
     };
+  }
+
+  async getLastListenedSongs(
+    limit: SPOTIFY_RECENT_TRACKS_TYPES
+  ): Promise<FormattedTrackInfo[]> {
+    const newUrl = new URL(Spotify.ENDPOINTS.RECENT_TRACKS);
+    newUrl.searchParams.set("limit", limit.toString());
+    const response = await this.fetchWithAuth(newUrl.toString());
+    const parsedResponse =
+      (await response.json()) as SpotifyRecentlyPlayedResponse;
+
+    const parsedTracks = parsedResponse.items.map((i) =>
+      this.formatTrackInfo(i.track, false)
+    );
+
+    return parsedTracks as unknown as FormattedTrackInfo[];
   }
 }
 

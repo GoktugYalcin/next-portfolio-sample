@@ -11,12 +11,15 @@ const NowListeningCard = async () => {
 
   return (
     <div className="flex-col flex justify-start items-start">
-      <span className="font-medium mb-4 flex items-center justify-start gap-1">
+      <Link
+        href={"/last-listened"}
+        className="font-medium mb-4 flex items-center justify-start gap-1 hover:underline transition"
+      >
         <FaSpotify className={"text-green-400"} />
         {lastListened.isNowPlaying
           ? "I'm listening now"
           : "I recently listened"}
-      </span>
+      </Link>
       <div className="flex gap-3">
         <Image
           src={lastListened.img}

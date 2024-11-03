@@ -127,8 +127,16 @@ interface SpotifyPrivateMethods {
   getAccessToken(): Promise<SpotifyAccessToken>;
   getNowPlaying(): Promise<SpotifyNowListeningResponse | null>;
   getRecentTrack(): Promise<SpotifyRecentlyPlayedResponse>;
+  getLastListenedSongs(
+    limit: SPOTIFY_RECENT_TRACKS_TYPES
+  ): Promise<FormattedTrackInfo[]>;
   fetchWithAuth(url: string, options?: RequestInit): Promise<Response>;
   formatTrackInfo(track: any, isNowPlaying: boolean): FormattedTrackInfo;
 }
 
 export interface SpotifyClass extends ISpotify, SpotifyPrivateMethods {}
+
+export enum SPOTIFY_RECENT_TRACKS_TYPES {
+  SINGLE = 1,
+  MULTIPLE_TRACKS = 9,
+}

@@ -22,7 +22,7 @@ export default async function Home() {
         shape a better tomorrow through the harmonious blend of creativity, code
         and human potential.
       </div>
-      <div className="w-full flex-wrap flex gap-4">
+      <div className="w-full flex-wrap justify-center flex gap-4">
         {showcase.map((project: AirtableProject, index: number) => {
           return <ProjectCard {...project} key={index} />;
         })}
