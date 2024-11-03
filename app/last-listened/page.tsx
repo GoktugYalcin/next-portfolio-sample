@@ -120,7 +120,8 @@ const SpotifyRandomCards: React.FC = async () => {
               hover:z-10
               backdrop-blur-sm 
               bg-opacity-90
-              bg-gray-800
+              dark:bg-gray-800
+              bg-gray-100
               w-[280px]
             `}
           >
@@ -130,12 +131,16 @@ const SpotifyRandomCards: React.FC = async () => {
                 src={song.img}
                 alt={`${song.song} artwork`}
                 className="w-48 h-48 rounded-lg shadow-lg"
+                width={256}
+                height={256}
               />
             </div>
 
             {/* Song Info */}
             <div className="p-4">
-              <h3 className="text-white font-semibold truncate">{song.song}</h3>
+              <h3 className="dark:text-white font-semibold truncate">
+                {song.song}
+              </h3>
               <p className="text-gray-400 text-sm mt-1 truncate">
                 {song.artists.join(", ")}
               </p>
