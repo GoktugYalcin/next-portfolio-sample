@@ -2,6 +2,7 @@ import React from "react";
 import spotify from "@/lib/fetchers/spotify";
 import { SPOTIFY_RECENT_TRACKS_TYPES } from "@/types/spotify";
 import Link from "next/link";
+import Image from "next/image";
 
 // Define types for the song object
 interface Song {
@@ -125,7 +126,7 @@ const SpotifyRandomCards: React.FC = async () => {
           >
             {/* Album Art */}
             <div className="relative h-52 bg-gradient-to-br flex items-center justify-center">
-              <img
+              <Image
                 src={song.img}
                 alt={`${song.song} artwork`}
                 className="w-48 h-48 rounded-lg shadow-lg"
