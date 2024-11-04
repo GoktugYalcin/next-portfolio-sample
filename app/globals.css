@@ -98,3 +98,22 @@ button, a, span, h1, h2, h3, h4, h5, h6, p, blockquote, pre {
   color var(--transition-duration) ease,
   border-color var(--transition-duration) ease;
 }
+
+.anim {
+  width: 48px;
+  height: 48px;
+  background-size: 288px 48px;
+  background-position: -48px 48px;
+  animation: walkAnimation 0.5s steps(6) infinite;
+  margin-top: -15px;
+}
+
+@keyframes walkAnimation {
+  from {
+    background-position: 288px 0;
+  }
+
+  to {
+    background-position: 0 0;
+  }
+}

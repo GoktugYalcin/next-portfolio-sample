@@ -5,6 +5,7 @@ import { BiBrush } from "react-icons/bi";
 import ColoredCreepyTextWithIcon from "@/components/generated/ColoredCreepyTextWithIcon";
 import RecentProject from "@/components/generated/RecentProject";
 import air from "@/lib/fetchers/airtable";
+import React from "react";
 
 export default async function Home() {
   const currentProjects = await air.getShowcase(1);
@@ -13,7 +14,14 @@ export default async function Home() {
     <>
       <ProfileCard />
       <div className="mb-4 mt-12 text-base leading-8">
-        <p className="mb-4 font-medium">About me</p>
+        <p className="mb-4 font-medium flex justify-start gap-2 items-center">
+          <span>About me</span>
+          <div
+            className={
+              "bg-[url('/assets/walk_sprite.png')] anim overflow-visible"
+            }
+          ></div>
+        </p>
         <p>
           Building software since <strong>2020</strong> and specialized with{" "}
           React and Next.js at the moment. Also developed backend with{" "}

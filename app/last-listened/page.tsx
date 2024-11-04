@@ -146,6 +146,9 @@ const SpotifyRandomCards: React.FC = async () => {
                 <span className="text-xs px-2 py-1 rounded-full bg-gray-700 text-gray-300">
                   {song.year}
                 </span>
+                <span className="text-xs text-slate-400 px-2 py-1 border rounded-full border-slate-400">
+                  {song.duration}
+                </span>
               </div>
             </div>
           </Link>

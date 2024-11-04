@@ -13,7 +13,7 @@ const NavItem: React.FC<INavItem> = ({
     <Link
       href={href}
       onClick={() => selectAction()}
-      className={`h-100 flex justify-center items-center select-none flex-1 cursor-pointer rounded-full text-center text-sm transition duration-100 hover:text-black/80 dark:hover:text-white/80 sm:text-base relative ${
+      className={`h-100 flex justify-center items-center select-none flex-1 cursor-pointer rounded-full text-center text-sm duration-100 hover:text-black/80 hover:font-bold hover:text-md transition-all dark:hover:text-white/80 sm:text-base relative ${
         isSelected && "pointer-events-none cursor-default"
       }`}
     >

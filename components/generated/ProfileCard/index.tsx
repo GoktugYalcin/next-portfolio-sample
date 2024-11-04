@@ -13,7 +13,7 @@ const ProfileCard: React.FC = () => {
         quality={60}
       />
       <div className="flex flex-col ml-4">
-        <span className="mb-0.5 text-xl text-slate-900 dark:text-slate-100">
+        <span className="text-xl text-slate-900 dark:text-slate-100 flex justify-start items-center gap-2">
           {Info.name}
         </span>
         <span className="text-slate-600 dark:text-slate-300">{Info.title}</span>

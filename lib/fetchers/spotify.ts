@@ -85,10 +85,22 @@ class Spotify implements SpotifyClass {
     return this.formatTrackInfo(recentTrack.items[0].track, false);
   }
 
+  formatDuration(ms: number): string {
+    try {
+      const totalSeconds: number = Math.floor(ms / 1000);
+      const minutes: number = Math.floor(totalSeconds / 60);
+      const seconds: number = totalSeconds % 60;
+      return `${minutes}m ${seconds}s`;
+    } catch (error) {
+      return "";
+    }
+  }
+
   formatTrackInfo(track: any, isNowPlaying: boolean): FormattedTrackInfo {
     return {
       url: track.external_urls.spotify,
       artists: track.artists.map((i: { name: string }) => i.name),
+      duration: this.formatDuration(track.duration_ms),
       song: track.name,
       year: track.album.release_date.split("-")[0],
       img: track.album.images[0].url,
