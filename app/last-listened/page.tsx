@@ -125,7 +125,6 @@ const SpotifyRandomCards: React.FC = async () => {
               w-[280px]
             `}
           >
-            {/* Album Art */}
             <div className="relative h-52 bg-gradient-to-br flex items-center justify-center">
               <Image
                 src={song.img}
@@ -136,7 +135,6 @@ const SpotifyRandomCards: React.FC = async () => {
               />
             </div>
 
-            {/* Song Info */}
             <div className="p-4">
               <h3 className="dark:text-white font-semibold truncate">
                 {song.song}
@@ -146,7 +144,7 @@ const SpotifyRandomCards: React.FC = async () => {
               </p>
               <div className="flex justify-between items-center mt-3">
                 <span className="text-xs px-2 py-1 rounded-full bg-gray-700 text-gray-300">
-                  Song
+                  {song.year}
                 </span>
               </div>
             </div>

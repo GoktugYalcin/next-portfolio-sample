@@ -112,6 +112,7 @@ export interface SpotifyAccessToken {
 }
 
 export interface FormattedTrackInfo {
+  year: string;
   url: string;
   artists: string[];
   song: string;

@@ -85,11 +85,12 @@ class Spotify implements SpotifyClass {
     return this.formatTrackInfo(recentTrack.items[0].track, false);
   }
 
-  formatTrackInfo(track: any, isNowPlaying: boolean) {
+  formatTrackInfo(track: any, isNowPlaying: boolean): FormattedTrackInfo {
     return {
       url: track.external_urls.spotify,
       artists: track.artists.map((i: { name: string }) => i.name),
       song: track.name,
+      year: track.album.release_date.split("-")[0],
       img: track.album.images[0].url,
       isNowPlaying,
     };
