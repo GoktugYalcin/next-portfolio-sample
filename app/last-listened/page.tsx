@@ -102,7 +102,7 @@ const SpotifyRandomCards: React.FC = async () => {
         Recent tracks that a person listened to can give some tips about their
         situation.
       </div>
-      <div className="relative flex flex-wrap gap-3 w-full rounded-xl p-12 overflow-scroll">
+      <div className="relative flex flex-wrap gap-3 w-full rounded-xl p-12 justify-center">
         {songs.map((song, index) => (
           <Link
             target={"_blank"}
