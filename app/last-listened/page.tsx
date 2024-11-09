@@ -4,135 +4,60 @@ import { SPOTIFY_RECENT_TRACKS_TYPES } from "@/types/spotify";
 import Link from "next/link";
 import Image from "next/image";
 
-// Define types for the song object
-interface Song {
-  url: string;
-  img: string;
-  song: string;
-  artists: string[];
-}
-
-// Define types for rectangle objects for position calculation
-interface Rect {
-  left: number;
-  top: number;
-  width: number;
-  height: number;
-}
-
-// Define types for the position object
-interface Position {
-  left: string;
-  top: string;
-}
+export const revalidate = 300; // 5m
 
 const SpotifyRandomCards: React.FC = async () => {
-  // Fetch songs
   const songs = await spotify.getLastListenedSongs(
     SPOTIFY_RECENT_TRACKS_TYPES.MULTIPLE_TRACKS
   );
 
-  // Function to check if two rectangles overlap
-  const doRectsOverlap = (rect1: Rect, rect2: Rect): boolean => {
-    return !(
-      rect1.left + rect1.width < rect2.left ||
-      rect1.top + rect1.height < rect2.top ||
-      rect1.left > rect2.left + rect2.width ||
-      rect1.top > rect2.top + rect2.height
-    );
-  };
-
-  // Function to generate a position and check for overlaps
-  const generateNonOverlappingPosition = (
-    existingPositions: Position[],
-    containerWidth: number,
-    containerHeight: number
-  ): Position => {
-    const cardWidth = 300; // Approximate width of a card
-    const cardHeight = 400; // Approximate height of a card
-    let attempts = 0;
-    const maxAttempts = 100;
-
-    while (attempts < maxAttempts) {
-      const left = Math.random() * (containerWidth - cardWidth);
-      const top = Math.random() * (containerHeight - cardHeight);
-
-      const newRect: Rect = {
-        left,
-        top,
-        width: cardWidth,
-        height: cardHeight,
-      };
-
-      // Check if this position overlaps with any existing positions
-      const hasOverlap = existingPositions.some((pos) =>
-        doRectsOverlap(newRect, {
-          left: (parseFloat(pos.left) * containerWidth) / 100,
-          top: (parseFloat(pos.top) * containerHeight) / 100,
-          width: cardWidth,
-          height: cardHeight,
-        })
-      );
-
-      if (!hasOverlap) {
-        return {
-          left: `${(left / containerWidth) * 100}%`,
-          top: `${(top / containerHeight) * 100}%`,
-        };
-      }
-
-      attempts++;
-    }
-
-    // If we couldn't find a non-overlapping position, place it in a grid
-    const index = existingPositions.length;
-    const columns = 3;
-    const column = index % columns;
-    const row = Math.floor(index / columns);
-
-    return {
-      left: `${column * 33}%`,
-      top: `${row * 420}px`,
-    };
-  };
-
   return (
-    <div>
+    <div className="w-full">
       <div className="mb-10 mt-12 text-2xl text-center">
         Recent tracks that a person listened to can give some tips about their
         situation.
       </div>
       <div className="relative flex flex-wrap gap-3 w-full rounded-xl p-12 justify-center">
-        {songs.map((song, index) => (
+        {songs.map((song, key) => (
           <Link
             target={"_blank"}
             href={song.url}
             key={song.url}
             className={`
-              p-4 
-              rounded-lg 
-              shadow-md 
-              cursor-pointer 
-              transition-all 
-              duration-300 
-              hover:scale-110 
-              hover:shadow-xl 
-              hover:z-10
-              backdrop-blur-sm 
-              bg-opacity-90
-              dark:bg-gray-800
-              bg-gray-100
-              w-[280px]
-            `}
+                p-4
+                rounded-lg
+                shadow-md
+                cursor-pointer
+                transition-all
+                duration-300
+                hover:scale-110
+                hover:shadow-xl
+                hover:z-10
+                backdrop-blur-sm
+                bg-opacity-90
+                dark:bg-gray-800
+                bg-gray-100
+                w-[280px]
+                group
+              `}
           >
-            <div className="relative h-52 bg-gradient-to-br flex items-center justify-center">
+            <div className="relative h-52 bg-gradient-to-br flex items-center justify-center group-hover:animate-cdAnim">
               <Image
                 src={song.img}
                 alt={`${song.song} artwork`}
-                className="w-48 h-48 rounded-lg shadow-lg"
+                className="w-48 h-48 rounded-full shadow-lg"
                 width={256}
                 height={256}
               />
+              <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center w-full h-full">
+                <div className="w-[75px] h-[75px] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gray-500/20 backdrop-blur-sm" />
+                <div className="w-[70px] h-[70px] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-[5px] border-dotted border-gray-200/10" />
+                <div className="w-[63px] h-[63px] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-[1.5px] border-white bg-[#9799a5]" />
+                <div className="w-[57px] h-[57px] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#c9c2c7]" />
+                <div className="w-[53px] h-[53px] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#c9c2c7]" />
+                <div className="w-[47px] h-[47px] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#e3dee4]" />
+                <div className="w-[35px] h-[35px] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#a6a4a5] bg-[#bebcba] shadow-[0_0_24px_-12px_rgba(0,0,0,0.25)_inset]" />
+              </div>
             </div>
 
             <div className="p-4">

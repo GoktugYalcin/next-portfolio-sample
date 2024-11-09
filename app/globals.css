@@ -117,3 +117,13 @@ button, a, span, h1, h2, h3, h4, h5, h6, p, blockquote, pre {
     background-position: 0 0;
   }
 }
+
+@keyframes rotateCD {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

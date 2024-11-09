@@ -75,6 +75,7 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
         wiggle: "wiggle 1s ease-in-out infinite",
         pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite forwards",
+        cdAnim: "rotateCD 2.2s linear infinite",
       },
     },
   },
