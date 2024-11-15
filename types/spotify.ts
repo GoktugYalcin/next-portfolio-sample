@@ -112,7 +112,9 @@ export interface SpotifyAccessToken {
 }
 
 export interface FormattedTrackInfo {
+  id: string;
   year: string;
+  count: number;
   duration: string;
   url: string;
   artists: string[];
@@ -134,6 +136,7 @@ interface SpotifyPrivateMethods {
   ): Promise<FormattedTrackInfo[]>;
   fetchWithAuth(url: string, options?: RequestInit): Promise<Response>;
   formatTrackInfo(track: any, isNowPlaying: boolean): FormattedTrackInfo;
+  flattenArray(musics: FormattedTrackInfo[]): FormattedTrackInfo[];
 }
 
 export interface SpotifyClass extends ISpotify, SpotifyPrivateMethods {}

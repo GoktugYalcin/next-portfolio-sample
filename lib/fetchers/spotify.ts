@@ -98,14 +98,38 @@ class Spotify implements SpotifyClass {
 
   formatTrackInfo(track: any, isNowPlaying: boolean): FormattedTrackInfo {
     return {
+      id: track.id,
       url: track.external_urls.spotify,
       artists: track.artists.map((i: { name: string }) => i.name),
       duration: this.formatDuration(track.duration_ms),
       song: track.name,
+      count: 1,
       year: track.album.release_date.split("-")[0],
       img: track.album.images[0].url,
       isNowPlaying,
     };
+  }
+
+  flattenArray(musics: FormattedTrackInfo[]): FormattedTrackInfo[] {
+    if (musics.length === 0) {
+      return [];
+    }
+
+    const uniqueMusics = new Map<
+      string,
+      FormattedTrackInfo & { count: number }
+    >();
+
+    musics.forEach((music) => {
+      if (uniqueMusics.has(music.id)) {
+        const existing = uniqueMusics.get(music.id)!;
+        existing.count += 1;
+      } else {
+        uniqueMusics.set(music.id, { ...music, count: 1 });
+      }
+    });
+
+    return Array.from(uniqueMusics.values());
   }
 
   async getLastListenedSongs(
