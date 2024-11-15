@@ -102,10 +102,10 @@ button, a, span, h1, h2, h3, h4, h5, h6, p, blockquote, pre {
 .anim {
   width: 48px;
   height: 48px;
+  background-image: url('/assets/walk_sprite.png');
   background-size: 288px 48px;
   background-position: -48px 48px;
   animation: walkAnimation 0.5s steps(6) infinite;
-  margin-top: -15px;
 }
 
 @keyframes walkAnimation {

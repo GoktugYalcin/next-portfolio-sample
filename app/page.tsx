@@ -6,6 +6,7 @@ import ColoredCreepyTextWithIcon from "@/components/generated/ColoredCreepyTextW
 import RecentProject from "@/components/generated/RecentProject";
 import air from "@/lib/fetchers/airtable";
 import React from "react";
+import { Walking } from "@/components/generated/Walking";
 
 export default async function Home() {
   const currentProjects = await air.getShowcase(1);
@@ -16,11 +17,7 @@ export default async function Home() {
       <div className="mb-4 mt-12 text-base leading-8">
         <p className="mb-4 font-medium flex justify-start gap-2 items-center">
           <span>About me</span>
-          <div
-            className={
-              "bg-[url('/assets/walk_sprite.png')] anim overflow-visible"
-            }
-          ></div>
+          <Walking />
         </p>
         <p>
           Building software since <strong>2020</strong> and specialized with{" "}
