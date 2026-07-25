@@ -124,13 +124,13 @@ export interface FormattedTrackInfo {
 }
 
 export interface ISpotify {
-  getLastListened(): Promise<FormattedTrackInfo>;
+  getLastListened(): Promise<FormattedTrackInfo | null>;
 }
 
 interface SpotifyPrivateMethods {
   getAccessToken(): Promise<SpotifyAccessToken>;
   getNowPlaying(): Promise<SpotifyNowListeningResponse | null>;
-  getRecentTrack(): Promise<SpotifyRecentlyPlayedResponse>;
+  getRecentTrack(): Promise<SpotifyRecentlyPlayedResponse | null>;
   getLastListenedSongs(
     limit: SPOTIFY_RECENT_TRACKS_TYPES
   ): Promise<FormattedTrackInfo[]>;

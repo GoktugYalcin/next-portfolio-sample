@@ -5,22 +5,24 @@ import React, { Suspense } from "react";
 import { createShimmer } from "@/lib/utils";
 import { PhotoFallback } from "@/components/generated/Photos/PhotoFallback";
 
+const rotateAngle = (id: string, range = 4) => {
+  let hash = 0;
+  for (let i = 0; i < id.length; i++) {
+    hash = (hash * 31 + id.charCodeAt(i)) | 0;
+  }
+  const normalized = (Math.abs(hash) % 1000) / 1000;
+  return (normalized * 2 - 1) * range;
+};
+
 export const Photo = (props: IPhoto) => {
-  const {
-    alt_description,
-    links,
-    urls,
-    description,
-    width,
-    height,
-    positiveRotate,
-  } = props;
-  const figureClasses =
-    (positiveRotate ? "rotate-[2.5deg]" : "rotate-[-2.5deg]") +
-    " hover:rotate-0 transition-all";
+  const { id, alt_description, links, urls, description, width, height } =
+    props;
 
   return (
-    <figure className={figureClasses}>
+    <figure
+      className="photo-figure transition-all"
+      style={{ "--photo-rotate": `${rotateAngle(id)}deg` } as React.CSSProperties}
+    >
       <Link
         href={links.html}
         target={"_blank"}

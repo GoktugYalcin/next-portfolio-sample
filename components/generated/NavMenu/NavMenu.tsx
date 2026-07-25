@@ -1,47 +1,67 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import NavItem from "@/components/generated/NavMenu/NavItem";
 import { usePathname } from "next/navigation";
 import ThemeButton from "@/components/generated/NavMenu/ThemeButton";
 
-const NavMenu = () => {
-  const [selected, setSelected] = useState<string>("");
-  const pathname = usePathname();
+const PAGES = [
+  { key: "home", label: "Home", href: "/" },
+  { key: "photos", label: "Photos", href: "/photos" },
+  { key: "projects", label: "Projects", href: "/projects" },
+  { key: "blog", label: "Blog", href: "/blog" },
+];
 
-  useEffect(() => {
-    const path = pathname.split("/");
-    setSelected(path[1] || "home");
-  }, [pathname]);
+const NavMenu = () => {
+  const pathname = usePathname();
+  const selected = pathname.split("/")[1] || "home";
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const labelRefs = useRef<Record<string, HTMLSpanElement | null>>({});
+  const [indicator, setIndicator] = useState<{
+    left: number;
+    width: number;
+  } | null>(null);
+
+  useLayoutEffect(() => {
+    const el = labelRefs.current[selected];
+    const container = containerRef.current;
+    if (el && container) {
+      const elRect = el.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+      setIndicator({
+        left: elRect.left - containerRect.left,
+        width: elRect.width,
+      });
+    }
+  }, [selected]);
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-20 mx-auto mb-4 h-12 w-full max-w-lg px-2 lg:px-6 sm:h-16">
-      <div className="flew-row relative mx-auto flex h-full w-full rounded-full border border-neutral-400/50 bg-white/30 backdrop-blur-sm dark:border-neutral-600/50 dark:bg-black/30 dark:text-white">
-        <NavItem
-          label={"Home"}
-          selectAction={() => setSelected("home")}
-          isSelected={selected === "home"}
-          href={"/"}
-        />
-        <NavItem
-          label={"Photos"}
-          selectAction={() => setSelected("photos")}
-          isSelected={selected === "photos"}
-          href={"/photos"}
-        />
-        <NavItem
-          label={"Projects"}
-          selectAction={() => setSelected("projects")}
-          isSelected={selected === "projects"}
-          href={"/projects"}
-        />
-        <NavItem
-          label={"Blog"}
-          selectAction={() => setSelected("blog")}
-          isSelected={selected === "blog"}
-          href={"/blog"}
-        />
+      <div
+        ref={containerRef}
+        className="flew-row relative mx-auto flex h-full w-full items-center rounded-full border border-border bg-card px-3 shadow-[0_1px_2px_oklch(20%_0.01_40_/_0.08)]"
+      >
+        {PAGES.map((page) => (
+          <NavItem
+            key={page.key}
+            label={page.label}
+            isSelected={selected === page.key}
+            href={page.href}
+            labelRef={(el) => {
+              labelRefs.current[page.key] = el;
+            }}
+          />
+        ))}
         <ThemeButton />
+        {indicator && (
+          <motion.div
+            className="absolute bottom-1.5 h-px bg-accent pointer-events-none"
+            animate={{ left: indicator.left, width: indicator.width }}
+            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          />
+        )}
       </div>
     </div>
   );

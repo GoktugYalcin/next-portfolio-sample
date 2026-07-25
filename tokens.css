@@ -1,0 +1,32 @@
+/* Hallmark · theme: Atelier · exported from app/globals.css — keep in sync */
+:root {
+  --color-paper:        oklch(97% 0.012 60);
+  --color-paper-2:      oklch(95% 0.013 60);
+  --color-ink:          oklch(20% 0.014 40);
+  --color-ink-2:        oklch(42% 0.010 50);
+  --color-rule:         oklch(85% 0.012 60);
+  --color-accent:       oklch(52% 0.150 40);
+  --color-accent-ink:   oklch(97% 0.012 60);
+  --color-focus:        oklch(52% 0.150 40);
+
+  --font-display: "Fraunces", ui-serif, serif;
+  --font-body:    "Newsreader", ui-serif, Georgia, serif;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in:  cubic-bezier(0.7, 0, 0.84, 0);
+  --dur-short: 220ms;
+  --dur-long:  420ms;
+
+  --radius-card: 0.25rem;
+}
+
+:root.dark {
+  --color-paper:        oklch(15% 0.012 40);
+  --color-paper-2:      oklch(18% 0.013 40);
+  --color-ink:          oklch(94% 0.008 60);
+  --color-ink-2:        oklch(72% 0.008 45);
+  --color-rule:         oklch(30% 0.012 40);
+  --color-accent:       oklch(68% 0.140 42);
+  --color-accent-ink:   oklch(15% 0.012 40);
+  --color-focus:        oklch(68% 0.140 42);
+}

@@ -4,12 +4,16 @@ import { PhotoStatCardProps } from "@/types";
 
 const PhotoStatCard = ({ link, label, stat }: PhotoStatCardProps) => {
   return (
-    <div className="border border-gray-200 rounded-xl p-4 dark:border-gray-700 flex flex-col w-1/2 lg:w-4/12">
-      <Link href={link} className="hover:underline" target="_blank">
+    <div className="flex flex-col">
+      <Link
+        href={link}
+        className="text-muted-foreground hover:text-accent hover:underline underline-offset-4"
+        target="_blank"
+      >
         {label}
       </Link>
-      <span className="mt-1 text-3xl font-bold spacing-sm text-highlight">
-        {stat?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "," || "-")}
+      <span className="mt-1 text-2xl [font-family:var(--font-display)]">
+        {stat?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
       </span>
     </div>
   );

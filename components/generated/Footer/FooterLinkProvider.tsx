@@ -1,6 +1,5 @@
 import React from "react";
 import FooterLink from "@/components/generated/Footer/FooterLink";
-import Info from "@/infos";
 import { FooterLinkProps } from "@/types";
 import air from "@/lib/fetchers/airtable";
 

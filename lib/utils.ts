@@ -5,15 +5,18 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function toggleTheme() {
-  const currentTheme = localStorage.theme || "light";
-  localStorage.setItem("theme", currentTheme === "light" ? "dark" : "light");
+export function formatRelativeTime(date: string | Date): string {
+  const then = new Date(date).getTime();
+  const diffMs = Date.now() - then;
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-  if (currentTheme === "light") {
-    document.documentElement.classList.add("dark");
-  } else {
-    document.documentElement.classList.remove("dark");
-  }
+  if (diffDays <= 0) return "today";
+  if (diffDays === 1) return "yesterday";
+  if (diffDays < 30) return `${diffDays}d ago`;
+  const diffMonths = Math.floor(diffDays / 30);
+  if (diffMonths < 12) return `${diffMonths}mo ago`;
+  const diffYears = Math.floor(diffMonths / 12);
+  return `${diffYears}y ago`;
 }
 
 const shimmer = (w: number, h: number) => `

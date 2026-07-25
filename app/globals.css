@@ -1,73 +1,84 @@
+/* Hallmark · genre: editorial · macrostructure: designed-as-app · theme: Atelier
+ * design-system: design.md
+ */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
- 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
- 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
- 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
- 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
- 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
- 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
- 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
- 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
- 
-    --ring: 215 20.2% 65.1%;
- 
-    --radius: 0.5rem;
+    /* Atelier — warm terracotta anchor, hue ~40-60 */
+    --background: 97% 0.012 60;
+    --foreground: 20% 0.014 40;
+
+    --muted: 93% 0.014 60;
+    --muted-foreground: 42% 0.01 50;
+
+    --popover: 97% 0.012 60;
+    --popover-foreground: 20% 0.014 40;
+
+    --card: 95% 0.013 60;
+    --card-foreground: 20% 0.014 40;
+
+    --border: 85% 0.012 60;
+    --input: 85% 0.012 60;
+
+    --primary: 20% 0.014 40;
+    --primary-foreground: 97% 0.012 60;
+
+    --secondary: 93% 0.014 60;
+    --secondary-foreground: 20% 0.014 40;
+
+    --accent: 52% 0.15 40;
+    --accent-foreground: 97% 0.012 60;
+
+    --destructive: 45% 0.18 25;
+    --destructive-foreground: 97% 0.012 60;
+
+    --ring: 52% 0.15 40;
+
+    --radius: 0.25rem;
+
+    --font-body: var(--font-body-serif), ui-serif, Georgia, serif;
+
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+    --dur-short: 220ms;
+    --dur-long: 420ms;
   }
- 
+
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
- 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
- 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
- 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
- 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
- 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
- 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
- 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
- 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 85.7% 97.3%;
- 
-    --ring: 217.2 32.6% 17.5%;
+    --background: 15% 0.012 40;
+    --foreground: 94% 0.008 60;
+
+    --muted: 19% 0.014 40;
+    --muted-foreground: 72% 0.008 45;
+
+    --popover: 15% 0.012 40;
+    --popover-foreground: 94% 0.008 60;
+
+    --card: 18% 0.013 40;
+    --card-foreground: 94% 0.008 60;
+
+    --border: 30% 0.012 40;
+    --input: 30% 0.012 40;
+
+    --primary: 94% 0.008 60;
+    --primary-foreground: 15% 0.012 40;
+
+    --secondary: 19% 0.014 40;
+    --secondary-foreground: 94% 0.008 60;
+
+    --accent: 68% 0.14 42;
+    --accent-foreground: 15% 0.012 40;
+
+    --destructive: 55% 0.16 25;
+    --destructive-foreground: 15% 0.012 40;
+
+    --ring: 68% 0.14 42;
   }
 }
- 
+
 @layer base {
   * {
     @apply border-border;
@@ -79,9 +90,39 @@
 
 html {
   tab-size: 4;
-  font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
   font-feature-settings: normal;
   font-variation-settings: normal;
+  overflow-x: clip;
+}
+
+::selection {
+  background-color: oklch(var(--accent) / 0.25);
+  color: oklch(var(--foreground));
+}
+
+.photo-figure {
+  transform: rotate(var(--photo-rotate, 0deg));
+}
+
+.photo-figure:hover {
+  transform: rotate(0deg);
+}
+
+body {
+  font-family: var(--font-body);
+  overflow-x: clip;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display), ui-serif, serif;
+  font-style: normal;
+}
+
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid oklch(var(--ring));
+  outline-offset: 2px;
 }
 
 :root {
@@ -89,28 +130,30 @@ html {
 }
 
 body {
-  transition: background-color var(--transition-duration) ease,
-  color var(--transition-duration) ease;
+  transition: background-color var(--transition-duration) var(--ease-out),
+  color var(--transition-duration) var(--ease-out);
 }
 
 button, a, span, h1, h2, h3, h4, h5, h6, p, blockquote, pre {
-  transition: background-color var(--transition-duration) ease,
-  color var(--transition-duration) ease,
-  border-color var(--transition-duration) ease;
+  transition: background-color var(--transition-duration) var(--ease-out),
+  color var(--transition-duration) var(--ease-out),
+  border-color var(--transition-duration) var(--ease-out);
 }
 
 .anim {
-  width: 48px;
-  height: 48px;
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
   background-image: url('/assets/walk_sprite.png');
-  background-size: 288px 48px;
-  background-position: -48px 48px;
+  background-size: 192px 32px;
+  background-position: 0 0;
   animation: walkAnimation 0.5s steps(6) infinite;
 }
 
 @keyframes walkAnimation {
   from {
-    background-position: 288px 0;
+    background-position: 192px 0;
   }
 
   to {
@@ -125,5 +168,121 @@ button, a, span, h1, h2, h3, h4, h5, h6, p, blockquote, pre {
 
   to {
     transform: rotate(360deg);
+  }
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: var(--dur-long);
+  animation-timing-function: var(--ease-out);
+}
+
+::view-transition-old(root) {
+  animation-name: vt-fade-out;
+}
+
+::view-transition-new(root) {
+  animation-name: vt-fade-in;
+}
+
+@keyframes vt-fade-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+.eq-bars {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 14px;
+  width: 14px;
+}
+
+.eq-bars__bar {
+  width: 3px;
+  height: 30%;
+  background-color: oklch(var(--muted-foreground));
+  border-radius: 1px;
+}
+
+.eq-bars--live .eq-bars__bar {
+  background-color: oklch(var(--accent));
+  animation: eq-bounce 0.9s ease-in-out infinite;
+}
+
+.eq-bars--live .eq-bars__bar:nth-child(1) {
+  animation-delay: -0.6s;
+}
+
+.eq-bars--live .eq-bars__bar:nth-child(2) {
+  animation-delay: -0.3s;
+}
+
+.eq-bars--live .eq-bars__bar:nth-child(3) {
+  animation-delay: 0s;
+}
+
+@keyframes eq-bounce {
+  0%, 100% {
+    height: 30%;
+  }
+  50% {
+    height: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eq-bars--live .eq-bars__bar {
+    animation: none;
+    height: 70%;
+  }
+}
+
+.konami-dash {
+  position: fixed;
+  bottom: 84px;
+  left: 0;
+  z-index: 50;
+  pointer-events: none;
+  animation: konami-run 2.5s linear forwards;
+}
+
+@keyframes konami-run {
+  from {
+    transform: translateX(-48px);
+  }
+  to {
+    transform: translateX(calc(100vw + 48px));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .konami-dash {
+    animation-duration: 150ms;
   }
 }

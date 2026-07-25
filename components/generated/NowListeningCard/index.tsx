@@ -1,9 +1,19 @@
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { BiEqualizer } from "react-icons/bi";
+import { Link } from "next-view-transitions";
 import spotify from "@/lib/fetchers/spotify";
 import { FaSpotify } from "react-icons/fa6";
+
+const EqualizerBars = ({ live }: { live: boolean }) => (
+  <span
+    className={`eq-bars mt-[2px] mr-1.5 float-left ${live ? "eq-bars--live" : ""}`}
+    aria-hidden
+  >
+    <span className="eq-bars__bar" />
+    <span className="eq-bars__bar" />
+    <span className="eq-bars__bar" />
+  </span>
+);
 
 const NowListeningCard = async () => {
   const lastListened = await spotify.getLastListened();
@@ -34,11 +44,7 @@ const NowListeningCard = async () => {
           className="flex flex-col group"
         >
           <span className="w-[300px] overflow-hidden ml-auto mr-auto text-ellipsis inline-block whitespace-nowrap font-semibold group-hover:underline underline-offset-2 align-middle">
-            <BiEqualizer
-              color={lastListened.isNowPlaying ? "#03BB3A" : "#ce783c"}
-              fontSize={20}
-              className="mt-[2px] mr-0.5 float-left animate-pulse"
-            />
+            <EqualizerBars live={lastListened.isNowPlaying} />
             <span>{lastListened.song}</span>
           </span>
           <span className="w-[200px] overflow-hidden text-ellipsis inline-block whitespace-nowrap group-hover:underline underline-offset-2">

@@ -6,13 +6,13 @@ export const revalidate: number = 30;
 
 export async function Footer() {
   return (
-    <div className="mt-16 flex justify-between w-full flex-col-reverse lg:flex-row gap-8 lg:gap-0">
+    <footer className="mt-16 border-t border-border pt-8 flex justify-between w-full flex-col-reverse lg:flex-row gap-8 lg:gap-0">
       <div className="flex-col flex justify-center items-start">
-        <span className="font-medium">Connect with me</span>
+        <p className="font-display italic text-lg text-foreground">Yours,</p>
         <FooterLinkProvider />
       </div>
       <NowListeningCard />
-    </div>
+    </footer>
   );
 }
 

@@ -19,7 +19,7 @@ const ThemeButton: React.FC = () => {
   return (
     <span
       onClick={toggleTheme}
-      className="my-auto mx-0 select-none flex-1 cursor-pointer text-center text-3xl transition relative"
+      className="flex items-center justify-center select-none flex-none w-10 sm:w-12 cursor-pointer text-center text-xl transition relative"
     >
       <span className="hidden dark:block">🌚</span>
       <span className="dark:hidden">🌝</span>

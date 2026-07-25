@@ -1,14 +1,3 @@
-export type SongArtist = {
-  name: string;
-};
-
-export interface Project {
-  name: string;
-  desc: string;
-  github?: string;
-  live?: string;
-}
-
 export interface IPhoto {
   id: string;
   alt_description: string;
@@ -18,7 +7,6 @@ export interface IPhoto {
   width: number;
   height: number;
   blur_hash: string;
-  positiveRotate: boolean;
 }
 
 export interface IPhotosWrapper {
@@ -58,55 +46,13 @@ export interface FooterLinkProps {
 
 export interface INavItem {
   label: string;
-  selectAction: Function;
   isSelected: boolean;
   href: string;
+  labelRef?: (el: HTMLSpanElement | null) => void;
 }
 
 export interface NotFoundProps {
   whatNotFound: string;
-}
-
-export interface Track {
-  artist: Artist;
-  uts: string;
-  "#text": string;
-  mbid: string;
-  name: string;
-  image: Image[];
-  url: string;
-  streamable: string;
-  album: {
-    mbid: string;
-    "#text": string;
-  };
-  loved: string;
-  "@attr"?: {
-    nowplaying: string;
-  };
-}
-
-export interface Image {
-  size: string;
-  "#text": string;
-}
-
-export interface Artist {
-  url: string;
-  name: string;
-  mbid: string;
-  image: Image[];
-}
-
-export interface RecentTrack {
-  track: Track[];
-  "@attr": {
-    user: string;
-    totalPages: string;
-    page: string;
-    perPage: string;
-    total: string;
-  };
 }
 
 export interface RecentProjectProps {

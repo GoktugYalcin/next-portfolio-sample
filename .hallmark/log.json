@@ -1,0 +1,20 @@
+[
+  {
+    "date": "2026-07-25",
+    "scope": "app",
+    "genre": "editorial",
+    "theme": "Atelier",
+    "theme_axes": "light-mid / roman-serif (Fraunces) / warm (hue ~40-60)",
+    "macrostructures": {
+      "home": "Letter",
+      "projects": "Portfolio Grid",
+      "last-listened": "Portfolio Grid",
+      "photos": "Photographic",
+      "blog": "Index-First"
+    },
+    "nav": "N9 (positional deviation: bottom-fixed, kept as pre-existing personal signature)",
+    "footer": "Ft6 Letter close",
+    "enrichment": "none (existing personal signatures kept: walking sprite, photo hover-rotate, CD-disc CSS art)",
+    "brief": "Full-app redesign — personal portfolio, art-forward/editorial tone, izlenim-bırakma use case"
+  }
+]

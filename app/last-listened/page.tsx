@@ -1,8 +1,19 @@
 import React from "react";
+import { Metadata } from "next";
 import spotify from "@/lib/fetchers/spotify";
 import { SPOTIFY_RECENT_TRACKS_TYPES } from "@/types/spotify";
 import Link from "next/link";
 import Image from "next/image";
+
+const description =
+  "Recent tracks that a person listened to can give some tips about their situation.";
+
+export const metadata: Metadata = {
+  title: "Last Listened",
+  description,
+  openGraph: { title: "Last Listened", description },
+  twitter: { title: "Last Listened", description },
+};
 
 export const revalidate = 300; // 5m
 
@@ -13,11 +24,10 @@ const SpotifyRandomCards: React.FC = async () => {
 
   return (
     <div className="w-full">
-      <div className="mb-10 mt-12 text-2xl text-center">
-        Recent tracks that a person listened to can give some tips about their
-        situation.
-      </div>
-      <div className="relative flex flex-wrap gap-3 w-full rounded-xl p-12 justify-center">
+      <h1 className="mb-10 mt-12 text-lg text-muted-foreground [font-family:var(--font-body)] font-normal text-center max-w-[60ch] mx-auto">
+        A quieter kind of index — what I&apos;ve had on repeat.
+      </h1>
+      <div className="relative flex flex-wrap gap-3 w-full p-12 justify-center">
         {spotify.flattenArray(songs).map((song) => {
           return (
             <Link
@@ -27,24 +37,20 @@ const SpotifyRandomCards: React.FC = async () => {
               className={`
                 p-4
                 rounded-lg
-                shadow-md
+                border
+                border-border
+                bg-card
                 cursor-pointer
                 transition-all
                 duration-300
-                lg:hover:scale-110
-                hover:scale-100
-                hover:shadow-xl
+                lg:hover:scale-105
                 hover:z-10
-                backdrop-blur-sm
-                bg-opacity-90
-                dark:bg-gray-800
-                bg-gray-100
                 w-[280px]
                 group
               `}
             >
               {song.count > 1 && (
-                <div className="group-hover:visible animate-bounce invisible transition-all absolute -right-1 -top-2 bg-gray-700 text-gray-300 text-sm px-2 py-1 rounded-full">
+                <div className="group-hover:visible animate-bounce invisible transition-all absolute -right-1 -top-2 bg-accent text-accent-foreground text-sm px-2 py-1 rounded-full">
                   <span className="text-xs">x</span>
                   <span>{song.count}</span>
                 </div>
@@ -69,17 +75,15 @@ const SpotifyRandomCards: React.FC = async () => {
               </div>
 
               <div className="p-4">
-                <h3 className="dark:text-white font-semibold truncate">
-                  {song.song}
-                </h3>
-                <p className="text-gray-400 text-sm mt-1 truncate">
+                <h3 className="text-lg truncate">{song.song}</h3>
+                <p className="text-muted-foreground text-sm mt-1 truncate">
                   {song.artists.join(", ")}
                 </p>
                 <div className="flex justify-between items-center mt-3">
-                  <span className="text-xs px-2 py-1 rounded-full bg-gray-700 text-gray-300">
+                  <span className="text-xs px-2 py-1 rounded-full bg-muted text-muted-foreground">
                     {song.year}
                   </span>
-                  <span className="text-xs text-slate-400 px-2 py-1 border rounded-full border-slate-400">
+                  <span className="text-xs text-muted-foreground px-2 py-1 border rounded-full border-border">
                     {song.duration}
                   </span>
                 </div>

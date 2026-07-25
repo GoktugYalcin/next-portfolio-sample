@@ -4,10 +4,14 @@ import Photos from "../../components/generated/Photos";
 import NotFound from "@/components/generated/NotFound";
 import PhotoStatCard from "@/components/generated/PhotoStatCard";
 
+const description =
+  "Capturing moments through photography is a delightful way to preserve and appreciate the beauty that surrounds us.";
+
 export const metadata: Metadata = {
   title: "Photos",
-  description:
-    "Capturing moments through photography is a delightful way to preserve and appreciate the beauty that surrounds us.",
+  description,
+  openGraph: { title: "Photos", description },
+  twitter: { title: "Photos", description },
 };
 
 export const revalidate = 86400; // 24m
@@ -18,12 +22,11 @@ export default async function Home() {
 
   return (
     <>
-      <div className="mb-10 mt-12 text-2xl">
-        Capturing moments through photography is a delightful way to preserve
-        and appreciate the beauty that surrounds us.
-      </div>
+      <h1 className="mb-8 mt-12 text-sm text-muted-foreground [font-family:var(--font-body)] font-normal">
+        From the working archive.
+      </h1>
       {stats && (
-        <div className="w-full flex justify-evenly items-center mb-10 lg:gap-0 gap-3">
+        <div className="w-full flex gap-6 mb-10 text-sm">
           <PhotoStatCard
             stat={stats?.views?.total}
             label={"Total Views"}

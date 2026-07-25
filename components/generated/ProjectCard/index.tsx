@@ -9,36 +9,45 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { Github, Globe } from "lucide-react";
-import { Project } from "@/types";
 import { AirtableProject } from "@/types/air";
+import { formatRelativeTime } from "@/lib/utils";
 
-export function ProjectCard(project: AirtableProject) {
+export function ProjectCard(project: AirtableProject & { updatedAt?: string | null }) {
   return (
-    <Card className="w-[350px] dark:bg-[#18202b] bg-[#fafafa]">
+    <Card className="w-full h-full flex flex-col border-border bg-card shadow-none transition-colors duration-200 ease-out hover:border-accent">
       <CardHeader>
-        <CardIcon>{project.icon}</CardIcon>
-        <CardTitle>{project.name}</CardTitle>
+        <div className="flex items-center gap-3">
+          <CardIcon className="float-none">{project.icon}</CardIcon>
+          <CardTitle className="text-xl">{project.name}</CardTitle>
+        </div>
         <CardDescription>{project.description}</CardDescription>
       </CardHeader>
-      <CardContent>
-        <div className="flex mt-4 w-full justify-end gap-4">
-          {project.github && (
-            <Link
-              className="cursor-pointer"
-              href={project.github}
-              target={"_blank"}
-            >
-              <Github />
-            </Link>
-          )}
-          {project.live && (
-            <Link
-              className="cursor-pointer"
-              href={project.live}
-              target={"_blank"}
-            >
-              <Globe />
-            </Link>
+      <CardContent className="mt-auto">
+        <div className="flex w-full items-center justify-between gap-5 text-sm">
+          <div className="flex gap-5">
+            {project.github && (
+              <Link
+                className="flex items-center gap-1.5 text-muted-foreground hover:text-accent hover:underline underline-offset-4"
+                href={project.github}
+                target={"_blank"}
+              >
+                <Github size={15} /> Code
+              </Link>
+            )}
+            {project.live && (
+              <Link
+                className="flex items-center gap-1.5 text-muted-foreground hover:text-accent hover:underline underline-offset-4"
+                href={project.live}
+                target={"_blank"}
+              >
+                <Globe size={15} /> Live
+              </Link>
+            )}
+          </div>
+          {project.updatedAt && (
+            <span className="text-xs text-muted-foreground">
+              updated {formatRelativeTime(project.updatedAt)}
+            </span>
           )}
         </div>
       </CardContent>

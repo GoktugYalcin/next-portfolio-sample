@@ -68,8 +68,12 @@ class Spotify implements SpotifyClass {
     return response.json();
   }
 
-  async getRecentTrack(): Promise<SpotifyRecentlyPlayedResponse> {
+  async getRecentTrack(): Promise<SpotifyRecentlyPlayedResponse | null> {
     const response = await this.fetchWithAuth(Spotify.ENDPOINTS.RECENT_TRACKS);
+
+    if (response.status >= 400) {
+      return null;
+    }
 
     return response.json();
   }
@@ -82,6 +86,10 @@ class Spotify implements SpotifyClass {
     }
 
     const recentTrack = await this.getRecentTrack();
+    if (!recentTrack || !recentTrack.items[0]) {
+      return null;
+    }
+
     return this.formatTrackInfo(recentTrack.items[0].track, false);
   }
 
