@@ -146,14 +146,19 @@ class Spotify implements SpotifyClass {
     const newUrl = new URL(Spotify.ENDPOINTS.RECENT_TRACKS);
     newUrl.searchParams.set("limit", limit.toString());
     const response = await this.fetchWithAuth(newUrl.toString());
+
+    if (response.status >= 400) {
+      return [];
+    }
+
     const parsedResponse =
       (await response.json()) as SpotifyRecentlyPlayedResponse;
 
-    const parsedTracks = parsedResponse.items.map((i) =>
-      this.formatTrackInfo(i.track, false)
-    );
+    if (!parsedResponse.items) {
+      return [];
+    }
 
-    return parsedTracks as unknown as FormattedTrackInfo[];
+    return parsedResponse.items.map((i) => this.formatTrackInfo(i.track, false));
   }
 }
 
