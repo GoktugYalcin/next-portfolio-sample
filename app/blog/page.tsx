@@ -20,7 +20,10 @@ export default async function Home() {
 
   return (
     <>
-      <h1 className="mb-10 mt-12 text-lg text-muted-foreground [font-family:var(--font-body)] font-normal max-w-[60ch] mx-auto">
+      <p className="mb-3 mt-8 font-mono text-xs uppercase tracking-[0.15em] text-accent">
+        Blog_index
+      </p>
+      <h1 className="mb-10 max-w-[60ch] text-lg font-normal text-muted-foreground">
         Writing, indexed by nothing in particular — just what I&apos;ve been
         thinking about frontend development.
       </h1>

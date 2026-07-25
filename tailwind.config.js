@@ -46,6 +46,10 @@ module.exports = {
           DEFAULT: "oklch(var(--accent))",
           foreground: "oklch(var(--accent-foreground))",
         },
+        "accent-2": {
+          DEFAULT: "oklch(var(--accent-2))",
+          foreground: "oklch(var(--accent-2-foreground))",
+        },
         popover: {
           DEFAULT: "oklch(var(--popover))",
           foreground: "oklch(var(--popover-foreground))",
@@ -54,6 +58,11 @@ module.exports = {
           DEFAULT: "oklch(var(--card))",
           foreground: "oklch(var(--card-foreground))",
         },
+      },
+      fontFamily: {
+        display: ["var(--font-display)", "ui-sans-serif", "sans-serif"],
+        body: ["var(--font-body-sans)", "ui-sans-serif", "sans-serif"],
+        mono: ["var(--font-mono-technical)", "ui-monospace", "monospace"],
       },
       borderRadius: {
         lg: "var(--radius)",

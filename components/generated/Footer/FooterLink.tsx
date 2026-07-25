@@ -18,13 +18,15 @@ const FooterLink = ({ siteName, link, label }: FooterLinkProps) => {
   };
 
   return (
-    <li className="flex gap-3">
-      <span className="text-muted-foreground">{siteName}</span>
+    <li className="flex gap-3 font-mono text-sm">
+      <span className="w-20 shrink-0 text-muted-foreground/70">
+        {siteName}
+      </span>
       <Link
         target={isMail ? undefined : "_blank"}
         href={link}
         onClick={handleCopy}
-        className="flex justify-start items-center font-medium gap-1 hover:underline cursor-pointer"
+        className="flex cursor-pointer items-center justify-start gap-1 text-foreground hover:text-accent hover:underline underline-offset-4"
       >
         {copied ? "Copied" : label}
         {copied ? (

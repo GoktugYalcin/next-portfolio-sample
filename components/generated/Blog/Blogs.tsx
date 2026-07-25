@@ -19,11 +19,18 @@ const Blogs: React.FC<IBlogs> = ({ items }) => {
             key={index}
             href={link}
             target="_blank"
-            className="flex border-b border-border py-4 hover:text-accent transition-colors"
+            className="group flex items-center gap-4 border-b border-border py-4 transition-colors hover:border-accent/60"
           >
-            <li className="flex-1 pr-4 gap-3 lg:gap-0 flex items-center justify-between">
-              <span className="font-medium">{title}</span>
-              <time className="text-sm text-muted-foreground">{date}</time>
+            <span className="w-8 shrink-0 font-mono text-xs text-muted-foreground/50">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <li className="flex flex-1 items-center justify-between gap-3 pr-4 lg:gap-0">
+              <span className="font-medium group-hover:text-accent">
+                {title}
+              </span>
+              <time className="font-mono text-xs text-muted-foreground">
+                {date}
+              </time>
             </li>
           </Link>
         );

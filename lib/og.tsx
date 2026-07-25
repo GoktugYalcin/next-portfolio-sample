@@ -14,26 +14,42 @@ export function renderOgImage(title: string, subtitle: string) {
           flexDirection: "column",
           justifyContent: "center",
           padding: "80px",
-          backgroundColor: "#211712",
-          color: "#f2e9df",
+          backgroundColor: "#0a0b10",
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
+          color: "#e7eaf0",
         }}
       >
         <div
           style={{
+            display: "flex",
+            fontSize: 13,
+            letterSpacing: 4,
+            textTransform: "uppercase",
+            color: "#49e0d3",
+            marginBottom: 20,
+          }}
+        >
+          SIGNAL // A. GOKTUG YALCIN
+        </div>
+        <div
+          style={{
             fontSize: 64,
             fontWeight: 600,
-            marginBottom: 24,
+            marginBottom: 20,
           }}
         >
           {title}
         </div>
-        <div style={{ fontSize: 32, color: "#c9a98c" }}>{subtitle}</div>
+        <div style={{ fontSize: 30, color: "#8891a1" }}>{subtitle}</div>
         <div
           style={{
             marginTop: 48,
-            width: 64,
-            height: 2,
-            backgroundColor: "#d97f4f",
+            display: "flex",
+            width: 72,
+            height: 3,
+            backgroundColor: "#49e0d3",
           }}
         />
       </div>

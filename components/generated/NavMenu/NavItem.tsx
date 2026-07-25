@@ -6,10 +6,10 @@ const NavItem: React.FC<INavItem> = ({ label, isSelected, href, labelRef }) => {
   return (
     <Link
       href={href}
-      className={`h-100 flex justify-center items-center select-none flex-1 cursor-pointer text-center text-sm sm:text-base ${
+      className={`flex h-full flex-1 select-none items-center justify-center text-center transition-colors ${
         isSelected
-          ? "pointer-events-none cursor-default text-accent font-medium"
-          : "text-foreground/70 hover:text-foreground"
+          ? "pointer-events-none cursor-default text-accent"
+          : "cursor-pointer text-muted-foreground hover:text-foreground"
       }`}
     >
       <span ref={labelRef}>{label}</span>

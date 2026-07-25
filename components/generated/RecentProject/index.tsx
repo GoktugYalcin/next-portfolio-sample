@@ -3,9 +3,14 @@ import { RecentProjectProps } from "@/types";
 
 const RecentProject = ({ label, description }: RecentProjectProps) => {
   return (
-    <li className="lg:list-disc lg:ml-4 mb-2">
-      <span className="text-muted-foreground">{`${label}: `}</span>
-      <span>{description}</span>
+    <li className="mb-2 flex gap-2">
+      <span className="mt-[3px] text-accent" aria-hidden>
+        ▸
+      </span>
+      <span>
+        <span className="font-medium text-foreground">{`${label}: `}</span>
+        <span className="text-muted-foreground">{description}</span>
+      </span>
     </li>
   );
 };

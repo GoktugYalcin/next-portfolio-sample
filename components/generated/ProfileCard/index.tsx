@@ -6,20 +6,24 @@ import { AvatarTilt } from "./AvatarTilt";
 
 const ProfileCard: React.FC = () => {
   return (
-    <div className="flex justify-start items-center">
+    <div className="flex items-center justify-start gap-5">
       <AvatarTilt>
-        <Image
-          src={bne}
-          alt={"Just me"}
-          className="h-16 w-16 rounded-full ring-1 ring-border ring-offset-2 ring-offset-background"
-          quality={60}
-        />
+        <div className="hud-corners rounded-sm p-1">
+          <Image
+            src={bne}
+            alt={"Just me"}
+            className="h-16 w-16 rounded-full grayscale-[15%]"
+            quality={60}
+          />
+        </div>
       </AvatarTilt>
-      <div className="flex flex-col ml-4">
-        <h1 className="text-xl font-normal text-foreground flex justify-start items-center gap-2">
+      <div className="flex flex-col">
+        <h1 className="flex items-center justify-start gap-2 text-xl font-medium text-foreground">
           {Info.name}
         </h1>
-        <span className="text-muted-foreground">{Info.title}</span>
+        <span className="font-mono text-xs uppercase tracking-[0.12em] text-accent">
+          {Info.title}
+        </span>
       </div>
     </div>
   );

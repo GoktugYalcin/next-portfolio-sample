@@ -17,14 +17,14 @@ export default async function Home() {
     <>
       <ProfileCard />
       <div className="mb-4 mt-12 max-w-[52ch] mx-auto text-base leading-8">
-        <p className="mb-2 text-sm text-muted-foreground">
+        <p className="mb-2 font-mono text-xs uppercase tracking-[0.1em] text-muted-foreground">
           <IstanbulClock />
         </p>
         <p className="mb-6 font-display italic text-2xl text-foreground flex items-center gap-1.5">
           Dear reader,
           <Walking />
         </p>
-        <p className="first-letter:font-display first-letter:text-5xl first-letter:font-semibold first-letter:text-accent first-letter:float-left first-letter:mr-2 first-letter:mt-1 first-letter:leading-[0.8]">
+        <p className="first-letter:font-display first-letter:text-5xl first-letter:font-semibold first-letter:text-accent first-letter:float-left first-letter:mr-2 first-letter:mt-0.5 first-letter:leading-[0.8]">
           Building software since <strong>2020</strong>, working today as a{" "}
           <strong>Frontend Engineer</strong>, specialized with React and
           Next.js. Also developed backend with C# and Node.js, games with
@@ -70,12 +70,15 @@ export default async function Home() {
           frequently.
         </p>
 
-        <p className="my-8 text-center text-muted-foreground" aria-hidden>
+        <p
+          className="my-8 text-center font-mono text-xs tracking-[0.4em] text-muted-foreground/50"
+          aria-hidden
+        >
           * * *
         </p>
 
         <div>
-          <h2 className="mb-2 text-lg">
+          <h2 className="mb-3 font-mono text-xs uppercase tracking-[0.15em] text-accent">
             A note on what I&apos;m building right now:
           </h2>
           <ul>
@@ -89,9 +92,12 @@ export default async function Home() {
           </ul>
         </div>
 
-        <p className="mt-10 text-sm text-muted-foreground">
+        <p className="mt-10 font-mono text-xs text-muted-foreground">
           p.s. — the work lives{" "}
-          <Link href="/projects" className="text-accent hover:underline">
+          <Link
+            href="/projects"
+            className="text-accent hover:underline underline-offset-4"
+          >
             here →
           </Link>
         </p>

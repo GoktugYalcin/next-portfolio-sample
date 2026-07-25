@@ -1,21 +1,30 @@
 import "./globals.css";
-import { Fraunces, Newsreader } from "next/font/google";
+import { Chakra_Petch, Inter, JetBrains_Mono } from "next/font/google";
 import { ViewTransitions } from "next-view-transitions";
 import Footer from "@/components/generated/Footer";
 import NavMenu from "@/components/generated/NavMenu/NavMenu";
 import ProviderTheme from "@/components/generated/ThemeProvider";
 import { KonamiEasterEgg } from "@/components/generated/KonamiEasterEgg";
+import TelemetryBar from "@/components/generated/TelemetryBar";
 import Info from "@/infos";
 
-const fraunces = Fraunces({
+const chakraPetch = Chakra_Petch({
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
   variable: "--font-display",
   display: "swap",
 });
 
-const newsreader = Newsreader({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-body-serif",
+  variable: "--font-body-sans",
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono-technical",
   display: "swap",
 });
 
@@ -50,16 +59,17 @@ export default function RootLayout({
 }) {
   return (
     <ViewTransitions>
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
         <body
-          className={`${fraunces.variable} ${newsreader.variable} transition-colors duration-200 ease-in-out relative flex min-h-screen flex-col`}
+          className={`${chakraPetch.variable} ${inter.variable} ${jetbrainsMono.variable} transition-colors duration-200 ease-in-out relative flex min-h-screen flex-col`}
         >
           <ProviderTheme>
             <KonamiEasterEgg />
+            <TelemetryBar />
             <NavMenu />
             <main
               className={
-                "flex min-h-screen flex-col items-start justify-start lg:max-w-screen-lg max-w-screen-md mx-auto mb-14 w-full flex-1 animate-main-content px-4 py-12"
+                "flex min-h-screen flex-col items-start justify-start lg:max-w-screen-lg max-w-screen-md mx-auto mb-20 w-full flex-1 animate-main-content px-4 pb-12 pt-16"
               }
             >
               {children}

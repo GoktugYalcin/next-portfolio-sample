@@ -22,11 +22,14 @@ export default async function Home() {
 
   return (
     <>
-      <h1 className="mb-8 mt-12 text-sm text-muted-foreground [font-family:var(--font-body)] font-normal">
+      <p className="mb-3 mt-8 font-mono text-xs uppercase tracking-[0.15em] text-accent">
+        Photo_archive
+      </p>
+      <h1 className="mb-8 text-sm font-normal text-muted-foreground">
         From the working archive.
       </h1>
       {stats && (
-        <div className="w-full flex gap-6 mb-10 text-sm">
+        <div className="w-full flex gap-8 mb-10 text-sm">
           <PhotoStatCard
             stat={stats?.views?.total}
             label={"Total Views"}

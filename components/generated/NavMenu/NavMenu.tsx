@@ -4,7 +4,6 @@ import React, { useLayoutEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import NavItem from "@/components/generated/NavMenu/NavItem";
 import { usePathname } from "next/navigation";
-import ThemeButton from "@/components/generated/NavMenu/ThemeButton";
 
 const PAGES = [
   { key: "home", label: "Home", href: "/" },
@@ -38,10 +37,10 @@ const NavMenu = () => {
   }, [selected]);
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-20 mx-auto mb-4 h-12 w-full max-w-lg px-2 lg:px-6 sm:h-16">
+    <div className="fixed inset-x-0 bottom-0 z-20 mx-auto mb-4 h-12 w-full max-w-lg px-2 lg:px-6 sm:h-14">
       <div
         ref={containerRef}
-        className="flew-row relative mx-auto flex h-full w-full items-center rounded-full border border-border bg-card px-3 shadow-[0_1px_2px_oklch(20%_0.01_40_/_0.08)]"
+        className="hud-corners relative mx-auto flex h-full w-full items-center rounded-sm border border-border bg-background/85 px-2 font-mono text-xs uppercase tracking-[0.1em] shadow-[0_8px_24px_-12px_oklch(0%_0_0_/_0.4)] backdrop-blur-md"
       >
         {PAGES.map((page) => (
           <NavItem
@@ -54,10 +53,9 @@ const NavMenu = () => {
             }}
           />
         ))}
-        <ThemeButton />
         {indicator && (
           <motion.div
-            className="absolute bottom-1.5 h-px bg-accent pointer-events-none"
+            className="pointer-events-none absolute bottom-1.5 h-[2px] rounded-full bg-accent shadow-[0_0_8px_1px_oklch(var(--accent)_/_0.7)]"
             animate={{ left: indicator.left, width: indicator.width }}
             transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
           />

@@ -1,4 +1,4 @@
-/* Hallmark · genre: editorial · macrostructure: designed-as-app · theme: Atelier
+/* Hallmark · genre: technical-hud · macrostructure: designed-as-app · theme: Telemetry
  * design-system: design.md
  */
 @tailwind base;
@@ -7,75 +7,86 @@
 
 @layer base {
   :root {
-    /* Atelier — warm terracotta anchor, hue ~40-60 */
-    --background: 97% 0.012 60;
-    --foreground: 20% 0.014 40;
+    /* Telemetry — cool void anchor, phosphor-cyan signal, hue ~190/260 */
+    --background: 96% 0.006 260;
+    --foreground: 16% 0.015 260;
 
-    --muted: 93% 0.014 60;
-    --muted-foreground: 42% 0.01 50;
+    --muted: 92% 0.008 260;
+    --muted-foreground: 46% 0.02 260;
 
-    --popover: 97% 0.012 60;
-    --popover-foreground: 20% 0.014 40;
+    --popover: 96% 0.006 260;
+    --popover-foreground: 16% 0.015 260;
 
-    --card: 95% 0.013 60;
-    --card-foreground: 20% 0.014 40;
+    --card: 99% 0.003 260;
+    --card-foreground: 16% 0.015 260;
 
-    --border: 85% 0.012 60;
-    --input: 85% 0.012 60;
+    --border: 87% 0.01 260;
+    --input: 87% 0.01 260;
 
-    --primary: 20% 0.014 40;
-    --primary-foreground: 97% 0.012 60;
+    --primary: 16% 0.015 260;
+    --primary-foreground: 96% 0.006 260;
 
-    --secondary: 93% 0.014 60;
-    --secondary-foreground: 20% 0.014 40;
+    --secondary: 92% 0.008 260;
+    --secondary-foreground: 16% 0.015 260;
 
-    --accent: 52% 0.15 40;
-    --accent-foreground: 97% 0.012 60;
+    --accent: 52% 0.12 190;
+    --accent-foreground: 99% 0.003 260;
 
-    --destructive: 45% 0.18 25;
-    --destructive-foreground: 97% 0.012 60;
+    --accent-2: 55% 0.14 70;
+    --accent-2-foreground: 99% 0.003 260;
 
-    --ring: 52% 0.15 40;
+    --destructive: 55% 0.19 25;
+    --destructive-foreground: 99% 0.003 260;
 
-    --radius: 0.25rem;
+    --ring: 52% 0.12 190;
 
-    --font-body: var(--font-body-serif), ui-serif, Georgia, serif;
+    --radius: 0.1875rem;
+
+    --font-body: var(--font-body-sans), ui-sans-serif, system-ui, sans-serif;
+    --font-mono: var(--font-mono-technical), ui-monospace, "SFMono-Regular", monospace;
 
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
     --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
     --dur-short: 220ms;
     --dur-long: 420ms;
+
+    --grid-line: oklch(20% 0.015 260 / 0.05);
   }
 
   .dark {
-    --background: 15% 0.012 40;
-    --foreground: 94% 0.008 60;
+    --background: 9% 0.012 260;
+    --foreground: 92% 0.01 260;
 
-    --muted: 19% 0.014 40;
-    --muted-foreground: 72% 0.008 45;
+    --muted: 15% 0.015 260;
+    --muted-foreground: 60% 0.02 260;
 
-    --popover: 15% 0.012 40;
-    --popover-foreground: 94% 0.008 60;
+    --popover: 9% 0.012 260;
+    --popover-foreground: 92% 0.01 260;
 
-    --card: 18% 0.013 40;
-    --card-foreground: 94% 0.008 60;
+    --card: 13% 0.016 260;
+    --card-foreground: 92% 0.01 260;
 
-    --border: 30% 0.012 40;
-    --input: 30% 0.012 40;
+    --border: 27% 0.025 260;
+    --input: 27% 0.025 260;
 
-    --primary: 94% 0.008 60;
-    --primary-foreground: 15% 0.012 40;
+    --primary: 92% 0.01 260;
+    --primary-foreground: 9% 0.012 260;
 
-    --secondary: 19% 0.014 40;
-    --secondary-foreground: 94% 0.008 60;
+    --secondary: 15% 0.015 260;
+    --secondary-foreground: 92% 0.01 260;
 
-    --accent: 68% 0.14 42;
-    --accent-foreground: 15% 0.012 40;
+    --accent: 80% 0.13 190;
+    --accent-foreground: 9% 0.012 260;
 
-    --destructive: 55% 0.16 25;
-    --destructive-foreground: 15% 0.012 40;
+    --accent-2: 80% 0.15 70;
+    --accent-2-foreground: 9% 0.012 260;
 
-    --ring: 68% 0.14 42;
+    --destructive: 62% 0.19 25;
+    --destructive-foreground: 96% 0.01 260;
+
+    --ring: 80% 0.13 190;
+
+    --grid-line: oklch(92% 0.01 260 / 0.05);
   }
 }
 
@@ -96,26 +107,24 @@ html {
 }
 
 ::selection {
-  background-color: oklch(var(--accent) / 0.25);
+  background-color: oklch(var(--accent) / 0.3);
   color: oklch(var(--foreground));
-}
-
-.photo-figure {
-  transform: rotate(var(--photo-rotate, 0deg));
-}
-
-.photo-figure:hover {
-  transform: rotate(0deg);
 }
 
 body {
   font-family: var(--font-body);
   overflow-x: clip;
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  background-position: center top;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display), ui-serif, serif;
+  font-family: var(--font-display), ui-sans-serif, sans-serif;
   font-style: normal;
+  letter-spacing: -0.01em;
 }
 
 a:focus-visible,
@@ -138,6 +147,40 @@ button, a, span, h1, h2, h3, h4, h5, h6, p, blockquote, pre {
   transition: background-color var(--transition-duration) var(--ease-out),
   color var(--transition-duration) var(--ease-out),
   border-color var(--transition-duration) var(--ease-out);
+}
+
+/* Signature: corner-bracket HUD frame. Four L-shaped ticks, no extra markup. */
+.hud-corners {
+  position: relative;
+  --hc-size: 12px;
+  --hc-w: 1.5px;
+  --hc-color: oklch(var(--accent) / 0.55);
+  background-image:
+    linear-gradient(to right, var(--hc-color) var(--hc-w), transparent var(--hc-w)),
+    linear-gradient(to bottom, var(--hc-color) var(--hc-w), transparent var(--hc-w)),
+    linear-gradient(to left, var(--hc-color) var(--hc-w), transparent var(--hc-w)),
+    linear-gradient(to bottom, var(--hc-color) var(--hc-w), transparent var(--hc-w)),
+    linear-gradient(to right, var(--hc-color) var(--hc-w), transparent var(--hc-w)),
+    linear-gradient(to top, var(--hc-color) var(--hc-w), transparent var(--hc-w)),
+    linear-gradient(to left, var(--hc-color) var(--hc-w), transparent var(--hc-w)),
+    linear-gradient(to top, var(--hc-color) var(--hc-w), transparent var(--hc-w));
+  background-size: var(--hc-size) var(--hc-size);
+  background-repeat: no-repeat;
+  background-position:
+    top left, top left,
+    top right, top right,
+    bottom right, bottom right,
+    bottom left, bottom left;
+  transition: background-image var(--dur-short) var(--ease-out);
+}
+
+.hud-corners--hover {
+  --hc-color: oklch(var(--accent) / 0);
+}
+
+.group:hover .hud-corners--hover,
+.hud-corners--hover:hover {
+  --hc-color: oklch(var(--accent) / 0.8);
 }
 
 .anim {
@@ -199,7 +242,7 @@ button, a, span, h1, h2, h3, h4, h5, h6, p, blockquote, pre {
 @keyframes vt-fade-in {
   from {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -212,6 +255,21 @@ button, a, span, h1, h2, h3, h4, h5, h6, p, blockquote, pre {
   ::view-transition-old(*),
   ::view-transition-new(*) {
     animation: none !important;
+  }
+}
+
+@keyframes signal-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.signal-dot {
+  animation: signal-blink 2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signal-dot {
+    animation: none;
   }
 }
 

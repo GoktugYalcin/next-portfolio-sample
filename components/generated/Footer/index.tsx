@@ -6,8 +6,11 @@ export const revalidate: number = 30;
 
 export async function Footer() {
   return (
-    <footer className="mt-16 border-t border-border pt-8 flex justify-between w-full flex-col-reverse lg:flex-row gap-8 lg:gap-0">
-      <div className="flex-col flex justify-center items-start">
+    <footer className="hud-corners mt-16 flex w-full flex-col-reverse gap-8 border border-border bg-card/40 p-6 lg:flex-row lg:items-start lg:justify-between lg:gap-0">
+      <div className="flex flex-col items-start justify-center">
+        <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.15em] text-accent">
+          Transmit
+        </p>
         <p className="font-display italic text-lg text-foreground">Yours,</p>
         <FooterLinkProvider />
       </div>
