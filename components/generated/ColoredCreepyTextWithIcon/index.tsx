@@ -8,9 +8,11 @@ const ColoredCreepyTextWithIcon = ({
   darkColor,
   icon,
 }: TextProps) => {
-  const bounceDelay = ["10ms", "15ms", "20ms", "25ms", "30ms"][
-    parseInt((Math.random() * 4).toFixed())
-  ];
+  const delays = ["10ms", "15ms", "20ms", "25ms", "30ms"];
+  const hash = text
+    .split("")
+    .reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  const bounceDelay = delays[hash % delays.length];
   return (
     <span
       className={clsx(`inline-flex justify-center items-center gap-1`, {

@@ -12,7 +12,7 @@ export const PhotoFallback: React.FC<{ height: number; width: number }> = ({
   >
     <defs>
       <linearGradient id="g">
-        <stop offset="0%" stop-color="#222">
+        <stop offset="0%" stopColor="#222">
           <animate
             attributeName="stop-color"
             values="#222; #111; #222"

@@ -7,7 +7,6 @@ import {
   SpotifyNowListeningResponse,
   SpotifyRecentlyPlayedResponse,
 } from "@/types/spotify";
-import { fetch, Response } from "next/dist/compiled/@edge-runtime/primitives";
 
 class Spotify implements SpotifyClass {
   static readonly ENDPOINTS = {
@@ -40,7 +39,6 @@ class Spotify implements SpotifyClass {
         ...options.headers,
         Authorization: `Bearer ${access_token}`,
       },
-      cache: "no-store",
     });
   }
 
@@ -52,14 +50,15 @@ class Spotify implements SpotifyClass {
         "Content-Type": "application/x-www-form-urlencoded",
       },
       body: `grant_type=refresh_token&refresh_token=${this.REFRESH_TOKEN}`,
-      cache: "no-store",
     });
 
     return response.json();
   }
 
   async getNowPlaying(): Promise<SpotifyNowListeningResponse | null> {
-    const response = await this.fetchWithAuth(Spotify.ENDPOINTS.NOW_PLAYING);
+    const response = await this.fetchWithAuth(Spotify.ENDPOINTS.NOW_PLAYING, {
+      next: { revalidate: 30 },
+    });
 
     if (response.status === 204 || response.status >= 400) {
       return null;
@@ -69,7 +68,9 @@ class Spotify implements SpotifyClass {
   }
 
   async getRecentTrack(): Promise<SpotifyRecentlyPlayedResponse | null> {
-    const response = await this.fetchWithAuth(Spotify.ENDPOINTS.RECENT_TRACKS);
+    const response = await this.fetchWithAuth(Spotify.ENDPOINTS.RECENT_TRACKS, {
+      next: { revalidate: 30 },
+    });
 
     if (response.status >= 400) {
       return null;
@@ -145,7 +146,9 @@ class Spotify implements SpotifyClass {
   ): Promise<FormattedTrackInfo[]> {
     const newUrl = new URL(Spotify.ENDPOINTS.RECENT_TRACKS);
     newUrl.searchParams.set("limit", limit.toString());
-    const response = await this.fetchWithAuth(newUrl.toString());
+    const response = await this.fetchWithAuth(newUrl.toString(), {
+      next: { revalidate: 300 },
+    });
 
     if (response.status >= 400) {
       return [];

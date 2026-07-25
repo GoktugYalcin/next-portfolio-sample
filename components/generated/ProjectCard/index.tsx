@@ -8,7 +8,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
-import { Github, Globe } from "lucide-react";
+import { Globe } from "lucide-react";
+import { FaGithub } from "react-icons/fa";
 import { AirtableProject } from "@/types/air";
 import { formatRelativeTime } from "@/lib/utils";
 
@@ -31,7 +32,7 @@ export function ProjectCard(project: AirtableProject & { updatedAt?: string | nu
                 href={project.github}
                 target={"_blank"}
               >
-                <Github size={15} /> Code
+                <FaGithub size={15} /> Code
               </Link>
             )}
             {project.live && (

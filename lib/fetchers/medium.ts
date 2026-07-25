@@ -6,6 +6,7 @@ class Medium {
     try {
       const res = await fetch(url, {
         method: "GET",
+        next: { revalidate: 86400 },
       });
       return await res.json();
     } catch (e) {

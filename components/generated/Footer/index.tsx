@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import NowListeningCard from "@/components/generated/NowListeningCard";
 import FooterLinkProvider from "@/components/generated/Footer/FooterLinkProvider";
 
@@ -11,7 +11,9 @@ export async function Footer() {
         <p className="font-display italic text-lg text-foreground">Yours,</p>
         <FooterLinkProvider />
       </div>
-      <NowListeningCard />
+      <Suspense fallback={null}>
+        <NowListeningCard />
+      </Suspense>
     </footer>
   );
 }

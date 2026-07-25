@@ -1,12 +1,5 @@
-"use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 export const Walking: React.FC = () => {
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  return isMounted ? <span className={"anim"} /> : <></>;
+  return <span className={"anim"} />;
 };

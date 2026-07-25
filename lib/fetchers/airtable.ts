@@ -9,6 +9,7 @@ class AirtableInstance {
           headers: {
             Authorization: `Bearer ${process.env.AIRTABLE_API_KEY}`,
           },
+          next: { revalidate: 30 },
         }
       );
 
@@ -38,6 +39,7 @@ class AirtableInstance {
           headers: {
             Authorization: `Bearer ${process.env.AIRTABLE_API_KEY}`,
           },
+          next: { revalidate: 86400 },
         }
       );
 
