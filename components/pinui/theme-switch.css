@@ -1,0 +1,296 @@
+/* ===========================================================================
+ Theme Switch.
+
+ A scene in the theme it shows, with the toggle in the middle and the
+ effect picker at its foot. The tokens hang on any [data-theme] inside the
+ scene, not only on the scene itself, so a single control can take the next
+ theme on its own the moment the flood reaches it — the nearest
+ data-theme wins. The layers an effect paints go under the controls
+ (.pts__layer, .pts__flood); the drop, its ripples and the rain go over them
+ in .pts__fx. Every one of them is inside the scene's box.
+=========================================================================== */
+
+.pts {
+  --pts-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+
+  position: relative;
+  width: 100%;
+  height: 480px;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 24px;
+  background: var(--pts-bg);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pts[data-fill] {
+  height: 100%;
+  border-radius: 0;
+}
+
+.pts[data-theme="light"],
+.pts [data-theme="light"] {
+  --pts-bg: #ffffff;
+  --pts-btn: #efefef;
+  --pts-btn-hover: #e7e7e7;
+  --pts-btn-border: #efefef;
+  --pts-icon: #4c4c4c;
+  --pts-focus: rgb(0 0 0 / 0.35);
+  --pts-seg-bg: #f5f5f5;
+  --pts-seg-thumb: #ffffff;
+  --pts-seg-shadow: 0 1px 2px rgb(0 0 0 / 0.08), 0 0 0 1px rgb(0 0 0 / 0.04);
+  --pts-seg-text: #8a8a8a;
+  --pts-seg-text-active: #1f1f1f;
+  /* the icons: the moon shows, the sun waits turned a quarter and shrunk */
+  --pts-moon-o: 1;
+  --pts-moon-t: none;
+  --pts-sun-o: 0;
+  --pts-sun-t: rotate(90deg) scale(0.6);
+  color-scheme: light;
+}
+
+.pts[data-theme="dark"],
+.pts [data-theme="dark"] {
+  --pts-bg: #141414;
+  --pts-btn: #1f1f1f;
+  --pts-btn-hover: #262626;
+  --pts-btn-border: #141414;
+  --pts-icon: #ffffff;
+  --pts-focus: rgb(255 255 255 / 0.45);
+  --pts-seg-bg: #1a1a1a;
+  --pts-seg-thumb: #2a2a2a;
+  --pts-seg-shadow: 0 1px 2px rgb(0 0 0 / 0.4),
+    0 0 0 1px rgb(255 255 255 / 0.04);
+  --pts-seg-text: #7a7a7a;
+  --pts-seg-text-active: #f2f2f2;
+  /* both icons leave and arrive turning the same way for a given switch */
+  --pts-moon-o: 0;
+  --pts-moon-t: rotate(-90deg) scale(0.6);
+  --pts-sun-o: 1;
+  --pts-sun-t: none;
+  color-scheme: dark;
+}
+
+.pts *,
+.pts *::before,
+.pts *::after {
+  box-sizing: border-box;
+}
+
+.pts__stage {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+}
+
+/* ── the toggle ────────────────────────────────────────────────────────── */
+
+.pts__toggle {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--pts-btn-border);
+  border-radius: 12px;
+  background: var(--pts-btn);
+  color: var(--pts-icon);
+  font: inherit;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  transition: background-color 150ms ease;
+}
+
+.pts__toggle:focus-visible {
+  outline: 2px solid var(--pts-focus);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pts__toggle:hover {
+    background: var(--pts-btn-hover);
+  }
+}
+
+.pts__icon {
+  display: block;
+  grid-area: 1 / 1;
+  transition: transform 450ms var(--pts-ease-out),
+    opacity 220ms var(--pts-ease-out);
+}
+
+.pts__icon--moon {
+  opacity: var(--pts-moon-o);
+  transform: var(--pts-moon-t);
+}
+
+.pts__icon--sun {
+  opacity: var(--pts-sun-o);
+  transform: var(--pts-sun-t);
+}
+
+/* ── the effect picker ─────────────────────────────────────────────────── */
+
+.pts__effects {
+  --pts-seg-w: 76px;
+
+  position: absolute;
+  left: 50%;
+  /* a host with something floating at the foot (a toolbar, a dock) raises this */
+  bottom: calc(var(--pts-inset-bottom, 0px) + 28px);
+  display: flex;
+  margin: 0;
+  padding: 3px;
+  min-inline-size: 0;
+  border: 0;
+  border-radius: 10px;
+  background: var(--pts-seg-bg);
+  font: 500 13px/1 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    sans-serif;
+  translate: -50% 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.pts__thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: var(--pts-seg-w);
+  height: calc(100% - 6px);
+  border-radius: 7px;
+  background: var(--pts-seg-thumb);
+  box-shadow: var(--pts-seg-shadow);
+  transition: transform 220ms var(--pts-ease-out);
+}
+
+.pts[data-effect="rain"] .pts__thumb {
+  transform: translateX(100%);
+}
+
+.pts[data-effect="diwali"] .pts__thumb {
+  transform: translateX(200%);
+}
+
+.pts__option {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--pts-seg-w);
+  height: 28px;
+  border-radius: 7px;
+  color: var(--pts-seg-text);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: color 150ms ease;
+}
+
+.pts__option input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.pts__option:has(input:checked) {
+  color: var(--pts-seg-text-active);
+}
+
+.pts__option:has(input:focus-visible) {
+  outline: 2px solid var(--pts-focus);
+  outline-offset: 1px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pts__option:hover {
+    color: var(--pts-seg-text-active);
+  }
+}
+
+/* colours are revealed by the flood, never cross-faded */
+.pts.is-switching .pts__toggle,
+.pts.is-switching .pts__option,
+.pts.is-switching .pts__thumb {
+  transition: none;
+}
+
+.pts__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── the effects' layers ───────────────────────────────────────────────── */
+
+/* under the controls: the flood, the puddles, the fireworks */
+.pts__flood,
+.pts__layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.pts__layer {
+  display: block;
+}
+
+/* over the controls: the drop, its ripples, the rain */
+.pts__fx {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.pts__fx .pts__layer {
+  z-index: auto;
+}
+
+.pts__drop {
+  position: absolute;
+  width: 22px;
+  height: 30px;
+  transform-origin: 50% 100%;
+  will-change: transform;
+}
+
+.pts__drop svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.pts__ripple {
+  position: absolute;
+  width: 54px;
+  height: 54px;
+  margin: -27px 0 0 -27px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pts__icon {
+    transform: none !important;
+    transition: opacity 200ms ease;
+  }
+}

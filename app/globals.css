@@ -377,3 +377,28 @@ pre {
     animation: none;
   }
 }
+
+/* Pin UI Theme Switch, hosted as a page-wide scene: the rain falls over the
+ * whole viewport instead of inside the component's own 480px box. */
+.pts.pts-page {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  background: transparent;
+  pointer-events: none;
+}
+
+.theme-icon {
+  transition: transform 450ms cubic-bezier(0.23, 1, 0.32, 1),
+    opacity 220ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-icon {
+    transform: none !important;
+    transition: opacity 200ms ease;
+  }
+}

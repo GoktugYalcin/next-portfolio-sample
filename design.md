@@ -42,6 +42,7 @@ Neutral monochrome, dark and light. Tokens live in `app/globals.css` as OKLCH ch
 ## Motion
 - Easings: `--ease-out` (0.16, 1, 0.3, 1), `--ease-in` (0.7, 0, 0.84, 0).
 - View transitions between routes (fade + rise). No scroll-triggered reveals.
+- Theme toggle: Pin UI Theme Switch engine (`components/pinui`), **rain** effect, hosted as a page-wide scene by `NavMenu/ThemeButton` — rain of the next theme wets the viewport, then the theme commits. Instant under reduced motion.
 - Hover: single signal only — border or colour, never lift+shadow+colour.
 - Personal signatures kept: walking sprite (banner + Konami run), avatar tilt, photo tilt→straighten and grayscale→colour, spinning CD, bouncing hobby icons, live equalizer.
 - `prefers-reduced-motion` disables the sprite walk and view transitions.
