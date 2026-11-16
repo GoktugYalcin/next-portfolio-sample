@@ -37,7 +37,7 @@ export function ProjectCard(project: ProjectWithMeta) {
             updated {formatRelativeTime(project.updatedAt)}
           </span>
         )}
-        <span className="select-none text-4xl" aria-hidden>
+        <span className="rain-keep select-none text-4xl" aria-hidden>
           {project.icon || "◦"}
         </span>
       </div>

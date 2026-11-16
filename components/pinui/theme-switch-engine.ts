@@ -58,10 +58,17 @@ type Options = {
   onCommit: (theme: ThemeName) => void;
 };
 
-/* Site change: backgrounds match --background in app/globals.css (pinui ships #ffffff / #141414). */
+/*
+ * Site change: the scene is a page-wide layer blended with `difference`
+ * (see .pts-page in app/globals.css), so what is painted here is not the next
+ * theme's colour but the ink that turns the current page into it:
+ *   dark page  #0a0a0a  ⊖ #ffffff → #f5f5f5 (light)
+ *   light page #fcfcfb  ⊖ #f2f2f1 → #0a0a0a (dark)
+ * Pin UI ships #ffffff / #141414 here.
+ */
 const THEMES: Record<ThemeName, { bg: string; ring: string }> = {
-  light: { bg: "#fcfcfb", ring: "rgba(0, 0, 0, 0.10)" },
-  dark: { bg: "#0a0a0a", ring: "rgba(255, 255, 255, 0.10)" },
+  light: { bg: "#ffffff", ring: "rgba(255, 255, 255, 0.10)" },
+  dark: { bg: "#f2f2f1", ring: "rgba(255, 255, 255, 0.10)" },
 };
 
 const EASE_OUT = "cubic-bezier(0.23, 1, 0.32, 1)";

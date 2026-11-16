@@ -389,6 +389,21 @@ pre {
   border-radius: 0;
   background: transparent;
   pointer-events: none;
+  /* the puddles invert the page under them, so the content stays readable
+   * through the rain instead of being painted over */
+  mix-blend-mode: difference;
+}
+
+/* photos, artwork and emoji would turn into negatives under the blend, so
+ * they are lifted above the rain while it falls */
+html:has(.pts-page.is-switching)
+  :is(img, .rain-keep, .banner-walker, .photo-figure) {
+  z-index: 61;
+}
+
+html:has(.pts-page.is-switching)
+  :is(img:not([data-nimg="fill"]), .rain-keep, .photo-figure) {
+  position: relative;
 }
 
 .theme-icon {

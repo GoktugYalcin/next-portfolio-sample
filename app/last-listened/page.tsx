@@ -52,7 +52,7 @@ const SpotifyRandomCards: React.FC = async () => {
                 </div>
               )}
               <div className="relative flex h-52 items-center justify-center overflow-hidden rounded-lg border border-border bg-background bg-stripes">
-                <div className="relative flex h-48 w-48 items-center justify-center group-hover:animate-cdAnim">
+                <div className="rain-keep relative flex h-48 w-48 items-center justify-center group-hover:animate-cdAnim">
                   <Image
                     src={song.img}
                     alt={`${song.song} artwork`}
