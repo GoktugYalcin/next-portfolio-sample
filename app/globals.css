@@ -1,4 +1,4 @@
-/* Hallmark · genre: editorial · macrostructure: designed-as-app · theme: Atelier
+/* Framed Index — monochrome, hairline-framed single column.
  * design-system: design.md
  */
 @tailwind base;
@@ -7,39 +7,44 @@
 
 @layer base {
   :root {
-    /* Atelier — warm terracotta anchor, hue ~40-60 */
-    --background: 97% 0.012 60;
-    --foreground: 20% 0.014 40;
+    --background: 99% 0.001 106;
+    --foreground: 21% 0.006 286;
 
-    --muted: 93% 0.014 60;
-    --muted-foreground: 42% 0.01 50;
+    --muted: 96.5% 0.001 286;
+    --muted-foreground: 44% 0.015 286;
 
-    --popover: 97% 0.012 60;
-    --popover-foreground: 20% 0.014 40;
+    --soft: 62% 0.014 286;
 
-    --card: 95% 0.013 60;
-    --card-foreground: 20% 0.014 40;
+    --popover: 100% 0 0;
+    --popover-foreground: 21% 0.006 286;
 
-    --border: 85% 0.012 60;
-    --input: 85% 0.012 60;
+    --card: 100% 0 0;
+    --card-foreground: 21% 0.006 286;
 
-    --primary: 20% 0.014 40;
-    --primary-foreground: 97% 0.012 60;
+    --chip: 96.5% 0.001 286;
 
-    --secondary: 93% 0.014 60;
-    --secondary-foreground: 20% 0.014 40;
+    --border: 0% 0 0 / 0.1;
+    --input: 0% 0 0 / 0.1;
+    --stripe: 0% 0 0 / 0.055;
+    --hover: 0% 0 0 / 0.04;
 
-    --accent: 52% 0.15 40;
-    --accent-foreground: 97% 0.012 60;
+    --primary: 21% 0.006 286;
+    --primary-foreground: 99% 0.001 106;
 
-    --destructive: 45% 0.18 25;
-    --destructive-foreground: 97% 0.012 60;
+    --secondary: 96.5% 0.001 286;
+    --secondary-foreground: 21% 0.006 286;
 
-    --ring: 52% 0.15 40;
+    --accent: 52% 0.13 162;
+    --accent-foreground: 99% 0.001 106;
 
-    --radius: 0.25rem;
+    --warn: 55% 0.13 70;
 
-    --font-body: var(--font-body-serif), ui-serif, Georgia, serif;
+    --destructive: 50% 0.19 25;
+    --destructive-foreground: 99% 0.001 106;
+
+    --ring: 21% 0.006 286;
+
+    --radius: 0.5rem;
 
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
     --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
@@ -48,34 +53,42 @@
   }
 
   .dark {
-    --background: 15% 0.012 40;
-    --foreground: 94% 0.008 60;
+    --background: 14.5% 0 0;
+    --foreground: 97% 0.001 106;
 
-    --muted: 19% 0.014 40;
-    --muted-foreground: 72% 0.008 45;
+    --muted: 20% 0 0;
+    --muted-foreground: 71% 0.013 286;
 
-    --popover: 15% 0.012 40;
-    --popover-foreground: 94% 0.008 60;
+    --soft: 50% 0.012 286;
 
-    --card: 18% 0.013 40;
-    --card-foreground: 94% 0.008 60;
+    --popover: 17% 0 0;
+    --popover-foreground: 97% 0.001 106;
 
-    --border: 30% 0.012 40;
-    --input: 30% 0.012 40;
+    --card: 17% 0 0;
+    --card-foreground: 97% 0.001 106;
 
-    --primary: 94% 0.008 60;
-    --primary-foreground: 15% 0.012 40;
+    --chip: 20% 0 0;
 
-    --secondary: 19% 0.014 40;
-    --secondary-foreground: 94% 0.008 60;
+    --border: 100% 0 0 / 0.1;
+    --input: 100% 0 0 / 0.1;
+    --stripe: 100% 0 0 / 0.055;
+    --hover: 100% 0 0 / 0.05;
 
-    --accent: 68% 0.14 42;
-    --accent-foreground: 15% 0.012 40;
+    --primary: 97% 0.001 106;
+    --primary-foreground: 14.5% 0 0;
 
-    --destructive: 55% 0.16 25;
-    --destructive-foreground: 15% 0.012 40;
+    --secondary: 20% 0 0;
+    --secondary-foreground: 97% 0.001 106;
 
-    --ring: 68% 0.14 42;
+    --accent: 74% 0.15 162;
+    --accent-foreground: 14.5% 0 0;
+
+    --warn: 80% 0.14 80;
+
+    --destructive: 62% 0.19 25;
+    --destructive-foreground: 14.5% 0 0;
+
+    --ring: 97% 0.001 106;
   }
 }
 
@@ -84,7 +97,44 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+  }
+}
+
+@layer components {
+  /* The single 760px column every page hangs on. */
+  .frame {
+    @apply relative mx-auto w-full max-w-[760px] border-x border-dashed border-border;
+  }
+
+  .bg-stripes {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      oklch(var(--stripe)) 0,
+      oklch(var(--stripe)) 1px,
+      transparent 1px,
+      transparent 6px
+    );
+  }
+
+  .bg-dots {
+    background-image: radial-gradient(
+      oklch(var(--stripe)) 1px,
+      transparent 1px
+    );
+    background-size: 12px 12px;
+  }
+
+  .label-mono {
+    @apply font-mono text-[10px] uppercase tracking-[0.14em] text-soft;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded border border-border bg-chip px-1.5 py-0.5 font-mono text-[10px] leading-4 text-muted-foreground;
+  }
+
+  .link-arrow {
+    @apply inline-flex items-center gap-1.5 font-mono text-[11px] text-soft hover:text-foreground;
   }
 }
 
@@ -96,7 +146,7 @@ html {
 }
 
 ::selection {
-  background-color: oklch(var(--accent) / 0.25);
+  background-color: oklch(var(--foreground) / 0.16);
   color: oklch(var(--foreground));
 }
 
@@ -109,13 +159,15 @@ html {
 }
 
 body {
-  font-family: var(--font-body);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   overflow-x: clip;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display), ui-serif, serif;
+h1,
+h2 {
+  font-family: var(--font-display), ui-serif, Georgia, serif;
   font-style: normal;
+  font-weight: 400;
 }
 
 a:focus-visible,
@@ -131,13 +183,24 @@ button:focus-visible,
 
 body {
   transition: background-color var(--transition-duration) var(--ease-out),
-  color var(--transition-duration) var(--ease-out);
+    color var(--transition-duration) var(--ease-out);
 }
 
-button, a, span, h1, h2, h3, h4, h5, h6, p, blockquote, pre {
+button,
+a,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre {
   transition: background-color var(--transition-duration) var(--ease-out),
-  color var(--transition-duration) var(--ease-out),
-  border-color var(--transition-duration) var(--ease-out);
+    color var(--transition-duration) var(--ease-out),
+    border-color var(--transition-duration) var(--ease-out);
 }
 
 .anim {
@@ -145,7 +208,7 @@ button, a, span, h1, h2, h3, h4, h5, h6, p, blockquote, pre {
   width: 32px;
   height: 32px;
   vertical-align: middle;
-  background-image: url('/assets/walk_sprite.png');
+  background-image: url("/assets/walk_sprite.png");
   background-size: 192px 32px;
   background-position: 0 0;
   animation: walkAnimation 0.5s steps(6) infinite;
@@ -248,7 +311,8 @@ button, a, span, h1, h2, h3, h4, h5, h6, p, blockquote, pre {
 }
 
 @keyframes eq-bounce {
-  0%, 100% {
+  0%,
+  100% {
     height: 30%;
   }
   50% {
@@ -265,7 +329,7 @@ button, a, span, h1, h2, h3, h4, h5, h6, p, blockquote, pre {
 
 .konami-dash {
   position: fixed;
-  bottom: 84px;
+  bottom: 16px;
   left: 0;
   z-index: 50;
   pointer-events: none;
@@ -284,5 +348,32 @@ button, a, span, h1, h2, h3, h4, h5, h6, p, blockquote, pre {
 @media (prefers-reduced-motion: reduce) {
   .konami-dash {
     animation-duration: 150ms;
+  }
+}
+
+/* Banner — the sprite walks the hairline along the bottom edge. */
+.banner-walker {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  animation: banner-walk 26s linear infinite;
+}
+
+@keyframes banner-walk {
+  from {
+    transform: translateX(-40px);
+  }
+  to {
+    transform: translateX(800px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .banner-walker {
+    animation: none;
+    transform: translateX(24px);
+  }
+  .anim {
+    animation: none;
   }
 }

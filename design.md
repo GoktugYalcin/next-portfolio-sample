@@ -5,61 +5,51 @@ emitting code. Do not regenerate per page — extend or amend this file when the
 system needs to grow.
 
 ## Genre
-editorial
+Framed Index — a monochrome, hairline-framed developer index.
 
-## Macrostructure family
-- Home (bio): **Letter** — first-person "Dear," greeting, single narrow column, no CTA.
-- Projects / Last-listened (work index): **Portfolio Grid** — filterable/responsive card grid, typographic-only links, no global CTA.
-- Photos: **Photographic** — full-bleed image bands, small corner captions, no display headline.
-- Blog: **Index-First** — vertical link list, hairline rules, no hero.
+## Structure
+- One **760px column** (`.frame`) with dashed side rules runs the full height of every page.
+- Each section opens with a **band** (`SectionHeader`): full-bleed diagonal stripes, hairline top/bottom, 3px corner marks where the band meets the frame, serif title left, mono aside right.
+- Pages are a stack of `Section`s (`components/generated/Frame`). No content sits outside the frame except the index rail.
+- Home: banner → profile → About → Now → Projects → Writing → Photos. A fixed **index rail** right of the frame (xl and up) tracks the section in view.
+- Projects: filterable 2-column card grid (All / Live / Open source).
+- Blog: index rows — mono date, serif title, tag chips.
+- Photos: stat cells, then the tilted grayscale grid.
+- Last listened: 2-column CD cards.
+- Footer (every page): "Yours," band → contact link cells → now-listening row.
 
 ## Theme
-Atelier (catalog) — custom-tuned OKLCH, warm terracotta anchor.
+Neutral monochrome, dark and light. Tokens live in `app/globals.css` as OKLCH channels.
 
-- `--background` (paper)  oklch(97% 0.012 60) · dark oklch(15% 0.012 40)
-- `--foreground` (ink)    oklch(20% 0.014 40) · dark oklch(94% 0.008 60)
-- `--card` (paper-2)      oklch(95% 0.013 60) · dark oklch(18% 0.013 40)
-- `--border` (rule)       oklch(85% 0.012 60) · dark oklch(30% 0.012 40)
-- `--accent`              oklch(52% 0.15 40)  · dark oklch(68% 0.14 42)
-- `--ring` (focus)        = accent
+- `--background` · `--card` · `--chip` — page, raised surface, tag surface
+- `--foreground` · `--muted-foreground` · `--soft` — text, secondary text, tertiary/labels
+- `--border` — every hairline (10% ink) · `--stripe` — band/plate hatching · `--hover`
+- `--accent` — emerald; status only (live dots, equalizer, "copied")
+- `--warn` — amber; reserved for in-progress/featured badges
 
 ## Typography
-- Display: Fraunces, variable serif, weight 600, style normal (next/font/google, `--font-display`)
-- Body: Newsreader, weight 400 (next/font/google, `--font-body-serif` → `--font-body`)
-- No mono face — project has no code blocks.
-- Headings always roman. Italic reserved for Letter's salutation line only.
+- Display: Instrument Serif 400 (`--font-display`) — h1/h2, post titles, salutation.
+- Body: Inter (`--font-sans`).
+- Mono: JetBrains Mono (`--font-mono`) — labels, dates, chips, meta. `.label-mono` = 10px uppercase tracked.
+- Italic reserved for the salutation ("Dear reader,") and the sign-off ("Yours,").
 
-## Spacing
-Tailwind's default scale, used via utility classes (`gap-*`, `p-*`, `mt-*`). No raw px in new markup.
+## Components
+- `.chip` — mono tag. `StatusBadge` — LIVE / SOURCE pills.
+- Cards: `rounded-xl border bg-card p-4`, inner plate `rounded-lg border bg-stripes`.
+- Segmented filter: bordered group, active item inverted (fg on bg).
+- One filled button style (inverted fg/bg), used at most once per page.
 
 ## Motion
 - Easings: `--ease-out` (0.16, 1, 0.3, 1), `--ease-in` (0.7, 0, 0.84, 0).
-- Reveal pattern: none / quiet fade only where a macrostructure calls for it (Letter, Index-First: none). No scroll-triggered fade-up on every section.
-- Reduced-motion: existing `.anim` sprite and rotate keyframes are functional/personal signatures, kept as-is; they already respect short, bounded durations.
-
-## Microinteractions stance
-- Silent success everywhere — no toasts.
-- Focus rings: instant, `outline: 2px solid oklch(var(--ring))`, no transition on outline.
-- Hover: single-signal only (colour or 1px shift), never combined lift+shadow+colour.
-
-## CTA voice
-- No filled buttons anywhere on the site. Every action is a **typographic-only** link — underline or weight/colour shift on hover, per Atelier voice.
-- Primary "action" per page is implicit (visit a project, look at a photo) — never a marketing CTA strip.
-
-## Per-page allowances
-- Home, Photos: may carry one quiet personal signature each (walking sprite, photo hover rotate) — pre-existing, not new enrichment.
-- Projects/Last-listened/Blog: typography + grid only, no enrichment.
+- View transitions between routes (fade + rise). No scroll-triggered reveals.
+- Hover: single signal only — border or colour, never lift+shadow+colour.
+- Personal signatures kept: walking sprite (banner + Konami run), avatar tilt, photo tilt→straighten and grayscale→colour, spinning CD, bouncing hobby icons, live equalizer.
+- `prefers-reduced-motion` disables the sprite walk and view transitions.
 
 ## What pages MUST share
-- Fraunces + Newsreader pairing.
-- The terracotta accent, used at <5% of any viewport (links, focus rings, active nav state only).
-- Nav: N9 Edge-aligned minimal, bottom-fixed (positional deviation from Atelier's usual top placement — kept because it's this site's pre-existing personal signature, not a generic AI-nav pattern).
-- Footer: Ft6 Letter close.
-- No pure black / pure white anywhere — all paper/ink is hue-tinted.
-
-## What pages MAY differ on
-- Macrostructure within their declared family (none currently vary further — one macrostructure per page type).
-- Whether a personal enrichment signature is present (Home/Photos have one; Projects/Blog/Last-listened don't).
+- The frame, the band header, the three-font pairing.
+- Nav: sticky top bar inside the frame; active item gets weight + underline.
+- Accent used for status only — the palette is otherwise ink on paper.
 
 ## Exports
 

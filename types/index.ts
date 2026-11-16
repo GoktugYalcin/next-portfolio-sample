@@ -23,6 +23,7 @@ export interface IBlog {
   title: string;
   pubDate: string;
   link: string;
+  categories?: string[];
 }
 
 export interface IBlogs {
@@ -48,7 +49,6 @@ export interface INavItem {
   label: string;
   isSelected: boolean;
   href: string;
-  labelRef?: (el: HTMLSpanElement | null) => void;
 }
 
 export interface NotFoundProps {

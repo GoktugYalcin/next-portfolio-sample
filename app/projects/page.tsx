@@ -1,8 +1,9 @@
-import { ProjectCard } from "@/components/generated/ProjectCard";
+import ProjectsGrid from "@/components/generated/ProjectsGrid";
+import NotFound from "@/components/generated/NotFound";
+import { Section } from "@/components/generated/Frame";
 import { Metadata } from "next";
 import air from "@/lib/fetchers/airtable";
 import { getRepoPushedAt } from "@/lib/fetchers/github";
-import { AirtableProject } from "@/types/air";
 
 const description =
   "Projects have the power to transcend limitations, ignite innovation, and\n" +
@@ -26,23 +27,26 @@ export default async function Home() {
     )
   );
 
+  const projects = showcase.map((project, index) => ({
+    ...project,
+    updatedAt: pushedAtByIndex[index],
+  }));
+
   return (
-    <>
-      <h1 className="mb-10 mt-12 text-lg text-muted-foreground [font-family:var(--font-body)] font-normal max-w-[60ch] mx-auto">
+    <Section
+      as="h1"
+      title="Projects"
+      aside={<span className="label-mono">selected work</span>}
+    >
+      <p className="mb-8 max-w-[60ch] text-[15px] leading-relaxed text-muted-foreground">
         Selected work, indexed by nothing in particular — just what I&apos;ve
         been building.
-      </h1>
-      <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4">
-        {showcase.map((project: AirtableProject, index: number) => {
-          return (
-            <ProjectCard
-              {...project}
-              updatedAt={pushedAtByIndex[index]}
-              key={index}
-            />
-          );
-        })}
-      </div>
-    </>
+      </p>
+      {projects.length ? (
+        <ProjectsGrid projects={projects} />
+      ) : (
+        <NotFound whatNotFound={"project"} />
+      )}
+    </Section>
   );
 }

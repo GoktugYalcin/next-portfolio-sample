@@ -1,57 +1,92 @@
 import * as React from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardIcon,
-  CardTitle,
-} from "@/components/ui/card";
 import Link from "next/link";
 import { Globe } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { AirtableProject } from "@/types/air";
 import { formatRelativeTime } from "@/lib/utils";
+import { StatusBadge } from "@/components/generated/Frame";
 
-export function ProjectCard(project: AirtableProject & { updatedAt?: string | null }) {
+export type ProjectWithMeta = AirtableProject & { updatedAt?: string | null };
+
+const hostOf = (url: string) => {
+  try {
+    return new URL(url).host.replace(/^www\./, "");
+  } catch (e) {
+    return null;
+  }
+};
+
+export function ProjectCard(project: ProjectWithMeta) {
+  const liveHost = project.live ? hostOf(project.live) : null;
+  const year = project.updatedAt
+    ? new Date(project.updatedAt).getFullYear()
+    : null;
+
   return (
-    <Card className="w-full h-full flex flex-col border-border bg-card shadow-none transition-colors duration-200 ease-out hover:border-accent">
-      <CardHeader>
-        <div className="flex items-center gap-3">
-          <CardIcon className="float-none">{project.icon}</CardIcon>
-          <CardTitle className="text-xl">{project.name}</CardTitle>
+    <article className="flex h-full w-full flex-col rounded-xl border border-border bg-card p-4 transition-colors duration-200 ease-out hover:border-foreground/25">
+      <div className="relative flex h-28 items-center justify-center overflow-hidden rounded-lg border border-border bg-background bg-stripes">
+        <div className="absolute left-2 top-2">
+          {project.live ? (
+            <StatusBadge tone="live">Live</StatusBadge>
+          ) : (
+            <StatusBadge>Source</StatusBadge>
+          )}
         </div>
-        <CardDescription>{project.description}</CardDescription>
-      </CardHeader>
-      <CardContent className="mt-auto">
-        <div className="flex w-full items-center justify-between gap-5 text-sm">
-          <div className="flex gap-5">
-            {project.github && (
-              <Link
-                className="flex items-center gap-1.5 text-muted-foreground hover:text-accent hover:underline underline-offset-4"
-                href={project.github}
-                target={"_blank"}
-              >
-                <FaGithub size={15} /> Code
-              </Link>
+        {project.updatedAt && (
+          <span className="absolute right-2 top-2 font-mono text-[9px] uppercase tracking-[0.12em] text-soft">
+            updated {formatRelativeTime(project.updatedAt)}
+          </span>
+        )}
+        <span className="select-none text-4xl" aria-hidden>
+          {project.icon || "◦"}
+        </span>
+      </div>
+
+      <div className="mt-4 flex items-baseline justify-between gap-3">
+        <h3 className="text-base font-semibold text-foreground">
+          {project.name}
+        </h3>
+        {year && (
+          <span className="font-mono text-[11px] text-soft">{year}</span>
+        )}
+      </div>
+      <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">
+        {project.description}
+      </p>
+
+      <div className="mt-auto pt-4">
+        <div className="flex items-center justify-between gap-3 border-t border-border pt-3">
+          <div className="flex min-w-0 flex-1 items-center">
+            {liveHost ? (
+              <span className="chip truncate">{liveHost}</span>
+            ) : (
+              <span className="chip">open source</span>
             )}
+          </div>
+          <div className="flex items-center gap-2.5 text-soft">
             {project.live && (
               <Link
-                className="flex items-center gap-1.5 text-muted-foreground hover:text-accent hover:underline underline-offset-4"
                 href={project.live}
                 target={"_blank"}
+                aria-label={`${project.name} — live`}
+                className="hover:text-foreground"
               >
-                <Globe size={15} /> Live
+                <Globe size={15} />
+              </Link>
+            )}
+            {project.github && (
+              <Link
+                href={project.github}
+                target={"_blank"}
+                aria-label={`${project.name} — code`}
+                className="hover:text-foreground"
+              >
+                <FaGithub size={15} />
               </Link>
             )}
           </div>
-          {project.updatedAt && (
-            <span className="text-xs text-muted-foreground">
-              updated {formatRelativeTime(project.updatedAt)}
-            </span>
-          )}
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </article>
   );
 }

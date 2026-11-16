@@ -21,13 +21,15 @@ export const Photo = (props: IPhoto) => {
   return (
     <figure
       className="photo-figure transition-all"
-      style={{ "--photo-rotate": `${rotateAngle(id)}deg` } as React.CSSProperties}
+      style={
+        { "--photo-rotate": `${rotateAngle(id)}deg` } as React.CSSProperties
+      }
     >
       <Link
         href={links.html}
         target={"_blank"}
         className={
-          "group block overflow-hidden rounded-lg grayscale hover:grayscale-0 transition-all duration-700 lg:hover:scale-110 hover:black"
+          "group block overflow-hidden rounded-lg border border-border grayscale transition-all duration-700 hover:grayscale-0 lg:hover:scale-110"
         }
       >
         <Suspense fallback={<PhotoFallback height={height} width={width} />}>

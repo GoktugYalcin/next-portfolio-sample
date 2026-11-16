@@ -1,13 +1,13 @@
 import React from "react";
 import FooterLink from "@/components/generated/Footer/FooterLink";
-import { FooterLinkProps } from "@/types";
 import air from "@/lib/fetchers/airtable";
 
 const FooterLinkProvider = async () => {
   const infos = await air.getInfos();
+  if (!infos.length) return null;
 
   return (
-    <ul className="mt-4 flex flex-col gap-1.5">
+    <ul className="grid grid-cols-2 gap-px border-b border-border bg-border sm:grid-cols-4">
       {infos.map((i, index) => {
         return (
           <FooterLink

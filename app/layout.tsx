@@ -1,5 +1,5 @@
 import "./globals.css";
-import { Fraunces, Newsreader } from "next/font/google";
+import { Instrument_Serif, Inter, JetBrains_Mono } from "next/font/google";
 import { ViewTransitions } from "next-view-transitions";
 import Footer from "@/components/generated/Footer";
 import NavMenu from "@/components/generated/NavMenu/NavMenu";
@@ -7,15 +7,23 @@ import ProviderTheme from "@/components/generated/ThemeProvider";
 import { KonamiEasterEgg } from "@/components/generated/KonamiEasterEgg";
 import Info from "@/infos";
 
-const fraunces = Fraunces({
-  subsets: ["latin"],
+const display = Instrument_Serif({
+  subsets: ["latin", "latin-ext"],
+  weight: "400",
+  style: ["normal", "italic"],
   variable: "--font-display",
   display: "swap",
 });
 
-const newsreader = Newsreader({
-  subsets: ["latin"],
-  variable: "--font-body-serif",
+const sans = Inter({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-sans",
+  display: "swap",
+});
+
+const mono = JetBrains_Mono({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-mono",
   display: "swap",
 });
 
@@ -50,19 +58,16 @@ export default function RootLayout({
 }) {
   return (
     <ViewTransitions>
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
         <body
-          className={`${fraunces.variable} ${newsreader.variable} transition-colors duration-200 ease-in-out relative flex min-h-screen flex-col`}
+          className={`${display.variable} ${sans.variable} ${mono.variable} relative flex min-h-screen flex-col`}
         >
           <ProviderTheme>
             <KonamiEasterEgg />
             <NavMenu />
-            <main
-              className={
-                "flex min-h-screen flex-col items-start justify-start lg:max-w-screen-lg max-w-screen-md mx-auto mb-14 w-full flex-1 animate-main-content px-4 py-12"
-              }
-            >
+            <main className="flex w-full flex-1 flex-col">
               {children}
+              <div className="frame min-h-[48px] flex-1" aria-hidden />
               <Footer />
             </main>
           </ProviderTheme>

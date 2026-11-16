@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useLayoutEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
-import NavItem from "@/components/generated/NavMenu/NavItem";
+import React from "react";
+import { Link } from "next-view-transitions";
 import { usePathname } from "next/navigation";
+import NavItem from "@/components/generated/NavMenu/NavItem";
 import ThemeButton from "@/components/generated/NavMenu/ThemeButton";
 
 const PAGES = [
@@ -17,53 +17,35 @@ const NavMenu = () => {
   const pathname = usePathname();
   const selected = pathname.split("/")[1] || "home";
 
-  const containerRef = useRef<HTMLDivElement>(null);
-  const labelRefs = useRef<Record<string, HTMLSpanElement | null>>({});
-  const [indicator, setIndicator] = useState<{
-    left: number;
-    width: number;
-  } | null>(null);
-
-  useLayoutEffect(() => {
-    const el = labelRefs.current[selected];
-    const container = containerRef.current;
-    if (el && container) {
-      const elRect = el.getBoundingClientRect();
-      const containerRect = container.getBoundingClientRect();
-      setIndicator({
-        left: elRect.left - containerRect.left,
-        width: elRect.width,
-      });
-    }
-  }, [selected]);
-
   return (
-    <div className="fixed inset-x-0 bottom-0 z-20 mx-auto mb-4 h-12 w-full max-w-lg px-2 lg:px-6 sm:h-16">
-      <div
-        ref={containerRef}
-        className="flew-row relative mx-auto flex h-full w-full items-center rounded-full border border-border bg-card px-3 shadow-[0_1px_2px_oklch(20%_0.01_40_/_0.08)]"
-      >
-        {PAGES.map((page) => (
-          <NavItem
-            key={page.key}
-            label={page.label}
-            isSelected={selected === page.key}
-            href={page.href}
-            labelRef={(el) => {
-              labelRefs.current[page.key] = el;
-            }}
-          />
-        ))}
-        <ThemeButton />
-        {indicator && (
-          <motion.div
-            className="absolute bottom-1.5 h-px bg-accent pointer-events-none"
-            animate={{ left: indicator.left, width: indicator.width }}
-            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          />
-        )}
+    <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur-md">
+      <div className="frame flex items-center justify-between gap-3 px-6 py-2.5 sm:px-8">
+        <Link
+          href="/"
+          aria-label="Göktuğ — home"
+          className="font-serif text-xl tracking-wide text-foreground hover:opacity-80"
+        >
+          <span className="hidden min-[420px]:inline">Göktuğ</span>
+          <span className="min-[420px]:hidden">G.</span>
+        </Link>
+        <div className="flex items-center gap-4 sm:gap-5">
+          <nav
+            aria-label="Main"
+            className="flex items-center gap-4 text-[13px] text-muted-foreground sm:gap-5"
+          >
+            {PAGES.map((page) => (
+              <NavItem
+                key={page.key}
+                label={page.label}
+                isSelected={selected === page.key}
+                href={page.href}
+              />
+            ))}
+          </nav>
+          <ThemeButton />
+        </div>
       </div>
-    </div>
+    </header>
   );
 };
 

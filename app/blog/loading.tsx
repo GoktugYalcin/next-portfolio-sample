@@ -1,18 +1,22 @@
+import { Section } from "@/components/generated/Frame";
+
 export default function Loading() {
   return (
-    <>
-      <div className="mb-10 mt-12 h-5 w-2/3 max-w-[60ch] mx-auto animate-pulse rounded bg-muted" />
-      <ul className="w-full flex flex-col">
+    <Section as="h1" title="Writing" flush>
+      <div className="border-b border-border px-6 py-8 sm:px-8">
+        <div className="h-4 w-2/3 animate-pulse rounded bg-muted" />
+      </div>
+      <ul className="flex w-full flex-col">
         {Array.from({ length: 5 }).map((_, i) => (
           <li
             key={i}
-            className="flex items-center justify-between border-b border-border py-4"
+            className="flex items-center gap-6 border-b border-border px-6 py-5 last:border-b-0 sm:px-8"
           >
-            <div className="h-4 w-1/2 animate-pulse rounded bg-muted" />
-            <div className="h-4 w-16 animate-pulse rounded bg-muted" />
+            <div className="h-3 w-20 animate-pulse rounded bg-muted" />
+            <div className="h-5 w-1/2 animate-pulse rounded bg-muted" />
           </li>
         ))}
       </ul>
-    </>
+    </Section>
   );
 }

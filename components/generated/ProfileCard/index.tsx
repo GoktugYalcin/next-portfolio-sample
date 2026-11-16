@@ -1,25 +1,33 @@
 import React from "react";
 import Image from "next/image";
+import { MapPin } from "lucide-react";
 import bne from "./bne.jpeg";
 import Info from "@/infos";
 import { AvatarTilt } from "./AvatarTilt";
 
 const ProfileCard: React.FC = () => {
   return (
-    <div className="flex justify-start items-center">
+    <div className="frame flex items-center gap-4 px-6 py-5 sm:px-8">
       <AvatarTilt>
         <Image
           src={bne}
           alt={"Just me"}
-          className="h-16 w-16 rounded-full ring-1 ring-border ring-offset-2 ring-offset-background"
+          className="h-16 w-16 rounded-xl border border-border object-cover"
           quality={60}
+          priority
         />
       </AvatarTilt>
-      <div className="flex flex-col ml-4">
-        <h1 className="text-xl font-normal text-foreground flex justify-start items-center gap-2">
+      <div className="flex min-w-0 flex-col">
+        <h1 className="font-serif text-3xl leading-none tracking-tight text-foreground sm:text-[38px]">
           {Info.name}
         </h1>
-        <span className="text-muted-foreground">{Info.title}</span>
+        <span className="mt-1.5 font-mono text-[13px] text-muted-foreground">
+          {Info.title}
+        </span>
+        <span className="mt-1 flex items-center gap-1.5 font-mono text-[11px] text-soft">
+          <MapPin size={11} aria-hidden />
+          Istanbul, Türkiye
+        </span>
       </div>
     </div>
   );

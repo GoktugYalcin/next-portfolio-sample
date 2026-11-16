@@ -3,6 +3,7 @@ import unsplash from "@/lib/fetchers/unsplash";
 import Photos from "../../components/generated/Photos";
 import NotFound from "@/components/generated/NotFound";
 import PhotoStatCard from "@/components/generated/PhotoStatCard";
+import { Frame, SectionHeader } from "@/components/generated/Frame";
 
 const description =
   "Capturing moments through photography is a delightful way to preserve and appreciate the beauty that surrounds us.";
@@ -20,30 +21,50 @@ export default async function Home() {
   const photos = await unsplash.getPhotos();
   const stats = await unsplash.getStats();
 
+  const hasStats = !!stats?.views && !!stats?.downloads;
+
   return (
-    <>
-      <h1 className="mb-8 mt-12 text-sm text-muted-foreground [font-family:var(--font-body)] font-normal">
-        From the working archive.
-      </h1>
-      {stats && (
-        <div className="w-full flex gap-6 mb-10 text-sm">
-          <PhotoStatCard
-            stat={stats?.views?.total}
-            label={"Total Views"}
-            link={"https://unsplash.com/@yalcingoktug"}
-          />
-          <PhotoStatCard
-            stat={stats?.downloads?.total}
-            label={"Total Downloads"}
-            link={"https://unsplash.com/@yalcingoktug"}
-          />
+    <section>
+      <SectionHeader
+        as="h1"
+        title="Photos"
+        aside={
+          <a
+            href="https://unsplash.com/@yalcingoktug"
+            target="_blank"
+            rel="noreferrer"
+            className="link-arrow"
+          >
+            unsplash.com/@yalcingoktug <span aria-hidden>↗</span>
+          </a>
+        }
+      />
+      <Frame flush>
+        <p className="px-6 py-8 text-[15px] leading-relaxed text-muted-foreground sm:px-8">
+          From the working archive.
+        </p>
+        {hasStats && (
+          <div className="grid grid-cols-2 gap-px border-y border-border bg-border">
+            <PhotoStatCard
+              stat={stats?.views?.total}
+              label={"Total Views"}
+              link={"https://unsplash.com/@yalcingoktug"}
+            />
+            <PhotoStatCard
+              stat={stats?.downloads?.total}
+              label={"Total Downloads"}
+              link={"https://unsplash.com/@yalcingoktug"}
+            />
+          </div>
+        )}
+        <div className="px-6 py-10 sm:px-8">
+          {Array.isArray(photos) && photos.length ? (
+            <Photos data={photos} />
+          ) : (
+            <NotFound whatNotFound={"photo"} />
+          )}
         </div>
-      )}
-      {photos?.length ? (
-        <Photos data={photos} />
-      ) : (
-        <NotFound whatNotFound={"photo"} />
-      )}
-    </>
+      </Frame>
+    </section>
   );
 }

@@ -2,28 +2,25 @@
 
 import React from "react";
 import { useTheme } from "next-themes";
+import { Moon, Sun } from "lucide-react";
 
 const ThemeButton: React.FC = () => {
-  const { systemTheme, theme, setTheme } = useTheme();
-
-  const currentTheme = theme === "system" ? systemTheme : theme;
+  const { resolvedTheme, setTheme } = useTheme();
 
   function toggleTheme(): void {
-    if (currentTheme === "dark") {
-      setTheme("light");
-    } else {
-      setTheme("dark");
-    }
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
   }
 
   return (
-    <span
+    <button
+      type="button"
       onClick={toggleTheme}
-      className="flex items-center justify-center select-none flex-none w-10 sm:w-12 cursor-pointer text-center text-xl transition relative"
+      aria-label="Toggle theme"
+      className="flex h-7 w-7 flex-none items-center justify-center rounded-full border border-border text-muted-foreground hover:bg-hover hover:text-foreground"
     >
-      <span className="hidden dark:block">🌚</span>
-      <span className="dark:hidden">🌝</span>
-    </span>
+      <Sun size={13} className="hidden dark:block" aria-hidden />
+      <Moon size={13} className="dark:hidden" aria-hidden />
+    </button>
   );
 };
 
