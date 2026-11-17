@@ -45,7 +45,8 @@ const iconFor = (name: string, link: string) => {
       />
     );
   if (key.includes("mailto:")) return <Mail className="icon" />;
-  if (key.includes("medium")) return <PenLine className="icon" />;
+  if (key.includes("medium") || key.includes("blog."))
+    return <PenLine className="icon" />;
   if (key.includes("unsplash")) return <Camera className="icon" />;
   return <Link2 className="icon" />;
 };

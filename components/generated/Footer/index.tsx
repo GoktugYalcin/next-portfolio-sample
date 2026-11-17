@@ -13,7 +13,7 @@ import unsplash from "@/lib/fetchers/unsplash";
 import { IPhoto } from "@/types";
 import Info from "@/infos";
 
-export const revalidate: number = 30;
+export const revalidate: number = 3600;
 
 const KEYS = ["↑", "↑", "↓", "↓", "←", "→", "←", "→", "b", "a"];
 

@@ -8,7 +8,12 @@ const report = async (table: string, res: Response) => {
   let detail = "";
   try {
     const body = await res.json();
-    detail = body?.error?.type ?? body?.error ?? "";
+    /* Airtable answers either {error: {type}} or {errors: [{error}]} */
+    detail =
+      body?.error?.type ??
+      body?.errors?.[0]?.error ??
+      body?.error ??
+      JSON.stringify(body).slice(0, 160);
     if (typeof detail === "object") detail = JSON.stringify(detail);
   } catch (e) {}
   const base = process.env.AIRTABLE_BASE ?? "";
@@ -28,7 +33,9 @@ class AirtableInstance {
           headers: {
             Authorization: `Bearer ${process.env.AIRTABLE_API_KEY}`,
           },
-          next: { revalidate: 30 },
+          /* contact links barely change; a day keeps well inside Airtable's
+           * monthly API allowance (every page reads them twice) */
+          next: { revalidate: 86400 },
         }
       );
 

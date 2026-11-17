@@ -6,21 +6,23 @@ module.exports = {
   lang: "tr",
   siteUrl: "https://gokyalc.in",
   githubAccount: "goktugyalcin",
-  /* shown when Airtable returns no contact links; Airtable wins when it has them */
+  /* shown when Airtable returns no contact links (mirrors the Info table);
+   Airtable wins when it answers */
   contacts: [
     {
-      type: "github",
-      label: "goktugyalcin",
-      url: "https://github.com/goktugyalcin",
+      type: "E-Mail",
+      label: "gok[at]gokyalc.in",
+      url: "mailto:gok@gokyalc.in",
     },
     {
-      type: "medium",
-      label: "@gokyalcin",
-      url: "https://medium.com/@gokyalcin",
+      type: "GitHub",
+      label: "GoktugYalcin",
+      url: "https://github.com/GoktugYalcin",
     },
+    { type: "Medium", label: "gokyalcin", url: "https://blog.gokyalc.in" },
     {
-      type: "unsplash",
-      label: "@yalcingoktug",
+      type: "Unsplash",
+      label: "yalcingoktug",
       url: "https://unsplash.com/@yalcingoktug",
     },
   ],
