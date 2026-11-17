@@ -1,5 +1,24 @@
 import { AirtableInfo, AirtableProject } from "@/types/air";
 
+/**
+ * Airtable failures used to vanish into an empty list. Say why in the server
+ * logs (never the key itself), so a bad token or base id is easy to spot.
+ */
+const report = async (table: string, res: Response) => {
+  let detail = "";
+  try {
+    const body = await res.json();
+    detail = body?.error?.type ?? body?.error ?? "";
+    if (typeof detail === "object") detail = JSON.stringify(detail);
+  } catch (e) {}
+  const base = process.env.AIRTABLE_BASE ?? "";
+  console.error(
+    `[airtable] ${table}: ${res.status} ${detail} (base ${
+      base ? base.slice(0, 6) + "…" : "missing"
+    }, key ${process.env.AIRTABLE_API_KEY ? "set" : "missing"})`
+  );
+};
+
 class AirtableInstance {
   getInfos = async (): Promise<AirtableInfo[]> => {
     try {
@@ -14,6 +33,7 @@ class AirtableInstance {
       );
 
       if (!res.ok) {
+        await report("Info", res);
         return [];
       }
 
@@ -27,6 +47,7 @@ class AirtableInstance {
         })
       );
     } catch (e) {
+      console.error("[airtable] request failed:", (e as Error).message);
       return [];
     }
   };
@@ -44,6 +65,7 @@ class AirtableInstance {
       );
 
       if (!res.ok) {
+        await report("Projects", res);
         return [];
       }
 
@@ -63,6 +85,7 @@ class AirtableInstance {
         })
       );
     } catch (e) {
+      console.error("[airtable] request failed:", (e as Error).message);
       return [];
     }
   };
