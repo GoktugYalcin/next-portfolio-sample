@@ -101,13 +101,11 @@ const ThemeButton: React.FC = () => {
         ref={buttonRef}
         type="button"
         aria-label="Switch theme"
-        className="relative grid h-7 w-7 flex-none place-items-center rounded-md text-soft hover:bg-hover hover:text-foreground"
+        className="icon-btn theme-btn"
       >
         {/* the moon, on the light face: press it for dark */}
         <svg
-          className="theme-icon col-start-1 row-start-1 dark:-rotate-90 dark:scale-50 dark:opacity-0"
-          width="16"
-          height="16"
+          className="theme-icon dark:-rotate-90 dark:scale-50 dark:opacity-0"
           viewBox="0 0 24 24"
           fill="none"
           aria-hidden="true"
@@ -122,9 +120,7 @@ const ThemeButton: React.FC = () => {
         </svg>
         {/* the sun, on the dark face: press it for light */}
         <svg
-          className="theme-icon col-start-1 row-start-1 rotate-90 scale-50 opacity-0 dark:rotate-0 dark:scale-100 dark:opacity-100"
-          width="16"
-          height="16"
+          className="theme-icon rotate-90 scale-50 opacity-0 dark:rotate-0 dark:scale-100 dark:opacity-100"
           viewBox="0 0 24 24"
           fill="none"
           aria-hidden="true"

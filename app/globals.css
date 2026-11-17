@@ -1,4 +1,4 @@
-/* Dotted Notebook — warm paper, dotted rules, lowercase chrome.
+/* Tailwind layer + leftovers. The page system lives in notebook.css.
  * design-system: design.md
  */
 @tailwind base;
@@ -6,89 +6,63 @@
 @tailwind utilities;
 
 @layer base {
+  /* Channel tokens for the Tailwind utilities still used inside a few
+   * components. They mirror the hex palette in notebook.css. */
   :root {
     --background: 99.3% 0.002 106;
     --foreground: 14.5% 0 0;
-
-    --muted: 96.5% 0.002 106;
-    --muted-foreground: 40% 0 0;
-
+    --muted: 97% 0.002 106;
+    --muted-foreground: 37.2% 0 0;
     --soft: 55.5% 0 0;
-
     --popover: 100% 0 0;
     --popover-foreground: 14.5% 0 0;
-
     --card: 100% 0 0;
     --card-foreground: 14.5% 0 0;
-
-    --chip: 96.5% 0.002 106;
-
-    --border: 86% 0.003 106;
-    --input: 86% 0.003 106;
+    --chip: 97% 0.002 106;
+    --border: 89.3% 0.004 106;
+    --input: 89.3% 0.004 106;
     --stripe: 0% 0 0 / 0.11;
     --hover: 0% 0 0 / 0.04;
-
     --primary: 14.5% 0 0;
     --primary-foreground: 99.3% 0.002 106;
-
-    --secondary: 96.5% 0.002 106;
+    --secondary: 97% 0.002 106;
     --secondary-foreground: 14.5% 0 0;
-
-    --accent: 52% 0.13 162;
+    --accent: 72.3% 0.192 149.6;
     --accent-foreground: 99.3% 0.002 106;
-
     --warn: 60% 0.14 60;
-
     --destructive: 50% 0.19 25;
     --destructive-foreground: 99.3% 0.002 106;
-
     --ring: 14.5% 0 0;
-
     --radius: 0.5rem;
-
-    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-    --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
     --dur-short: 220ms;
     --dur-long: 420ms;
   }
 
   .dark {
     --background: 14.5% 0 0;
-    --foreground: 97% 0.002 106;
-
+    --foreground: 94.6% 0 0;
     --muted: 20% 0 0;
-    --muted-foreground: 75% 0 0;
-
-    --soft: 58% 0 0;
-
-    --popover: 17% 0 0;
-    --popover-foreground: 97% 0.002 106;
-
-    --card: 17.5% 0 0;
-    --card-foreground: 97% 0.002 106;
-
+    --muted-foreground: 82% 0 0;
+    --soft: 65% 0 0;
+    --popover: 17.8% 0 0;
+    --popover-foreground: 94.6% 0 0;
+    --card: 17.8% 0 0;
+    --card-foreground: 94.6% 0 0;
     --chip: 20% 0 0;
-
-    --border: 30% 0 0;
-    --input: 30% 0 0;
+    --border: 29% 0 0;
+    --input: 29% 0 0;
     --stripe: 100% 0 0 / 0.13;
     --hover: 100% 0 0 / 0.05;
-
-    --primary: 97% 0.002 106;
+    --primary: 94.6% 0 0;
     --primary-foreground: 14.5% 0 0;
-
     --secondary: 20% 0 0;
-    --secondary-foreground: 97% 0.002 106;
-
-    --accent: 74% 0.15 162;
+    --secondary-foreground: 94.6% 0 0;
+    --accent: 72.3% 0.192 149.6;
     --accent-foreground: 14.5% 0 0;
-
     --warn: 80% 0.14 80;
-
     --destructive: 62% 0.19 25;
     --destructive-foreground: 14.5% 0 0;
-
-    --ring: 97% 0.002 106;
+    --ring: 94.6% 0 0;
   }
 }
 
@@ -102,30 +76,6 @@
 }
 
 @layer components {
-  /* The single column every page hangs on, ruled with dotted hairlines. */
-  .frame {
-    @apply relative mx-auto w-full max-w-[720px] border-x border-dotted border-border;
-  }
-
-  /* a full-bleed dotted rule; the frame sits inside it */
-  .rule-b {
-    @apply w-full border-b border-dotted border-border;
-  }
-
-  .rule-y {
-    @apply w-full border-y border-dotted border-border;
-  }
-
-  .bg-dots {
-    background-image: radial-gradient(
-      oklch(var(--stripe)) 0.75px,
-      transparent 0.75px
-    );
-    background-size: 6px 6px;
-    background-position: 3px 3px;
-  }
-
-  /* kept for plates inside cards */
   .bg-stripes {
     background-image: radial-gradient(
       oklch(var(--stripe)) 0.75px,
@@ -141,42 +91,6 @@
   .chip {
     @apply inline-flex items-center gap-1.5 rounded border border-border bg-background px-1.5 py-0.5 font-mono text-[10.5px] lowercase leading-4 text-muted-foreground;
   }
-
-  .link-arrow {
-    @apply inline-flex items-center gap-1.5 font-mono text-[12px] lowercase text-muted-foreground hover:text-foreground;
-  }
-
-  .pill {
-    @apply inline-flex items-center gap-2 rounded-md border border-border bg-card px-2.5 py-1.5 font-mono text-[12px] lowercase text-foreground hover:bg-hover;
-  }
-
-  /* text links inside rows: a dotted underline that goes solid on hover */
-  .link-dotted {
-    @apply underline decoration-dotted decoration-soft underline-offset-4 hover:decoration-solid hover:decoration-foreground;
-  }
-}
-
-/* Rows sharpen into focus as they scroll in. Pure CSS and only where the
- * browser supports scroll-driven animations, so nothing is ever left hidden. */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .reveal {
-      animation: reveal-in linear both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 55%;
-    }
-  }
-}
-
-@keyframes reveal-in {
-  from {
-    opacity: 0.25;
-    filter: blur(5px);
-  }
-  to {
-    opacity: 1;
-    filter: none;
-  }
 }
 
 html {
@@ -186,64 +100,12 @@ html {
   overflow-x: clip;
 }
 
-::selection {
-  background-color: oklch(var(--foreground) / 0.16);
-  color: oklch(var(--foreground));
-}
-
 .photo-figure {
   transform: rotate(var(--photo-rotate, 0deg));
 }
 
 .photo-figure:hover {
   transform: rotate(0deg);
-}
-
-body {
-  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  font-size: 15px;
-  overflow-x: clip;
-}
-
-h1,
-h2 {
-  font-family: var(--font-display), ui-serif, Georgia, serif;
-  font-style: normal;
-  font-weight: 400;
-  text-transform: lowercase;
-}
-
-a:focus-visible,
-button:focus-visible,
-[role="button"]:focus-visible {
-  outline: 2px solid oklch(var(--ring));
-  outline-offset: 2px;
-}
-
-:root {
-  --transition-duration: 0.3s;
-}
-
-body {
-  transition: background-color var(--transition-duration) var(--ease-out),
-    color var(--transition-duration) var(--ease-out);
-}
-
-button,
-a,
-span,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre {
-  transition: background-color var(--transition-duration) var(--ease-out),
-    color var(--transition-duration) var(--ease-out),
-    border-color var(--transition-duration) var(--ease-out);
 }
 
 .anim {
@@ -274,50 +136,6 @@ pre {
 
   to {
     transform: rotate(360deg);
-  }
-}
-
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation-duration: var(--dur-long);
-  animation-timing-function: var(--ease-out);
-}
-
-::view-transition-old(root) {
-  animation-name: vt-fade-out;
-}
-
-::view-transition-new(root) {
-  animation-name: vt-fade-in;
-}
-
-@keyframes vt-fade-out {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-}
-
-@keyframes vt-fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  ::view-transition-group(*),
-  ::view-transition-old(*),
-  ::view-transition-new(*) {
-    animation: none !important;
   }
 }
 
@@ -394,33 +212,6 @@ pre {
   }
 }
 
-/* Banner — the sprite walks the hairline along the bottom edge. */
-.banner-walker {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  animation: banner-walk 26s linear infinite;
-}
-
-@keyframes banner-walk {
-  from {
-    transform: translateX(-40px);
-  }
-  to {
-    transform: translateX(760px);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .banner-walker {
-    animation: none;
-    transform: translateX(24px);
-  }
-  .anim {
-    animation: none;
-  }
-}
-
 /* Pin UI Theme Switch, hosted as a page-wide scene: the rain falls over the
  * whole viewport instead of inside the component's own 480px box. */
 .pts.pts-page {
@@ -440,7 +231,7 @@ pre {
 /* photos, artwork and emoji would turn into negatives under the blend, so
  * they are lifted above the rain while it falls */
 html:has(.pts-page.is-switching)
-  :is(img, .rain-keep, .banner-walker, .photo-figure) {
+  :is(img, .rain-keep, .rain-lift, .photo-figure) {
   z-index: 61;
 }
 

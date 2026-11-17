@@ -1,4 +1,5 @@
 import "./globals.css";
+import "./notebook.css";
 import {
   Architects_Daughter,
   Geist,
@@ -10,6 +11,8 @@ import Footer from "@/components/generated/Footer";
 import NavMenu from "@/components/generated/NavMenu/NavMenu";
 import ProviderTheme from "@/components/generated/ThemeProvider";
 import { KonamiEasterEgg } from "@/components/generated/KonamiEasterEgg";
+import Motion from "@/components/generated/Motion";
+import { BOOT_SCRIPT } from "@/components/generated/Motion/boot";
 import Info from "@/infos";
 
 const display = Instrument_Serif({
@@ -71,17 +74,20 @@ export default function RootLayout({
   return (
     <ViewTransitions>
       <html lang="en" suppressHydrationWarning>
+        <head>
+          <script dangerouslySetInnerHTML={{ __html: BOOT_SCRIPT }} />
+        </head>
         <body
-          className={`${display.variable} ${sans.variable} ${mono.variable} ${hand.variable} relative flex min-h-screen flex-col`}
+          className={`${display.variable} ${sans.variable} ${mono.variable} ${hand.variable}`}
         >
           <ProviderTheme>
             <KonamiEasterEgg />
-            <NavMenu />
-            <main className="flex w-full flex-1 flex-col">
-              {children}
-              <div className="frame min-h-[48px] flex-1" aria-hidden />
+            <div className="page">
+              <NavMenu />
+              <main id="top">{children}</main>
               <Footer />
-            </main>
+            </div>
+            <Motion />
           </ProviderTheme>
         </body>
       </html>

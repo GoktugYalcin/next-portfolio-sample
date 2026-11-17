@@ -8,12 +8,12 @@ system needs to grow.
 Dotted Notebook — warm paper, dotted rules, lowercase chrome, a few handmade touches.
 
 ## Structure
-- One **720px column** (`.frame`) with dotted side rules runs the full height of every page.
-- Horizontal rules are dotted and **full-bleed** (`.rule-b`, `.rule-y`); the frame sits inside them.
-- Sections are separated by a **gutter** — a 24px strip of dot texture inside the column — then a title row (`SectionHeader`): lowercase serif title left, mono aside right.
-- Home: photo-reel banner → profile (avatar overlapping the banner, info rows, link pills) → about → now → projects (rows) → writing → photos (prints). An index rail sits right of the frame on xl screens.
-- Projects: filterable card grid. Blog: serif title rows with mono dates. Photos: stat cells + tilted grid. Last listened: CD cards.
-- Footer (every page): "say hi" (big serif address + pills) → time-aware closing line + "Yours," → now-listening row → mono colophon with a ticking Istanbul clock.
+- The page system lives in `app/notebook.css` (plain CSS, named parts: `.page`, `.nav`, `.band`, `.sec`, `.cover`, `.profile`, `.pile`…). Tailwind remains only inside a few leaf components.
+- One **720px column** (`.page`) with dotted side rules; every horizontal rule is dotted and full-bleed (`.wide-line`).
+- Sections are separated by a **band** (32px of dot texture), then a title row (`.sec-head`).
+- Home: painted cover → profile (avatar over the cover's edge, name, four facts, link pills) → about → right now → projects (lead entry + accordion rows) → writing.
+- Inner pages: `PageHead` (crumb, big serif title, lede) → band → content.
+- Footer (every page): say hi (address + copy, photo stamps, pills) → closing line by the visitor's clock → the pile → colophon with a rolling Istanbul clock and the Konami hint.
 
 ## Theme
 Warm near-white paper and near-black ink, light and dark. Tokens live in `app/globals.css` as OKLCH channels.
@@ -36,11 +36,14 @@ Warm near-white paper and near-black ink, light and dark. Tokens live in `app/gl
 - Opacity modifiers must be on Tailwind's scale (`/90`, not `/85`) or written as `/[0.85]`.
 
 ## Motion
-- Easings: `--ease-out` (0.16, 1, 0.3, 1), `--ease-in` (0.7, 0, 0.84, 0).
-- View transitions between routes (fade + rise).
-- `.reveal` — rows sharpen from a blur as they scroll in; CSS scroll-driven, only where supported, off under reduced motion.
-- Theme toggle: Pin UI Theme Switch engine (`components/pinui`), **rain** effect, hosted as a page-wide scene by `NavMenu/ThemeButton`.
-- Personal signatures kept: walking sprite (beside "Dear reader," + Konami run), avatar tilt, photo tilt→straighten and grayscale→colour, spinning CD, bouncing hobby icons, live equalizer.
+- Easings: `--ease-out` (0.16, 1, 0.3, 1), `--ease-in-out` (0.65, 0, 0.35, 1), `--spring` (damped spring as `linear()`).
+- **Intro** (`Motion/Intro`): first home visit per session (or `?intro`). A paper sheet covers the page, the avatar says hi in the middle, then flies to its place as the sheet lifts. 4s failsafe in the boot script.
+- **Reveal** (`Motion`): `.reveal` starts blurred, lowered and transparent; settles on first view. Stagger with `--d`/`--i`. Waits for the intro.
+- **Cover** (`Cover`): Unsplash photos redrawn as brush strokes on a canvas; paints itself in, ruffles under the pointer, click for the next.
+- **Route transitions**: view transitions — old page blurs out (320ms), new page blurs in (600ms); the nav is held still.
+- **Pile** (`Pile`): drawn objects with matter-js physics, loaded only near the footer; drag, throw at the walker, tidy up.
+- **Theme toggle**: Pin UI Theme Switch engine, rain effect, page-wide.
+- Grain film over everything. All of it off under reduced motion.
 
 ## What pages MUST share
 - The frame, the dotted rules, the gutter + title row, the four-font system.

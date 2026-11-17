@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Medium from "@/lib/fetchers/medium";
 import Blogs from "@/components/generated/Blog/Blogs";
 import NotFound from "@/components/generated/NotFound";
-import { Section } from "@/components/generated/Frame";
+import { Band, PageHead, Section } from "@/components/generated/PageHead";
 
 const description =
   "Unleashing creativity through captivating posts about frontend development is a gateway to inspire and engage fellow developers, fostering a vibrant and innovative community.";
@@ -22,34 +22,33 @@ export default async function Home() {
   const items = Array.isArray(blogs?.items) ? blogs.items : [];
 
   return (
-    <Section
-      as="h1"
-      title="Writing"
-      flush
-      aside={
-        <a
-          href="https://medium.com/@gokyalcin"
-          target="_blank"
-          rel="noreferrer"
-          className="link-arrow"
-        >
-          medium.com/@gokyalcin <span aria-hidden>↗</span>
-        </a>
-      }
-    >
-      <div className="border-b border-dotted border-border px-5 py-7 sm:px-6">
-        <p className="max-w-[60ch] text-[15px] leading-relaxed text-muted-foreground">
-          Writing, indexed by nothing in particular — just what I&apos;ve been
-          thinking about frontend development.
-        </p>
-      </div>
-      {items.length ? (
-        <Blogs items={items} />
-      ) : (
-        <div className="px-5 py-7 sm:px-6">
+    <>
+      <PageHead
+        crumb="blog"
+        title="writing"
+        lede={
+          <>
+            Writing, indexed by nothing in particular — just what I&apos;ve been
+            thinking about frontend development.{" "}
+            <a
+              className="ext"
+              href="https://medium.com/@gokyalcin"
+              target="_blank"
+              rel="noopener"
+            >
+              medium.com/@gokyalcin
+            </a>
+          </>
+        }
+      />
+      <Band />
+      <Section className={items.length ? "flush" : ""}>
+        {items.length ? (
+          <Blogs items={items} />
+        ) : (
           <NotFound whatNotFound={"blog"} />
-        </div>
-      )}
-    </Section>
+        )}
+      </Section>
+    </>
   );
 }

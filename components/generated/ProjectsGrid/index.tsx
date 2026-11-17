@@ -7,14 +7,14 @@ import {
 } from "@/components/generated/ProjectCard";
 
 const FILTERS = [
-  { key: "all", label: "All" },
-  { key: "live", label: "Live" },
-  { key: "code", label: "Open source" },
+  { key: "all", label: "all" },
+  { key: "live", label: "live" },
+  { key: "code", label: "open source" },
 ] as const;
 
 type FilterKey = (typeof FILTERS)[number]["key"];
 
-/** Project grid with the All / Live / Open source segmented filter. */
+/** Project cards with the all / live / open source filter. */
 const ProjectsGrid = ({ projects }: { projects: ProjectWithMeta[] }) => {
   const [filter, setFilter] = useState<FilterKey>("all");
 
@@ -30,40 +30,38 @@ const ProjectsGrid = ({ projects }: { projects: ProjectWithMeta[] }) => {
 
   return (
     <>
-      <div className="mb-6 flex items-center justify-between gap-4">
-        <span className="label-mono">
-          {visible.length} / {projects.length} shown
+      <div className="filter-row reveal">
+        <span className="count">
+          {visible.length} / {projects.length}
         </span>
-        <div
-          role="group"
-          aria-label="Filter projects"
-          className="flex items-center gap-0.5 rounded-md border border-border bg-card p-0.5 font-mono lowercase"
-        >
+        <div className="pills" role="group" aria-label="filter projects">
           {FILTERS.map((f) => (
             <button
               key={f.key}
               type="button"
+              className="pill"
               aria-pressed={filter === f.key}
               onClick={() => setFilter(f.key)}
-              className={`rounded px-2.5 py-1 text-[11px] ${
-                filter === f.key
-                  ? "bg-foreground font-semibold text-background"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
             >
               {f.label}
             </button>
           ))}
         </div>
       </div>
-      <div className="grid gap-3 sm:grid-cols-2">
-        {visible.map((project) => (
-          <ProjectCard {...project} key={project.name} />
+      <div
+        className="cases reveal"
+        style={{ "--d": "80ms" } as React.CSSProperties}
+      >
+        {visible.map((project, i) => (
+          <ProjectCard {...project} key={`${filter}-${project.name}-${i}`} />
         ))}
       </div>
       {!visible.length && (
-        <p className="py-10 text-center font-mono text-xs text-soft">
-          Nothing under this filter yet.
+        <p
+          className="hi-note"
+          style={{ padding: "28px 0", textAlign: "center" }}
+        >
+          nothing under this filter yet.
         </p>
       )}
     </>

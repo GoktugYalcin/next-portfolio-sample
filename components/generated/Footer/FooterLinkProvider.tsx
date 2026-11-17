@@ -4,10 +4,12 @@ import air from "@/lib/fetchers/airtable";
 
 /** The contact links from Airtable, as a row of pills. */
 const FooterLinkProvider = async ({
-  className,
+  className = "",
+  style,
   withMail = true,
 }: {
   className?: string;
+  style?: React.CSSProperties;
   /** false where the address is already shown in full */
   withMail?: boolean;
 }) => {
@@ -18,18 +20,16 @@ const FooterLinkProvider = async ({
   if (!infos.length) return null;
 
   return (
-    <ul className={`flex flex-wrap gap-2 ${className ?? ""}`}>
-      {infos.map((i, index) => {
-        return (
-          <FooterLink
-            label={i.label}
-            link={i.url}
-            siteName={i.type}
-            key={index}
-          />
-        );
-      })}
-    </ul>
+    <nav className={`links ${className}`} style={style} aria-label="elsewhere">
+      {infos.map((i, index) => (
+        <FooterLink
+          label={i.label}
+          link={i.url}
+          siteName={i.type}
+          key={index}
+        />
+      ))}
+    </nav>
   );
 };
 

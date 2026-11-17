@@ -1,13 +1,11 @@
 import * as React from "react";
-import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { AirtableProject } from "@/types/air";
 import { formatRelativeTime } from "@/lib/utils";
-import { StatusBadge } from "@/components/generated/Frame";
 
 export type ProjectWithMeta = AirtableProject & { updatedAt?: string | null };
 
-const hostOf = (url: string) => {
+export const hostOf = (url: string) => {
   try {
     return new URL(url).host.replace(/^www\./, "");
   } catch (e) {
@@ -15,82 +13,74 @@ const hostOf = (url: string) => {
   }
 };
 
-const Icon = ({ icon }: { icon: string }) => (
-  <span
-    className="rain-keep grid h-9 w-9 flex-none select-none place-items-center rounded-lg border border-border bg-card text-lg"
-    aria-hidden
-  >
+export const Logo = ({ icon }: { icon: string }) => (
+  <span className="logo rain-keep" aria-hidden>
     {icon || "◦"}
   </span>
 );
 
-const Links = ({ project }: { project: ProjectWithMeta }) => {
-  const liveHost = project.live ? hostOf(project.live) : null;
-  if (!project.live && !project.github) return null;
+export const LiveBadge = ({ live }: { live: boolean }) =>
+  live ? (
+    <span className="badge">
+      <span className="dot" aria-hidden />
+      live
+    </span>
+  ) : (
+    <span className="badge">source</span>
+  );
 
+/** "live on host ↗  code ↗" */
+export const Store = ({ project }: { project: ProjectWithMeta }) => {
+  if (!project.live && !project.github) return null;
   return (
-    <p className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[13px] text-foreground">
+    <p className="store">
       {project.live && (
         <>
-          <span className="label-mono">live on</span>
-          <Link
-            href={project.live}
-            target={"_blank"}
-            className="link-dotted inline-flex items-center gap-1"
-          >
-            {liveHost ?? "site"}
-            <ArrowUpRight size={11} className="text-soft" aria-hidden />
-          </Link>
+          <span className="k">live on</span>
+          <a className="ext" href={project.live} target="_blank" rel="noopener">
+            {hostOf(project.live) ?? "site"}
+            <ArrowUpRight className="icon" aria-hidden />
+          </a>
         </>
       )}
       {project.github && (
-        <Link
-          href={project.github}
-          target={"_blank"}
-          className="link-dotted inline-flex items-center gap-1"
-        >
+        <a className="ext" href={project.github} target="_blank" rel="noopener">
           code
-          <ArrowUpRight size={11} className="text-soft" aria-hidden />
-        </Link>
+          <ArrowUpRight className="icon" aria-hidden />
+        </a>
       )}
     </p>
   );
 };
 
-/** A work entry as a full-width row: icon, name, status, meta, then the story. */
-export function ProjectRow(project: ProjectWithMeta) {
+export const When = ({ at }: { at?: string | null }) =>
+  at ? (
+    <>
+      updated
+      <br />
+      {formatRelativeTime(at)}
+    </>
+  ) : null;
+
+/** The lead entry of a work list, shown in full. */
+export function ProjectLead(project: ProjectWithMeta) {
   return (
-    <article className="reveal border-b border-dotted border-border py-6 first:pt-0 last:border-b-0 last:pb-0">
-      <div className="flex items-start gap-3">
-        <Icon icon={project.icon} />
-        <div className="flex min-w-0 flex-1 flex-col">
-          <div className="flex flex-wrap items-center gap-2">
-            <h3 className="text-base font-medium lowercase text-foreground">
-              {project.name}
-            </h3>
-            {project.live ? (
-              <StatusBadge tone="live">live</StatusBadge>
-            ) : (
-              <StatusBadge>source</StatusBadge>
-            )}
-          </div>
-          <span className="text-[13px] lowercase text-soft">
-            {project.live ? hostOf(project.live) : "open source"}
-          </span>
+    <article className="role-main reveal">
+      <div className="role-head">
+        <Logo icon={project.icon} />
+        <div className="role-title">
+          <h3>
+            {project.name} <LiveBadge live={!!project.live} />
+          </h3>
+          <p>{project.live ? hostOf(project.live) : "open source"}</p>
         </div>
-        {project.updatedAt && (
-          <span className="flex-none pt-0.5 text-right font-mono text-[11px] lowercase leading-snug text-soft">
-            updated
-            <br />
-            {formatRelativeTime(project.updatedAt)}
-          </span>
-        )}
+        <p className="role-when">
+          <When at={project.updatedAt} />
+        </p>
       </div>
-      <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
-        {project.description}
-      </p>
-      <div className="mt-3">
-        <Links project={project} />
+      <div className="role-body">
+        <p className="lead">{project.description}</p>
+        <Store project={project} />
       </div>
     </article>
   );
@@ -103,30 +93,20 @@ export function ProjectCard(project: ProjectWithMeta) {
     : null;
 
   return (
-    <article className="reveal flex h-full w-full flex-col rounded-lg border border-border bg-card p-4 transition-colors duration-200 ease-out hover:border-foreground/30">
-      <div className="flex items-center justify-between gap-3">
-        <span className="label-mono">
-          {project.live ? "live" : "source"}
-          {year ? ` · ${year}` : ""}
-        </span>
-        {project.updatedAt && (
-          <span className="label-mono">
-            updated {formatRelativeTime(project.updatedAt)}
-          </span>
-        )}
+    <article className="case">
+      <span className="case-k">
+        {project.live ? "live" : "source"}
+        {year ? ` · ${year}` : ""}
+        {project.updatedAt
+          ? ` · updated ${formatRelativeTime(project.updatedAt)}`
+          : ""}
+      </span>
+      <div className="case-title">
+        <Logo icon={project.icon} />
+        <strong>{project.name}</strong>
       </div>
-      <div className="mt-3 flex items-center gap-3">
-        <Icon icon={project.icon} />
-        <h3 className="text-base font-medium lowercase text-foreground">
-          {project.name}
-        </h3>
-      </div>
-      <p className="mb-4 mt-3 text-[13.5px] leading-relaxed text-muted-foreground">
-        {project.description}
-      </p>
-      <div className="mt-auto border-t border-dotted border-border pt-3">
-        <Links project={project} />
-      </div>
+      <span className="case-text">{project.description}</span>
+      <Store project={project} />
     </article>
   );
 }

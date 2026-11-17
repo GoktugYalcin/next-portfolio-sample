@@ -1,6 +1,6 @@
 import ProjectsGrid from "@/components/generated/ProjectsGrid";
 import NotFound from "@/components/generated/NotFound";
-import { Section } from "@/components/generated/Frame";
+import { Band, PageHead, Section } from "@/components/generated/PageHead";
 import { Metadata } from "next";
 import air from "@/lib/fetchers/airtable";
 import { getRepoPushedAt } from "@/lib/fetchers/github";
@@ -33,20 +33,25 @@ export default async function Home() {
   }));
 
   return (
-    <Section
-      as="h1"
-      title="Projects"
-      aside={<span className="label-mono">selected work</span>}
-    >
-      <p className="mb-8 max-w-[60ch] text-[15px] leading-relaxed text-muted-foreground">
-        Selected work, indexed by nothing in particular — just what I&apos;ve
-        been building.
-      </p>
-      {projects.length ? (
-        <ProjectsGrid projects={projects} />
-      ) : (
-        <NotFound whatNotFound={"project"} />
-      )}
-    </Section>
+    <>
+      <PageHead
+        crumb="projects"
+        title="projects"
+        lede={
+          <>
+            Selected work, indexed by nothing in particular — just what
+            I&apos;ve been building.
+          </>
+        }
+      />
+      <Band />
+      <Section reveal={false}>
+        {projects.length ? (
+          <ProjectsGrid projects={projects} />
+        ) : (
+          <NotFound whatNotFound={"project"} />
+        )}
+      </Section>
+    </>
   );
 }

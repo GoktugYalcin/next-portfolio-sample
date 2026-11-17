@@ -3,13 +3,13 @@
 import React, { useEffect, useState } from "react";
 
 const lineFor = (hour: number) => {
-  if (hour < 5) return "still up? so am i, probably.";
-  if (hour < 12) return "good morning. the coffee's brewing.";
-  if (hour < 18) return "you reached the end. good afternoon.";
-  return "you reached the end. good evening.";
+  if (hour >= 5 && hour < 12) return "this early? get a coffee first :)";
+  if (hour >= 12 && hour < 17) return "sneaking a break from work? :)";
+  if (hour >= 17 && hour < 21) return "evening's yours. go build something :)";
+  return "still up? so am i, probably :)";
 };
 
-/** The closing line changes with the visitor's own clock. */
+/** The closing line reads the visitor's own clock. */
 const Closing = () => {
   const [line, setLine] = useState("you reached the end.");
 
@@ -20,11 +20,7 @@ const Closing = () => {
     return () => cancelAnimationFrame(id);
   }, []);
 
-  return (
-    <p className="font-serif text-2xl italic leading-tight text-foreground">
-      {line}
-    </p>
-  );
+  return <p className="end-hi">{line}</p>;
 };
 
 export default Closing;

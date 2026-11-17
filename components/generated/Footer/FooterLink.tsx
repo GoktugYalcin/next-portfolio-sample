@@ -1,80 +1,92 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
-import { ArrowUpRight, Check, Copy } from "lucide-react";
+import { ArrowUpRight, Check, Copy, Mail, PenLine, Link2 } from "lucide-react";
+import { FaGithub, FaLinkedinIn } from "react-icons/fa6";
 import { FooterLinkProps } from "@/types";
 
-const useCopyMail = (link: string) => {
+const useCopy = (link: string) => {
   const [copied, setCopied] = useState(false);
   const isMail = link.startsWith("mailto:");
 
-  const onClick = (e: React.MouseEvent) => {
+  const copy = (e: React.MouseEvent) => {
     if (!isMail) return;
     e.preventDefault();
     navigator.clipboard.writeText(link.replace("mailto:", ""));
     setCopied(true);
-    setTimeout(() => setCopied(false), 1500);
+    window.setTimeout(() => setCopied(false), 1800);
   };
 
-  return { copied, isMail, onClick };
+  return { copied, isMail, copy };
 };
 
-/** A bordered pill link; a mail link copies the address instead. */
+const iconFor = (name: string, link: string) => {
+  const key = (name + " " + link).toLowerCase();
+  if (key.includes("github"))
+    return (
+      <FaGithub
+        className="icon"
+        style={{ stroke: "none", fill: "currentColor" }}
+      />
+    );
+  if (key.includes("linkedin"))
+    return (
+      <FaLinkedinIn
+        className="icon"
+        style={{ stroke: "none", fill: "currentColor" }}
+      />
+    );
+  if (key.includes("mailto:")) return <Mail className="icon" />;
+  if (key.includes("medium")) return <PenLine className="icon" />;
+  return <Link2 className="icon" />;
+};
+
+/** A pill link; a mail link copies the address instead of opening a client. */
 const FooterLink = ({ siteName, link }: FooterLinkProps) => {
-  const { copied, isMail, onClick } = useCopyMail(link);
+  const { copied, isMail, copy } = useCopy(link);
 
   return (
-    <li>
-      <Link
-        target={isMail ? undefined : "_blank"}
-        href={link}
-        onClick={onClick}
-        className="pill group"
-      >
-        {copied ? "copied" : siteName}
-        {copied ? (
-          <Check size={11} className="text-accent" aria-hidden />
-        ) : isMail ? (
-          <Copy size={11} className="text-soft" aria-hidden />
+    <a
+      className="pill"
+      href={link}
+      target={isMail ? undefined : "_blank"}
+      rel={isMail ? undefined : "noopener"}
+      onClick={copy}
+    >
+      {iconFor(siteName, link)}
+      {copied ? "copied" : siteName}
+      {isMail ? (
+        copied ? (
+          <Check className="icon go" style={{ color: "var(--n-live)" }} />
         ) : (
-          <ArrowUpRight
-            size={11}
-            className="text-soft group-hover:text-foreground"
-            aria-hidden
-          />
-        )}
-      </Link>
-    </li>
+          <Copy className="icon go" />
+        )
+      ) : (
+        <ArrowUpRight className="icon go" />
+      )}
+    </a>
   );
 };
 
-/** The big serif address in "say hi"; click to copy. */
+/** The big serif address in "say hi", with its copy button. */
 export const MailLine = ({ link }: { link: string }) => {
-  const { copied, onClick } = useCopyMail(link);
-  const address = link.replace("mailto:", "");
+  const { copied, copy } = useCopy(link);
 
   return (
-    <div className="flex flex-wrap items-center gap-3">
-      <a
-        href={link}
-        className="link-dotted break-all font-serif text-[26px] leading-tight text-foreground sm:text-3xl"
-      >
-        {address}
+    <div className="mail-row">
+      <a className="mail" href={link}>
+        {link.replace("mailto:", "")}
       </a>
       <button
         type="button"
-        onClick={onClick}
-        aria-label="Copy email address"
-        className="grid h-7 w-7 flex-none place-items-center rounded-md border border-border bg-card text-soft hover:bg-hover hover:text-foreground"
+        className={`copy-btn ${copied ? "copied" : ""}`}
+        onClick={copy}
+        aria-label="copy email address"
       >
-        {copied ? (
-          <Check size={12} className="text-accent" aria-hidden />
-        ) : (
-          <Copy size={12} aria-hidden />
-        )}
+        <Copy className="icon i-copy" />
+        <Check className="icon i-check" />
       </button>
-      <span className="label-mono" aria-live="polite">
+      <span className="sr-only" aria-live="polite">
         {copied ? "copied" : ""}
       </span>
     </div>

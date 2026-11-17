@@ -3,48 +3,54 @@
 import React from "react";
 import { Link } from "next-view-transitions";
 import { usePathname } from "next/navigation";
-import NavItem from "@/components/generated/NavMenu/NavItem";
+import { ArrowLeft } from "lucide-react";
 import ThemeButton from "@/components/generated/NavMenu/ThemeButton";
 
 const PAGES = [
-  { key: "home", label: "Home", href: "/" },
-  { key: "photos", label: "Photos", href: "/photos" },
-  { key: "projects", label: "Projects", href: "/projects" },
-  { key: "blog", label: "Blog", href: "/blog" },
+  { key: "photos", label: "photos", href: "/photos" },
+  { key: "projects", label: "projects", href: "/projects" },
+  { key: "blog", label: "blog", href: "/blog" },
 ];
 
 const NavMenu = () => {
   const pathname = usePathname();
-  const selected = pathname.split("/")[1] || "home";
+  const section = pathname.split("/")[1] || "";
+  const home = section === "";
 
   return (
-    <header className="sticky top-0 z-40 border-b border-dotted border-border bg-background/90 backdrop-blur-md">
-      <div className="frame flex items-center justify-between gap-3 px-5 py-2 sm:px-6">
-        <Link
-          href="/"
-          aria-label="Göktuğ — home"
-          className="font-serif text-2xl italic leading-none text-foreground hover:opacity-70"
+    <header className="nav wide-line" id="main-nav">
+      {home ? (
+        <a
+          href="#top"
+          className="nav-mark"
+          aria-label="göktuğ yalçın, back to the top"
         >
           g.
+        </a>
+      ) : (
+        <Link
+          href="/"
+          className="nav-mark has-back"
+          aria-label="back to the homepage"
+        >
+          <ArrowLeft className="icon nav-back" aria-hidden />
+          g.
         </Link>
-        <div className="flex items-center gap-3 sm:gap-4">
-          <nav
-            aria-label="Main"
-            className="flex items-center gap-4 text-sm lowercase text-soft sm:gap-5"
+      )}
+      <nav className="nav-right" aria-label="site">
+        {PAGES.map((page) => (
+          <Link
+            key={page.key}
+            href={page.href}
+            aria-current={section === page.key ? "page" : undefined}
+            className={`nav-link ${section === page.key ? "active" : ""}`}
           >
-            {PAGES.map((page) => (
-              <NavItem
-                key={page.key}
-                label={page.label}
-                isSelected={selected === page.key}
-                href={page.href}
-              />
-            ))}
-          </nav>
-          <span className="h-4 w-px bg-border" aria-hidden />
-          <ThemeButton />
-        </div>
-      </div>
+            {page.label}
+          </Link>
+        ))}
+        <span className="nav-sep" aria-hidden="true" />
+        <ThemeButton />
+      </nav>
     </header>
   );
 };
