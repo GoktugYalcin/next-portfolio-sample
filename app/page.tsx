@@ -7,7 +7,7 @@ import { BiBrush } from "react-icons/bi";
 import Cover, { CoverPhoto } from "@/components/generated/Cover";
 import Intro from "@/components/generated/Motion/Intro";
 import ProfileCard from "@/components/generated/ProfileCard";
-import bne from "@/components/generated/ProfileCard/bne.jpeg";
+import me from "@/components/generated/ProfileCard/me.png";
 import ColoredCreepyTextWithIcon from "@/components/generated/ColoredCreepyTextWithIcon";
 import RecentProject from "@/components/generated/RecentProject";
 import Blogs from "@/components/generated/Blog/Blogs";
@@ -74,7 +74,7 @@ export default async function Home() {
 
   return (
     <>
-      <Intro avatar={bne.src} />
+      <Intro avatar={me.src} />
       <Cover
         photos={reel}
         stamp={

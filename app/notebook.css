@@ -1682,6 +1682,11 @@ html.intro.intro-out::before {
   height: 100%;
   object-fit: cover;
 }
+/* The avatar is black ink on transparent; flip it to light ink in dark mode. */
+html.dark .avatar-frame img,
+html.dark .intro-frame img {
+  filter: invert(1);
+}
 .intro-say {
   position: absolute;
   left: 174px;

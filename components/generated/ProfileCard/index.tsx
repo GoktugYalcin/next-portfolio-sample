@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import Image from "next/image";
 import { Link } from "next-view-transitions";
 import { Clock, Code2, MapPin, Music2 } from "lucide-react";
-import bne from "./bne.jpeg";
+import me from "./me.png";
 import Info from "@/infos";
 import { AvatarTilt } from "./AvatarTilt";
 import { IstanbulClock } from "@/components/generated/IstanbulClock";
@@ -37,7 +37,7 @@ const ProfileCard: React.FC = () => {
         <div className="avatar reveal" style={d(120)}>
           <AvatarTilt className="absolute inset-0">
             <div className="avatar-frame">
-              <Image src={bne} alt={"Just me"} quality={60} priority />
+              <Image src={me} alt={"Göktuğ, drawn"} quality={75} priority />
             </div>
           </AvatarTilt>
         </div>
