@@ -1,24 +1,35 @@
 import React from "react";
 import FooterLink from "@/components/generated/Footer/FooterLink";
-import { FooterLinkProps } from "@/types";
-import air from "@/lib/fetchers/airtable";
+import { getContacts } from "@/lib/contacts";
 
-const FooterLinkProvider = async () => {
-  const infos = await air.getInfos();
+/** The contact links from data/portfolio.ts, as a row of pills. */
+const FooterLinkProvider = async ({
+  className = "",
+  style,
+  withMail = true,
+}: {
+  className?: string;
+  style?: React.CSSProperties;
+  /** false where the address is already shown in full */
+  withMail?: boolean;
+}) => {
+  const all = await getContacts();
+  const infos = withMail
+    ? all
+    : all.filter((i) => !i.url.startsWith("mailto:"));
+  if (!infos.length) return null;
 
   return (
-    <ul className="mt-4 flex flex-col gap-1.5">
-      {infos.map((i, index) => {
-        return (
-          <FooterLink
-            label={i.label}
-            link={i.url}
-            siteName={i.type}
-            key={index}
-          />
-        );
-      })}
-    </ul>
+    <nav className={`links ${className}`} style={style} aria-label="elsewhere">
+      {infos.map((i, index) => (
+        <FooterLink
+          label={i.label}
+          link={i.url}
+          siteName={i.type}
+          key={index}
+        />
+      ))}
+    </nav>
   );
 };
 

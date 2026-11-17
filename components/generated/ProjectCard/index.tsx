@@ -1,57 +1,112 @@
 import * as React from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardIcon,
-  CardTitle,
-} from "@/components/ui/card";
-import Link from "next/link";
-import { Globe } from "lucide-react";
-import { FaGithub } from "react-icons/fa";
-import { AirtableProject } from "@/types/air";
+import { ArrowUpRight } from "lucide-react";
+import { PortfolioProject } from "@/types/portfolio";
 import { formatRelativeTime } from "@/lib/utils";
 
-export function ProjectCard(project: AirtableProject & { updatedAt?: string | null }) {
+export type ProjectWithMeta = PortfolioProject & { updatedAt?: string | null };
+
+export const hostOf = (url: string) => {
+  try {
+    return new URL(url).host.replace(/^www\./, "");
+  } catch (e) {
+    return null;
+  }
+};
+
+export const Logo = ({ icon }: { icon: string }) => (
+  <span className="logo rain-keep" aria-hidden>
+    {icon || "◦"}
+  </span>
+);
+
+export const LiveBadge = ({ live }: { live: boolean }) =>
+  live ? (
+    <span className="badge">
+      <span className="dot" aria-hidden />
+      live
+    </span>
+  ) : (
+    <span className="badge">source</span>
+  );
+
+/** "live on host ↗  code ↗" */
+export const Store = ({ project }: { project: ProjectWithMeta }) => {
+  if (!project.live && !project.github) return null;
   return (
-    <Card className="w-full h-full flex flex-col border-border bg-card shadow-none transition-colors duration-200 ease-out hover:border-accent">
-      <CardHeader>
-        <div className="flex items-center gap-3">
-          <CardIcon className="float-none">{project.icon}</CardIcon>
-          <CardTitle className="text-xl">{project.name}</CardTitle>
+    <p className="store">
+      {project.live && (
+        <>
+          <span className="k">live on</span>
+          <a className="ext" href={project.live} target="_blank" rel="noopener">
+            {hostOf(project.live) ?? "site"}
+            <ArrowUpRight className="icon" aria-hidden />
+          </a>
+        </>
+      )}
+      {project.github && (
+        <a className="ext" href={project.github} target="_blank" rel="noopener">
+          code
+          <ArrowUpRight className="icon" aria-hidden />
+        </a>
+      )}
+    </p>
+  );
+};
+
+export const When = ({ at }: { at?: string | null }) =>
+  at ? (
+    <>
+      updated
+      <br />
+      {formatRelativeTime(at)}
+    </>
+  ) : null;
+
+/** The lead entry of a work list, shown in full. */
+export function ProjectLead(project: ProjectWithMeta) {
+  return (
+    <article className="role-main reveal">
+      <div className="role-head">
+        <Logo icon={project.icon} />
+        <div className="role-title">
+          <h3>
+            {project.name} <LiveBadge live={!!project.live} />
+          </h3>
+          <p>{project.live ? hostOf(project.live) : "open source"}</p>
         </div>
-        <CardDescription>{project.description}</CardDescription>
-      </CardHeader>
-      <CardContent className="mt-auto">
-        <div className="flex w-full items-center justify-between gap-5 text-sm">
-          <div className="flex gap-5">
-            {project.github && (
-              <Link
-                className="flex items-center gap-1.5 text-muted-foreground hover:text-accent hover:underline underline-offset-4"
-                href={project.github}
-                target={"_blank"}
-              >
-                <FaGithub size={15} /> Code
-              </Link>
-            )}
-            {project.live && (
-              <Link
-                className="flex items-center gap-1.5 text-muted-foreground hover:text-accent hover:underline underline-offset-4"
-                href={project.live}
-                target={"_blank"}
-              >
-                <Globe size={15} /> Live
-              </Link>
-            )}
-          </div>
-          {project.updatedAt && (
-            <span className="text-xs text-muted-foreground">
-              updated {formatRelativeTime(project.updatedAt)}
-            </span>
-          )}
-        </div>
-      </CardContent>
-    </Card>
+        <p className="role-when">
+          <When at={project.updatedAt} />
+        </p>
+      </div>
+      <div className="role-body">
+        <p className="lead">{project.description}</p>
+        <Store project={project} />
+      </div>
+    </article>
+  );
+}
+
+/** A work entry as a card, for the projects grid. */
+export function ProjectCard(project: ProjectWithMeta) {
+  const year = project.updatedAt
+    ? new Date(project.updatedAt).getFullYear()
+    : null;
+
+  return (
+    <article className="case">
+      <span className="case-k">
+        {project.live ? "live" : "source"}
+        {year ? ` · ${year}` : ""}
+        {project.updatedAt
+          ? ` · updated ${formatRelativeTime(project.updatedAt)}`
+          : ""}
+      </span>
+      <div className="case-title">
+        <Logo icon={project.icon} />
+        <strong>{project.name}</strong>
+      </div>
+      <span className="case-text">{project.description}</span>
+      <Store project={project} />
+    </article>
   );
 }

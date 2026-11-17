@@ -1,8 +1,9 @@
-import { ProjectCard } from "@/components/generated/ProjectCard";
+import ProjectsGrid from "@/components/generated/ProjectsGrid";
+import NotFound from "@/components/generated/NotFound";
+import { Band, PageHead, Section } from "@/components/generated/PageHead";
 import { Metadata } from "next";
-import air from "@/lib/fetchers/airtable";
+import { getProjects } from "@/lib/projects";
 import { getRepoPushedAt } from "@/lib/fetchers/github";
-import { AirtableProject } from "@/types/air";
 
 const description =
   "Projects have the power to transcend limitations, ignite innovation, and\n" +
@@ -19,30 +20,38 @@ export const metadata: Metadata = {
 export const revalidate = 86400; //24m
 
 export default async function Home() {
-  const showcase = await air.getShowcase(0);
+  const showcase = await getProjects(false);
   const pushedAtByIndex = await Promise.all(
     showcase.map((project) =>
       project.github ? getRepoPushedAt(project.github) : Promise.resolve(null)
     )
   );
 
+  const projects = showcase.map((project, index) => ({
+    ...project,
+    updatedAt: pushedAtByIndex[index],
+  }));
+
   return (
     <>
-      <h1 className="mb-10 mt-12 text-lg text-muted-foreground [font-family:var(--font-body)] font-normal max-w-[60ch] mx-auto">
-        Selected work, indexed by nothing in particular — just what I&apos;ve
-        been building.
-      </h1>
-      <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4">
-        {showcase.map((project: AirtableProject, index: number) => {
-          return (
-            <ProjectCard
-              {...project}
-              updatedAt={pushedAtByIndex[index]}
-              key={index}
-            />
-          );
-        })}
-      </div>
+      <PageHead
+        crumb="projects"
+        title="projects"
+        lede={
+          <>
+            Selected work, indexed by nothing in particular — just what
+            I&apos;ve been building.
+          </>
+        }
+      />
+      <Band />
+      <Section reveal={false}>
+        {projects.length ? (
+          <ProjectsGrid projects={projects} />
+        ) : (
+          <NotFound whatNotFound={"project"} />
+        )}
+      </Section>
     </>
   );
 }

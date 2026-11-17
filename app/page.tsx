@@ -1,34 +1,100 @@
+import React from "react";
 import { Link } from "next-view-transitions";
-import ProfileCard from "@/components/generated/ProfileCard";
+import { ChevronRight } from "lucide-react";
 import { TbLego, TbPencil } from "react-icons/tb";
 import { CgCoffee } from "react-icons/cg";
 import { BiBrush } from "react-icons/bi";
+import Cover, { CoverPhoto } from "@/components/generated/Cover";
+import Intro from "@/components/generated/Motion/Intro";
+import ProfileCard from "@/components/generated/ProfileCard";
+import bne from "@/components/generated/ProfileCard/bne.jpeg";
 import ColoredCreepyTextWithIcon from "@/components/generated/ColoredCreepyTextWithIcon";
 import RecentProject from "@/components/generated/RecentProject";
-import air from "@/lib/fetchers/airtable";
-import React from "react";
+import Blogs from "@/components/generated/Blog/Blogs";
+import { ProjectLead } from "@/components/generated/ProjectCard";
+import ProjectRows from "@/components/generated/ProjectCard/ProjectRows";
+import { Band, Section } from "@/components/generated/PageHead";
 import { Walking } from "@/components/generated/Walking";
-import { IstanbulClock } from "@/components/generated/IstanbulClock";
+import { getProjects } from "@/lib/projects";
+import medium from "@/lib/fetchers/medium";
+import unsplash from "@/lib/fetchers/unsplash";
+import { getRepoPushedAt } from "@/lib/fetchers/github";
+import { IBlog, IPhoto } from "@/types";
+
+const MONTHS = [
+  "january",
+  "february",
+  "march",
+  "april",
+  "may",
+  "june",
+  "july",
+  "august",
+  "september",
+  "october",
+  "november",
+  "december",
+];
+
+const Hobby = ({ text, icon }: { text: string; icon: React.ElementType }) => (
+  <ColoredCreepyTextWithIcon
+    text={text}
+    icon={icon}
+    darkColor={"text-foreground"}
+    lightColor={"text-foreground"}
+  />
+);
 
 export default async function Home() {
-  const currentProjects = await air.getShowcase(1);
+  const [currentProjects, showcase, blogs, photosRaw] = await Promise.all([
+    getProjects(true),
+    getProjects(false),
+    medium.getBlogs(),
+    unsplash.getPhotos(8),
+  ]);
+
+  const featured = showcase.slice(0, 4);
+  const pushedAt = await Promise.all(
+    featured.map((p) =>
+      p.github ? getRepoPushedAt(p.github) : Promise.resolve(null)
+    )
+  );
+  const work = featured.map((p, i) => ({ ...p, updatedAt: pushedAt[i] }));
+  const posts: IBlog[] = Array.isArray(blogs?.items) ? blogs.items : [];
+  const photos: IPhoto[] = Array.isArray(photosRaw) ? photosRaw : [];
+
+  /* the first four photos take turns on the cover */
+  const reel: CoverPhoto[] = photos.slice(0, 4).map((photo) => ({
+    id: photo.id,
+    src: `${photo.urls.raw}&q=80&w=1200&h=400&fit=crop`,
+    alt: photo.alt_description || photo.description || "a photo",
+  }));
+  const stamp = photos[4] ?? photos[1];
+  const now = new Date();
 
   return (
     <>
+      <Intro avatar={bne.src} />
+      <Cover
+        photos={reel}
+        stamp={
+          stamp
+            ? { src: `${stamp.urls.raw}&q=80&w=240&h=300&fit=crop` }
+            : undefined
+        }
+      />
       <ProfileCard />
-      <div className="mb-4 mt-12 max-w-[52ch] mx-auto text-base leading-8">
-        <p className="mb-2 text-sm text-muted-foreground">
-          <IstanbulClock />
+
+      <Band />
+      <Section id="about" title="about" className="prose">
+        <p className="salute">
+          Dear reader, <Walking />
         </p>
-        <p className="mb-6 font-display italic text-2xl text-foreground flex items-center gap-1.5">
-          Dear reader,
-          <Walking />
-        </p>
-        <p className="first-letter:font-display first-letter:text-5xl first-letter:font-semibold first-letter:text-accent first-letter:float-left first-letter:mr-2 first-letter:mt-1 first-letter:leading-[0.8]">
-          Building software since <strong>2020</strong>, working today as a{" "}
-          <strong>Frontend Engineer</strong>, specialized with React and
-          Next.js. Also developed backend with C# and Node.js, games with
-          Unity, IOT with C, C++ and Python.{" "}
+        <p>
+          Building software since <b>2020</b>, working today as a{" "}
+          <b>Frontend Engineer</b>, specialized with React and Next.js. Also
+          developed backend with C# and Node.js, games with Unity, IOT with C,
+          C++ and Python.{" "}
           <i>
             I converted to Frontend Developer from Javascript Developer at 2021.
           </i>{" "}
@@ -38,64 +104,87 @@ export default async function Home() {
           And it&apos;s big brother Next. Nowadays, I have very big interest on
           Microfrontend and next-gen frontend bundling tools.
         </p>
-        <p className="mt-6">
-          I enjoy building{" "}
-          <ColoredCreepyTextWithIcon
-            text={"Lego's"}
-            icon={TbLego}
-            darkColor={"text-accent"}
-            lightColor={"text-accent"}
-          />
-          ,{" "}
-          <ColoredCreepyTextWithIcon
-            text={"brewing coffee"}
-            icon={CgCoffee}
-            darkColor={"text-accent"}
-            lightColor={"text-accent"}
-          />{" "}
-          and inspiring from{" "}
-          <ColoredCreepyTextWithIcon
-            text={"art galleries"}
-            icon={BiBrush}
-            darkColor={"text-accent"}
-            lightColor={"text-accent"}
-          />
-          . I&apos;m also writing{" "}
-          <ColoredCreepyTextWithIcon
-            text={"Medium stories"}
-            icon={TbPencil}
-            darkColor={"text-accent"}
-            lightColor={"text-accent"}
-          />{" "}
-          frequently.
+        <p>
+          I enjoy building <Hobby text={"Lego's"} icon={TbLego} />,{" "}
+          <Hobby text={"brewing coffee"} icon={CgCoffee} /> and inspiring from{" "}
+          <Hobby text={"art galleries"} icon={BiBrush} />. I&apos;m also writing{" "}
+          <Hobby text={"Medium stories"} icon={TbPencil} /> frequently.
         </p>
+      </Section>
 
-        <p className="my-8 text-center text-muted-foreground" aria-hidden>
-          * * *
-        </p>
+      {!!currentProjects.length && (
+        <>
+          <Band />
+          <Section
+            id="now"
+            title="right now"
+            meta={
+              <span className="sec-meta">
+                {MONTHS[now.getMonth()]} {now.getFullYear()}
+              </span>
+            }
+          >
+            <dl className="rows">
+              {currentProjects.map((project) => (
+                <RecentProject
+                  key={project.name}
+                  label={project.name}
+                  description={project.description}
+                />
+              ))}
+            </dl>
+          </Section>
+        </>
+      )}
 
-        <div>
-          <h2 className="mb-2 text-lg">
-            A note on what I&apos;m building right now:
-          </h2>
-          <ul>
-            {currentProjects.map((project) => (
-              <RecentProject
-                key={project.name}
-                label={project.name}
-                description={project.description}
-              />
-            ))}
-          </ul>
-        </div>
+      {!!work.length && (
+        <>
+          <Band />
+          <Section id="projects" title="projects" reveal={false}>
+            <ProjectLead {...work[0]} />
+            {work.length > 1 && <ProjectRows projects={work.slice(1)} />}
+            <Link
+              className="text-btn"
+              href="/projects"
+              style={{ marginTop: 18 }}
+            >
+              the work lives here
+              <ChevronRight className="icon" aria-hidden />
+            </Link>
+          </Section>
+        </>
+      )}
 
-        <p className="mt-10 text-sm text-muted-foreground">
-          p.s. — the work lives{" "}
-          <Link href="/projects" className="text-accent hover:underline">
-            here →
-          </Link>
-        </p>
-      </div>
+      {!!posts.length && (
+        <>
+          <Band />
+          <Section
+            id="writing"
+            title="writing"
+            className="flush"
+            meta={
+              <a
+                className="sec-meta"
+                href="https://medium.com/@gokyalcin"
+                target="_blank"
+                rel="noopener"
+              >
+                medium.com/@gokyalcin ↗
+              </a>
+            }
+          >
+            <Blogs items={posts} limit={4} />
+            <Link
+              className="text-btn"
+              href="/blog"
+              style={{ margin: "14px 0 18px" }}
+            >
+              all the writing
+              <ChevronRight className="icon" aria-hidden />
+            </Link>
+          </Section>
+        </>
+      )}
     </>
   );
 }

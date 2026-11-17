@@ -1,4 +1,4 @@
-/* Hallmark · genre: editorial · macrostructure: designed-as-app · theme: Atelier
+/* Tailwind layer + leftovers. The page system lives in notebook.css.
  * design-system: design.md
  */
 @tailwind base;
@@ -6,76 +6,63 @@
 @tailwind utilities;
 
 @layer base {
+  /* Channel tokens for the Tailwind utilities still used inside a few
+   * components. They mirror the hex palette in notebook.css. */
   :root {
-    /* Atelier — warm terracotta anchor, hue ~40-60 */
-    --background: 97% 0.012 60;
-    --foreground: 20% 0.014 40;
-
-    --muted: 93% 0.014 60;
-    --muted-foreground: 42% 0.01 50;
-
-    --popover: 97% 0.012 60;
-    --popover-foreground: 20% 0.014 40;
-
-    --card: 95% 0.013 60;
-    --card-foreground: 20% 0.014 40;
-
-    --border: 85% 0.012 60;
-    --input: 85% 0.012 60;
-
-    --primary: 20% 0.014 40;
-    --primary-foreground: 97% 0.012 60;
-
-    --secondary: 93% 0.014 60;
-    --secondary-foreground: 20% 0.014 40;
-
-    --accent: 52% 0.15 40;
-    --accent-foreground: 97% 0.012 60;
-
-    --destructive: 45% 0.18 25;
-    --destructive-foreground: 97% 0.012 60;
-
-    --ring: 52% 0.15 40;
-
-    --radius: 0.25rem;
-
-    --font-body: var(--font-body-serif), ui-serif, Georgia, serif;
-
-    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-    --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+    --background: 99.3% 0.002 106;
+    --foreground: 14.5% 0 0;
+    --muted: 97% 0.002 106;
+    --muted-foreground: 37.2% 0 0;
+    --soft: 55.5% 0 0;
+    --popover: 100% 0 0;
+    --popover-foreground: 14.5% 0 0;
+    --card: 100% 0 0;
+    --card-foreground: 14.5% 0 0;
+    --chip: 97% 0.002 106;
+    --border: 89.3% 0.004 106;
+    --input: 89.3% 0.004 106;
+    --stripe: 0% 0 0 / 0.11;
+    --hover: 0% 0 0 / 0.04;
+    --primary: 14.5% 0 0;
+    --primary-foreground: 99.3% 0.002 106;
+    --secondary: 97% 0.002 106;
+    --secondary-foreground: 14.5% 0 0;
+    --accent: 72.3% 0.192 149.6;
+    --accent-foreground: 99.3% 0.002 106;
+    --warn: 60% 0.14 60;
+    --destructive: 50% 0.19 25;
+    --destructive-foreground: 99.3% 0.002 106;
+    --ring: 14.5% 0 0;
+    --radius: 0.5rem;
     --dur-short: 220ms;
     --dur-long: 420ms;
   }
 
   .dark {
-    --background: 15% 0.012 40;
-    --foreground: 94% 0.008 60;
-
-    --muted: 19% 0.014 40;
-    --muted-foreground: 72% 0.008 45;
-
-    --popover: 15% 0.012 40;
-    --popover-foreground: 94% 0.008 60;
-
-    --card: 18% 0.013 40;
-    --card-foreground: 94% 0.008 60;
-
-    --border: 30% 0.012 40;
-    --input: 30% 0.012 40;
-
-    --primary: 94% 0.008 60;
-    --primary-foreground: 15% 0.012 40;
-
-    --secondary: 19% 0.014 40;
-    --secondary-foreground: 94% 0.008 60;
-
-    --accent: 68% 0.14 42;
-    --accent-foreground: 15% 0.012 40;
-
-    --destructive: 55% 0.16 25;
-    --destructive-foreground: 15% 0.012 40;
-
-    --ring: 68% 0.14 42;
+    --background: 14.5% 0 0;
+    --foreground: 94.6% 0 0;
+    --muted: 20% 0 0;
+    --muted-foreground: 82% 0 0;
+    --soft: 65% 0 0;
+    --popover: 17.8% 0 0;
+    --popover-foreground: 94.6% 0 0;
+    --card: 17.8% 0 0;
+    --card-foreground: 94.6% 0 0;
+    --chip: 20% 0 0;
+    --border: 29% 0 0;
+    --input: 29% 0 0;
+    --stripe: 100% 0 0 / 0.13;
+    --hover: 100% 0 0 / 0.05;
+    --primary: 94.6% 0 0;
+    --primary-foreground: 14.5% 0 0;
+    --secondary: 20% 0 0;
+    --secondary-foreground: 94.6% 0 0;
+    --accent: 72.3% 0.192 149.6;
+    --accent-foreground: 14.5% 0 0;
+    --warn: 80% 0.14 80;
+    --destructive: 62% 0.19 25;
+    --destructive-foreground: 14.5% 0 0;
+    --ring: 94.6% 0 0;
   }
 }
 
@@ -84,7 +71,25 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+  }
+}
+
+@layer components {
+  .bg-stripes {
+    background-image: radial-gradient(
+      oklch(var(--stripe)) 0.75px,
+      transparent 0.75px
+    );
+    background-size: 6px 6px;
+  }
+
+  .label-mono {
+    @apply font-mono text-[11px] lowercase tracking-normal text-soft;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded border border-border bg-background px-1.5 py-0.5 font-mono text-[10.5px] lowercase leading-4 text-muted-foreground;
   }
 }
 
@@ -95,57 +100,12 @@ html {
   overflow-x: clip;
 }
 
-::selection {
-  background-color: oklch(var(--accent) / 0.25);
-  color: oklch(var(--foreground));
-}
-
-.photo-figure {
-  transform: rotate(var(--photo-rotate, 0deg));
-}
-
-.photo-figure:hover {
-  transform: rotate(0deg);
-}
-
-body {
-  font-family: var(--font-body);
-  overflow-x: clip;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display), ui-serif, serif;
-  font-style: normal;
-}
-
-a:focus-visible,
-button:focus-visible,
-[role="button"]:focus-visible {
-  outline: 2px solid oklch(var(--ring));
-  outline-offset: 2px;
-}
-
-:root {
-  --transition-duration: 0.3s;
-}
-
-body {
-  transition: background-color var(--transition-duration) var(--ease-out),
-  color var(--transition-duration) var(--ease-out);
-}
-
-button, a, span, h1, h2, h3, h4, h5, h6, p, blockquote, pre {
-  transition: background-color var(--transition-duration) var(--ease-out),
-  color var(--transition-duration) var(--ease-out),
-  border-color var(--transition-duration) var(--ease-out);
-}
-
 .anim {
   display: inline-block;
   width: 32px;
   height: 32px;
   vertical-align: middle;
-  background-image: url('/assets/walk_sprite.png');
+  background-image: url("/assets/walk_sprite.png");
   background-size: 192px 32px;
   background-position: 0 0;
   animation: walkAnimation 0.5s steps(6) infinite;
@@ -168,50 +128,6 @@ button, a, span, h1, h2, h3, h4, h5, h6, p, blockquote, pre {
 
   to {
     transform: rotate(360deg);
-  }
-}
-
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation-duration: var(--dur-long);
-  animation-timing-function: var(--ease-out);
-}
-
-::view-transition-old(root) {
-  animation-name: vt-fade-out;
-}
-
-::view-transition-new(root) {
-  animation-name: vt-fade-in;
-}
-
-@keyframes vt-fade-out {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-}
-
-@keyframes vt-fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  ::view-transition-group(*),
-  ::view-transition-old(*),
-  ::view-transition-new(*) {
-    animation: none !important;
   }
 }
 
@@ -248,7 +164,8 @@ button, a, span, h1, h2, h3, h4, h5, h6, p, blockquote, pre {
 }
 
 @keyframes eq-bounce {
-  0%, 100% {
+  0%,
+  100% {
     height: 30%;
   }
   50% {
@@ -265,7 +182,7 @@ button, a, span, h1, h2, h3, h4, h5, h6, p, blockquote, pre {
 
 .konami-dash {
   position: fixed;
-  bottom: 84px;
+  bottom: 16px;
   left: 0;
   z-index: 50;
   pointer-events: none;
@@ -284,5 +201,45 @@ button, a, span, h1, h2, h3, h4, h5, h6, p, blockquote, pre {
 @media (prefers-reduced-motion: reduce) {
   .konami-dash {
     animation-duration: 150ms;
+  }
+}
+
+/* Pin UI Theme Switch, hosted as a page-wide scene: the rain falls over the
+ * whole viewport instead of inside the component's own 480px box. */
+.pts.pts-page {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  background: transparent;
+  pointer-events: none;
+  /* the puddles invert the page under them, so the content stays readable
+   * through the rain instead of being painted over */
+  mix-blend-mode: difference;
+}
+
+/* photos, artwork and emoji would turn into negatives under the blend, so
+ * they are lifted above the rain while it falls */
+html:has(.pts-page.is-switching)
+  :is(img, .rain-keep, .rain-lift, .print) {
+  z-index: 61;
+}
+
+html:has(.pts-page.is-switching)
+  :is(img:not([data-nimg="fill"]), .rain-keep, .print) {
+  position: relative;
+}
+
+.theme-icon {
+  transition: transform 450ms cubic-bezier(0.23, 1, 0.32, 1),
+    opacity 220ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-icon {
+    transform: none !important;
+    transition: opacity 200ms ease;
   }
 }

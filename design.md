@@ -5,61 +5,50 @@ emitting code. Do not regenerate per page — extend or amend this file when the
 system needs to grow.
 
 ## Genre
-editorial
+Dotted Notebook — warm paper, dotted rules, lowercase chrome, a few handmade touches.
 
-## Macrostructure family
-- Home (bio): **Letter** — first-person "Dear," greeting, single narrow column, no CTA.
-- Projects / Last-listened (work index): **Portfolio Grid** — filterable/responsive card grid, typographic-only links, no global CTA.
-- Photos: **Photographic** — full-bleed image bands, small corner captions, no display headline.
-- Blog: **Index-First** — vertical link list, hairline rules, no hero.
+## Structure
+- The page system lives in `app/notebook.css` (plain CSS, named parts: `.page`, `.nav`, `.band`, `.sec`, `.cover`, `.profile`, `.pile`…). Tailwind remains only inside a few leaf components.
+- One **720px column** (`.page`) with dotted side rules; every horizontal rule is dotted and full-bleed (`.wide-line`).
+- Sections are separated by a **band** (32px of dot texture), then a title row (`.sec-head`).
+- Home: painted cover → profile (avatar over the cover's edge, name, four facts, link pills) → about → right now → projects (lead entry + accordion rows) → writing.
+- Inner pages: `PageHead` (crumb, big serif title, lede) → band → content.
+- Photos: a masonry wall of polaroid prints (paper frame, hand-written caption, mono date, stable tilt). Prints develop from dark green-black to grey as they come into view, take colour on hover, and open large on click (←/→ to step, esc to close).
+- Footer (every page): say hi (address + copy, photo stamps, pills) → closing line by the visitor's clock → the pile → colophon with a rolling Istanbul clock and the Konami hint.
 
 ## Theme
-Atelier (catalog) — custom-tuned OKLCH, warm terracotta anchor.
+Warm near-white paper and near-black ink, light and dark. Tokens live in `app/globals.css` as OKLCH channels.
 
-- `--background` (paper)  oklch(97% 0.012 60) · dark oklch(15% 0.012 40)
-- `--foreground` (ink)    oklch(20% 0.014 40) · dark oklch(94% 0.008 60)
-- `--card` (paper-2)      oklch(95% 0.013 60) · dark oklch(18% 0.013 40)
-- `--border` (rule)       oklch(85% 0.012 60) · dark oklch(30% 0.012 40)
-- `--accent`              oklch(52% 0.15 40)  · dark oklch(68% 0.14 42)
-- `--ring` (focus)        = accent
+- `--background` (#fdfdfc) · `--card` · `--chip`
+- `--foreground` · `--muted-foreground` · `--soft`
+- `--border` — every rule, always dotted outside cards · `--stripe` — dot texture · `--hover`
+- `--accent` — emerald; status only. `--warn` — amber; reserved.
 
 ## Typography
-- Display: Fraunces, variable serif, weight 600, style normal (next/font/google, `--font-display`)
-- Body: Newsreader, weight 400 (next/font/google, `--font-body-serif` → `--font-body`)
-- No mono face — project has no code blocks.
-- Headings always roman. Italic reserved for Letter's salutation line only.
+- Display: Instrument Serif 400 — h1/h2 (lowercased in CSS), post titles, the address, salutation and closing (italic).
+- Body: Geist. Mono: Geist Mono — labels, meta, pills, links (`.label-mono`, `.link-arrow`, `.pill`).
+- Hand: Architects Daughter — margin notes only, never inside the column.
+- Chrome is lowercase (nav, headings, labels, names). Written content keeps its own casing.
 
-## Spacing
-Tailwind's default scale, used via utility classes (`gap-*`, `p-*`, `mt-*`). No raw px in new markup.
+## Components
+- `.pill` — bordered mono link. `.chip` — tag. `StatusBadge` — round pill with a status dot.
+- `.link-dotted` — inline link, dotted underline that turns solid on hover.
+- Cards: `rounded-lg border bg-card p-4`; rows are separated by dotted rules, not boxed.
+- Opacity modifiers must be on Tailwind's scale (`/90`, not `/85`) or written as `/[0.85]`.
 
 ## Motion
-- Easings: `--ease-out` (0.16, 1, 0.3, 1), `--ease-in` (0.7, 0, 0.84, 0).
-- Reveal pattern: none / quiet fade only where a macrostructure calls for it (Letter, Index-First: none). No scroll-triggered fade-up on every section.
-- Reduced-motion: existing `.anim` sprite and rotate keyframes are functional/personal signatures, kept as-is; they already respect short, bounded durations.
-
-## Microinteractions stance
-- Silent success everywhere — no toasts.
-- Focus rings: instant, `outline: 2px solid oklch(var(--ring))`, no transition on outline.
-- Hover: single-signal only (colour or 1px shift), never combined lift+shadow+colour.
-
-## CTA voice
-- No filled buttons anywhere on the site. Every action is a **typographic-only** link — underline or weight/colour shift on hover, per Atelier voice.
-- Primary "action" per page is implicit (visit a project, look at a photo) — never a marketing CTA strip.
-
-## Per-page allowances
-- Home, Photos: may carry one quiet personal signature each (walking sprite, photo hover rotate) — pre-existing, not new enrichment.
-- Projects/Last-listened/Blog: typography + grid only, no enrichment.
+- Easings: `--ease-out` (0.16, 1, 0.3, 1), `--ease-in-out` (0.65, 0, 0.35, 1), `--spring` (damped spring as `linear()`).
+- **Intro** (`Motion/Intro`): first home visit per session (or `?intro`). A paper sheet covers the page, the avatar says hi in the middle, then flies to its place as the sheet lifts. 4s failsafe in the boot script.
+- **Reveal** (`Motion`): `.reveal` starts blurred, lowered and transparent; settles on first view. Stagger with `--d`/`--i`. Waits for the intro.
+- **Cover** (`Cover`): Unsplash photos redrawn as brush strokes on a canvas; paints itself in, ruffles under the pointer, click for the next.
+- **Route transitions**: view transitions — old page blurs out (320ms), new page blurs in (600ms); the nav is held still.
+- **Pile** (`Pile`): drawn objects with matter-js physics, loaded only near the footer; drag, throw at the walker, tidy up.
+- **Theme toggle**: Pin UI Theme Switch engine, rain effect, page-wide.
+- Grain film over everything. All of it off under reduced motion.
 
 ## What pages MUST share
-- Fraunces + Newsreader pairing.
-- The terracotta accent, used at <5% of any viewport (links, focus rings, active nav state only).
-- Nav: N9 Edge-aligned minimal, bottom-fixed (positional deviation from Atelier's usual top placement — kept because it's this site's pre-existing personal signature, not a generic AI-nav pattern).
-- Footer: Ft6 Letter close.
-- No pure black / pure white anywhere — all paper/ink is hue-tinted.
-
-## What pages MAY differ on
-- Macrostructure within their declared family (none currently vary further — one macrostructure per page type).
-- Whether a personal enrichment signature is present (Home/Photos have one; Projects/Blog/Last-listened don't).
+- The frame, the dotted rules, the gutter + title row, the four-font system.
+- Nav: sticky top bar inside the frame; active item is ink, the rest soft.
 
 ## Exports
 

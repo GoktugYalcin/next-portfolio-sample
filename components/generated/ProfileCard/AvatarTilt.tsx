@@ -4,7 +4,13 @@ import React, { useRef } from "react";
 
 const MAX_TILT = 8;
 
-export const AvatarTilt = ({ children }: { children: React.ReactNode }) => {
+export const AvatarTilt = ({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -14,9 +20,9 @@ export const AvatarTilt = ({ children }: { children: React.ReactNode }) => {
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
     el.style.willChange = "transform";
-    el.style.transform = `perspective(300px) rotateX(${-y * MAX_TILT}deg) rotateY(${
-      x * MAX_TILT
-    }deg)`;
+    el.style.transform = `perspective(300px) rotateX(${
+      -y * MAX_TILT
+    }deg) rotateY(${x * MAX_TILT}deg)`;
   };
 
   const handleMouseLeave = () => {
@@ -31,7 +37,7 @@ export const AvatarTilt = ({ children }: { children: React.ReactNode }) => {
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="transition-transform duration-200 ease-out"
+      className={`transition-transform duration-200 ease-out ${className}`}
     >
       {children}
     </div>

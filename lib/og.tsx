@@ -14,8 +14,8 @@ export function renderOgImage(title: string, subtitle: string) {
           flexDirection: "column",
           justifyContent: "center",
           padding: "80px",
-          backgroundColor: "#211712",
-          color: "#f2e9df",
+          backgroundColor: "#0a0a0a",
+          color: "#f5f5f4",
         }}
       >
         <div
@@ -27,13 +27,13 @@ export function renderOgImage(title: string, subtitle: string) {
         >
           {title}
         </div>
-        <div style={{ fontSize: 32, color: "#c9a98c" }}>{subtitle}</div>
+        <div style={{ fontSize: 32, color: "#a1a1aa" }}>{subtitle}</div>
         <div
           style={{
             marginTop: 48,
             width: 64,
             height: 2,
-            backgroundColor: "#d97f4f",
+            backgroundColor: "#f5f5f4",
           }}
         />
       </div>

@@ -1,12 +1,13 @@
 import React from "react";
 import { RecentProjectProps } from "@/types";
 
+/** One row of the "now" list: what, then the line about it. */
 const RecentProject = ({ label, description }: RecentProjectProps) => {
   return (
-    <li className="lg:list-disc lg:ml-4 mb-2">
-      <span className="text-muted-foreground">{`${label}: `}</span>
-      <span>{description}</span>
-    </li>
+    <div>
+      <dt>{label}</dt>
+      <dd>{description}</dd>
+    </div>
   );
 };
 

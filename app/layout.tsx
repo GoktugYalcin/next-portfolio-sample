@@ -1,21 +1,44 @@
 import "./globals.css";
-import { Fraunces, Newsreader } from "next/font/google";
+import "./notebook.css";
+import {
+  Architects_Daughter,
+  Geist,
+  Geist_Mono,
+  Instrument_Serif,
+} from "next/font/google";
 import { ViewTransitions } from "next-view-transitions";
 import Footer from "@/components/generated/Footer";
 import NavMenu from "@/components/generated/NavMenu/NavMenu";
 import ProviderTheme from "@/components/generated/ThemeProvider";
 import { KonamiEasterEgg } from "@/components/generated/KonamiEasterEgg";
+import Motion from "@/components/generated/Motion";
+import { BOOT_SCRIPT } from "@/components/generated/Motion/boot";
 import Info from "@/infos";
 
-const fraunces = Fraunces({
-  subsets: ["latin"],
+const display = Instrument_Serif({
+  subsets: ["latin", "latin-ext"],
+  weight: "400",
+  style: ["normal", "italic"],
   variable: "--font-display",
   display: "swap",
 });
 
-const newsreader = Newsreader({
+const sans = Geist({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-sans",
+  display: "swap",
+});
+
+const mono = Geist_Mono({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-mono",
+  display: "swap",
+});
+
+const hand = Architects_Daughter({
   subsets: ["latin"],
-  variable: "--font-body-serif",
+  weight: "400",
+  variable: "--font-hand",
   display: "swap",
 });
 
@@ -50,21 +73,21 @@ export default function RootLayout({
 }) {
   return (
     <ViewTransitions>
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
+        <head>
+          <script dangerouslySetInnerHTML={{ __html: BOOT_SCRIPT }} />
+        </head>
         <body
-          className={`${fraunces.variable} ${newsreader.variable} transition-colors duration-200 ease-in-out relative flex min-h-screen flex-col`}
+          className={`${display.variable} ${sans.variable} ${mono.variable} ${hand.variable}`}
         >
           <ProviderTheme>
             <KonamiEasterEgg />
-            <NavMenu />
-            <main
-              className={
-                "flex min-h-screen flex-col items-start justify-start lg:max-w-screen-lg max-w-screen-md mx-auto mb-14 w-full flex-1 animate-main-content px-4 py-12"
-              }
-            >
-              {children}
+            <div className="page">
+              <NavMenu />
+              <main id="top">{children}</main>
               <Footer />
-            </main>
+            </div>
+            <Motion />
           </ProviderTheme>
         </body>
       </html>

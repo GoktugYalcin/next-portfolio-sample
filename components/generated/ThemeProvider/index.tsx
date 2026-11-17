@@ -7,7 +7,11 @@ export default function ProviderTheme({
   children: React.ReactNode;
 }) {
   return (
-    <ThemeProvider enableSystem={true} attribute="class">
+    <ThemeProvider
+      enableSystem={true}
+      attribute="class"
+      disableTransitionOnChange
+    >
       {children}
     </ThemeProvider>
   );

@@ -3,11 +3,12 @@ import { NotFoundProps } from "@/types";
 
 const NotFound = ({ whatNotFound }: NotFoundProps) => {
   return (
-    <div className="w-full flex justify-center items-center gap-6 mt-4 select-none">
-      <div className="flex w-1/2 ml-4 flex-col p-8 gap-5 items-start justify-center border border-t-0 border-r-0 border-b-0 border-border">
-        <span className="text-5xl animate-bounce">🧐</span>
-        <span className="text-2xl">No {whatNotFound} found</span>
-      </div>
+    <div className="flex w-full select-none flex-col items-center justify-center gap-4 rounded-xl border border-dashed border-border bg-stripes px-6 py-14 text-center">
+      <span className="animate-bounce text-4xl">🧐</span>
+      <span className="font-serif text-2xl lowercase text-foreground">
+        No {whatNotFound} found
+      </span>
+      <span className="label-mono">nothing to index here yet</span>
     </div>
   );
 };
