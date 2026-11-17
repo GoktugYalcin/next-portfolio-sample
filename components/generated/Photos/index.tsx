@@ -198,12 +198,42 @@ const Viewer = ({
 };
 
 /**
+ * Deal the photos into columns, each to the currently shortest one, so the
+ * wall stays level and still reads roughly left to right, top to bottom.
+ * (CSS multi-column made WebKit drop prints while one was hovered.)
+ */
+const splitColumns = (photos: IPhoto[], count: number) => {
+  const columns = Array.from({ length: count }, () => ({
+    height: 0,
+    items: [] as { photo: IPhoto; index: number }[],
+  }));
+  photos.forEach((photo, index) => {
+    const shortest = columns.reduce((a, b) => (b.height < a.height ? b : a));
+    shortest.items.push({ photo, index });
+    /* frame padding and caption add roughly a fixed share of the width */
+    shortest.height += (photo.height || 1) / (photo.width || 1) + 0.3;
+  });
+  return columns.map((column) => column.items);
+};
+
+/**
  * The wall of prints. Each one develops — dark and green-tinted, then its
  * real tones — the first time it scrolls into view, and opens large on click.
  */
 function Photos({ data }: IPhotosWrapper) {
   const wallRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState<Open | null>(null);
+  const [count, setCount] = useState(3);
+
+  /* two columns on phones, three otherwise */
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 560px)");
+    const sync = () => setCount(mq.matches ? 2 : 3);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+  const columns = splitColumns(data, count);
 
   useEffect(() => {
     const wall = wallRef.current;
@@ -229,7 +259,7 @@ function Photos({ data }: IPhotosWrapper) {
     );
     prints.forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, [data]);
+  }, [data, count]);
 
   const onOpen = useCallback((index: number, from: HTMLElement) => {
     setOpen({ index, from });
@@ -240,8 +270,9 @@ function Photos({ data }: IPhotosWrapper) {
       setOpen((cur) => {
         if (!cur || !wallRef.current) return cur;
         const index = (cur.index + dir + data.length) % data.length;
-        const from =
-          wallRef.current.querySelectorAll<HTMLElement>(".print-frame")[index];
+        const from = wallRef.current.querySelector<HTMLElement>(
+          `.print-frame[data-index="${index}"]`
+        );
         setShown(cur.from, true);
         if (from) setShown(from, false);
         return from ? { index, from } : cur;
@@ -252,8 +283,17 @@ function Photos({ data }: IPhotosWrapper) {
   return (
     <>
       <div className="prints" ref={wallRef}>
-        {data.map((photo, i) => (
-          <Photo key={photo.id} photo={photo} index={i} onOpen={onOpen} />
+        {columns.map((column, c) => (
+          <div className="prints-col" key={c}>
+            {column.map(({ photo, index }) => (
+              <Photo
+                key={photo.id}
+                photo={photo}
+                index={index}
+                onOpen={onOpen}
+              />
+            ))}
+          </div>
         ))}
       </div>
       {open &&
