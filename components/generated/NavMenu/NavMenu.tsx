@@ -18,7 +18,7 @@ const NavMenu = () => {
   const selected = pathname.split("/")[1] || "home";
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur-md">
       <div className="frame flex items-center justify-between gap-3 px-6 py-2.5 sm:px-8">
         <Link
           href="/"
