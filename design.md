@@ -5,52 +5,46 @@ emitting code. Do not regenerate per page — extend or amend this file when the
 system needs to grow.
 
 ## Genre
-Framed Index — a monochrome, hairline-framed developer index.
+Dotted Notebook — warm paper, dotted rules, lowercase chrome, a few handmade touches.
 
 ## Structure
-- One **760px column** (`.frame`) with dashed side rules runs the full height of every page.
-- Each section opens with a **band** (`SectionHeader`): full-bleed diagonal stripes, hairline top/bottom, 3px corner marks where the band meets the frame, serif title left, mono aside right.
-- Pages are a stack of `Section`s (`components/generated/Frame`). No content sits outside the frame except the index rail.
-- Home: banner → profile → About → Now → Projects → Writing → Photos. A fixed **index rail** right of the frame (xl and up) tracks the section in view.
-- Projects: filterable 2-column card grid (All / Live / Open source).
-- Blog: index rows — mono date, serif title, tag chips.
-- Photos: stat cells, then the tilted grayscale grid.
-- Last listened: 2-column CD cards.
-- Footer (every page): "Yours," band → contact link cells → now-listening row.
+- One **720px column** (`.frame`) with dotted side rules runs the full height of every page.
+- Horizontal rules are dotted and **full-bleed** (`.rule-b`, `.rule-y`); the frame sits inside them.
+- Sections are separated by a **gutter** — a 24px strip of dot texture inside the column — then a title row (`SectionHeader`): lowercase serif title left, mono aside right.
+- Home: photo-reel banner → profile (avatar overlapping the banner, info rows, link pills) → about → now → projects (rows) → writing → photos (prints). An index rail sits right of the frame on xl screens.
+- Projects: filterable card grid. Blog: serif title rows with mono dates. Photos: stat cells + tilted grid. Last listened: CD cards.
+- Footer (every page): "say hi" (big serif address + pills) → time-aware closing line + "Yours," → now-listening row → mono colophon with a ticking Istanbul clock.
 
 ## Theme
-Neutral monochrome, dark and light. Tokens live in `app/globals.css` as OKLCH channels.
+Warm near-white paper and near-black ink, light and dark. Tokens live in `app/globals.css` as OKLCH channels.
 
-- `--background` · `--card` · `--chip` — page, raised surface, tag surface
-- `--foreground` · `--muted-foreground` · `--soft` — text, secondary text, tertiary/labels
-- `--border` — every hairline (10% ink) · `--stripe` — band/plate hatching · `--hover`
-- `--accent` — emerald; status only (live dots, equalizer, "copied")
-- `--warn` — amber; reserved for in-progress/featured badges
+- `--background` (#fdfdfc) · `--card` · `--chip`
+- `--foreground` · `--muted-foreground` · `--soft`
+- `--border` — every rule, always dotted outside cards · `--stripe` — dot texture · `--hover`
+- `--accent` — emerald; status only. `--warn` — amber; reserved.
 
 ## Typography
-- Display: Instrument Serif 400 (`--font-display`) — h1/h2, post titles, salutation.
-- Body: Inter (`--font-sans`).
-- Mono: JetBrains Mono (`--font-mono`) — labels, dates, chips, meta. `.label-mono` = 10px uppercase tracked.
-- Italic reserved for the salutation ("Dear reader,") and the sign-off ("Yours,").
+- Display: Instrument Serif 400 — h1/h2 (lowercased in CSS), post titles, the address, salutation and closing (italic).
+- Body: Geist. Mono: Geist Mono — labels, meta, pills, links (`.label-mono`, `.link-arrow`, `.pill`).
+- Hand: Architects Daughter — margin notes only, never inside the column.
+- Chrome is lowercase (nav, headings, labels, names). Written content keeps its own casing.
 
 ## Components
-- `.chip` — mono tag. `StatusBadge` — LIVE / SOURCE pills.
-- Cards: `rounded-xl border bg-card p-4`, inner plate `rounded-lg border bg-stripes`.
-- Segmented filter: bordered group, active item inverted (fg on bg).
-- One filled button style (inverted fg/bg), used at most once per page.
+- `.pill` — bordered mono link. `.chip` — tag. `StatusBadge` — round pill with a status dot.
+- `.link-dotted` — inline link, dotted underline that turns solid on hover.
+- Cards: `rounded-lg border bg-card p-4`; rows are separated by dotted rules, not boxed.
+- Opacity modifiers must be on Tailwind's scale (`/90`, not `/85`) or written as `/[0.85]`.
 
 ## Motion
 - Easings: `--ease-out` (0.16, 1, 0.3, 1), `--ease-in` (0.7, 0, 0.84, 0).
-- View transitions between routes (fade + rise). No scroll-triggered reveals.
-- Theme toggle: Pin UI Theme Switch engine (`components/pinui`), **rain** effect, hosted as a page-wide scene by `NavMenu/ThemeButton` — rain of the next theme wets the viewport, then the theme commits. Instant under reduced motion.
-- Hover: single signal only — border or colour, never lift+shadow+colour.
-- Personal signatures kept: walking sprite (banner + Konami run), avatar tilt, photo tilt→straighten and grayscale→colour, spinning CD, bouncing hobby icons, live equalizer.
-- `prefers-reduced-motion` disables the sprite walk and view transitions.
+- View transitions between routes (fade + rise).
+- `.reveal` — rows sharpen from a blur as they scroll in; CSS scroll-driven, only where supported, off under reduced motion.
+- Theme toggle: Pin UI Theme Switch engine (`components/pinui`), **rain** effect, hosted as a page-wide scene by `NavMenu/ThemeButton`.
+- Personal signatures kept: walking sprite (beside "Dear reader," + Konami run), avatar tilt, photo tilt→straighten and grayscale→colour, spinning CD, bouncing hobby icons, live equalizer.
 
 ## What pages MUST share
-- The frame, the band header, the three-font pairing.
-- Nav: sticky top bar inside the frame; active item gets weight + underline.
-- Accent used for status only — the palette is otherwise ink on paper.
+- The frame, the dotted rules, the gutter + title row, the four-font system.
+- Nav: sticky top bar inside the frame; active item is ink, the rest soft.
 
 ## Exports
 

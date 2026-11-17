@@ -1,4 +1,4 @@
-/* Framed Index — monochrome, hairline-framed single column.
+/* Dotted Notebook — warm paper, dotted rules, lowercase chrome.
  * design-system: design.md
  */
 @tailwind base;
@@ -7,42 +7,42 @@
 
 @layer base {
   :root {
-    --background: 99% 0.001 106;
-    --foreground: 21% 0.006 286;
+    --background: 99.3% 0.002 106;
+    --foreground: 14.5% 0 0;
 
-    --muted: 96.5% 0.001 286;
-    --muted-foreground: 44% 0.015 286;
+    --muted: 96.5% 0.002 106;
+    --muted-foreground: 40% 0 0;
 
-    --soft: 62% 0.014 286;
+    --soft: 55.5% 0 0;
 
     --popover: 100% 0 0;
-    --popover-foreground: 21% 0.006 286;
+    --popover-foreground: 14.5% 0 0;
 
     --card: 100% 0 0;
-    --card-foreground: 21% 0.006 286;
+    --card-foreground: 14.5% 0 0;
 
-    --chip: 96.5% 0.001 286;
+    --chip: 96.5% 0.002 106;
 
-    --border: 0% 0 0 / 0.1;
-    --input: 0% 0 0 / 0.1;
-    --stripe: 0% 0 0 / 0.055;
+    --border: 86% 0.003 106;
+    --input: 86% 0.003 106;
+    --stripe: 0% 0 0 / 0.11;
     --hover: 0% 0 0 / 0.04;
 
-    --primary: 21% 0.006 286;
-    --primary-foreground: 99% 0.001 106;
+    --primary: 14.5% 0 0;
+    --primary-foreground: 99.3% 0.002 106;
 
-    --secondary: 96.5% 0.001 286;
-    --secondary-foreground: 21% 0.006 286;
+    --secondary: 96.5% 0.002 106;
+    --secondary-foreground: 14.5% 0 0;
 
     --accent: 52% 0.13 162;
-    --accent-foreground: 99% 0.001 106;
+    --accent-foreground: 99.3% 0.002 106;
 
-    --warn: 55% 0.13 70;
+    --warn: 60% 0.14 60;
 
     --destructive: 50% 0.19 25;
-    --destructive-foreground: 99% 0.001 106;
+    --destructive-foreground: 99.3% 0.002 106;
 
-    --ring: 21% 0.006 286;
+    --ring: 14.5% 0 0;
 
     --radius: 0.5rem;
 
@@ -54,31 +54,31 @@
 
   .dark {
     --background: 14.5% 0 0;
-    --foreground: 97% 0.001 106;
+    --foreground: 97% 0.002 106;
 
     --muted: 20% 0 0;
-    --muted-foreground: 71% 0.013 286;
+    --muted-foreground: 75% 0 0;
 
-    --soft: 50% 0.012 286;
+    --soft: 58% 0 0;
 
     --popover: 17% 0 0;
-    --popover-foreground: 97% 0.001 106;
+    --popover-foreground: 97% 0.002 106;
 
-    --card: 17% 0 0;
-    --card-foreground: 97% 0.001 106;
+    --card: 17.5% 0 0;
+    --card-foreground: 97% 0.002 106;
 
     --chip: 20% 0 0;
 
-    --border: 100% 0 0 / 0.1;
-    --input: 100% 0 0 / 0.1;
-    --stripe: 100% 0 0 / 0.055;
+    --border: 30% 0 0;
+    --input: 30% 0 0;
+    --stripe: 100% 0 0 / 0.13;
     --hover: 100% 0 0 / 0.05;
 
-    --primary: 97% 0.001 106;
+    --primary: 97% 0.002 106;
     --primary-foreground: 14.5% 0 0;
 
     --secondary: 20% 0 0;
-    --secondary-foreground: 97% 0.001 106;
+    --secondary-foreground: 97% 0.002 106;
 
     --accent: 74% 0.15 162;
     --accent-foreground: 14.5% 0 0;
@@ -88,7 +88,7 @@
     --destructive: 62% 0.19 25;
     --destructive-foreground: 14.5% 0 0;
 
-    --ring: 97% 0.001 106;
+    --ring: 97% 0.002 106;
   }
 }
 
@@ -102,39 +102,80 @@
 }
 
 @layer components {
-  /* The single 760px column every page hangs on. */
+  /* The single column every page hangs on, ruled with dotted hairlines. */
   .frame {
-    @apply relative mx-auto w-full max-w-[760px] border-x border-dashed border-border;
+    @apply relative mx-auto w-full max-w-[720px] border-x border-dotted border-border;
   }
 
-  .bg-stripes {
-    background-image: repeating-linear-gradient(
-      -45deg,
-      oklch(var(--stripe)) 0,
-      oklch(var(--stripe)) 1px,
-      transparent 1px,
-      transparent 6px
-    );
+  /* a full-bleed dotted rule; the frame sits inside it */
+  .rule-b {
+    @apply w-full border-b border-dotted border-border;
+  }
+
+  .rule-y {
+    @apply w-full border-y border-dotted border-border;
   }
 
   .bg-dots {
     background-image: radial-gradient(
-      oklch(var(--stripe)) 1px,
-      transparent 1px
+      oklch(var(--stripe)) 0.75px,
+      transparent 0.75px
     );
-    background-size: 12px 12px;
+    background-size: 6px 6px;
+    background-position: 3px 3px;
+  }
+
+  /* kept for plates inside cards */
+  .bg-stripes {
+    background-image: radial-gradient(
+      oklch(var(--stripe)) 0.75px,
+      transparent 0.75px
+    );
+    background-size: 6px 6px;
   }
 
   .label-mono {
-    @apply font-mono text-[10px] uppercase tracking-[0.14em] text-soft;
+    @apply font-mono text-[11px] lowercase tracking-normal text-soft;
   }
 
   .chip {
-    @apply inline-flex items-center gap-1.5 rounded border border-border bg-chip px-1.5 py-0.5 font-mono text-[10px] leading-4 text-muted-foreground;
+    @apply inline-flex items-center gap-1.5 rounded border border-border bg-background px-1.5 py-0.5 font-mono text-[10.5px] lowercase leading-4 text-muted-foreground;
   }
 
   .link-arrow {
-    @apply inline-flex items-center gap-1.5 font-mono text-[11px] text-soft hover:text-foreground;
+    @apply inline-flex items-center gap-1.5 font-mono text-[12px] lowercase text-muted-foreground hover:text-foreground;
+  }
+
+  .pill {
+    @apply inline-flex items-center gap-2 rounded-md border border-border bg-card px-2.5 py-1.5 font-mono text-[12px] lowercase text-foreground hover:bg-hover;
+  }
+
+  /* text links inside rows: a dotted underline that goes solid on hover */
+  .link-dotted {
+    @apply underline decoration-dotted decoration-soft underline-offset-4 hover:decoration-solid hover:decoration-foreground;
+  }
+}
+
+/* Rows sharpen into focus as they scroll in. Pure CSS and only where the
+ * browser supports scroll-driven animations, so nothing is ever left hidden. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 55%;
+    }
+  }
+}
+
+@keyframes reveal-in {
+  from {
+    opacity: 0.25;
+    filter: blur(5px);
+  }
+  to {
+    opacity: 1;
+    filter: none;
   }
 }
 
@@ -160,6 +201,7 @@ html {
 
 body {
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 15px;
   overflow-x: clip;
 }
 
@@ -168,6 +210,7 @@ h2 {
   font-family: var(--font-display), ui-serif, Georgia, serif;
   font-style: normal;
   font-weight: 400;
+  text-transform: lowercase;
 }
 
 a:focus-visible,
@@ -364,7 +407,7 @@ pre {
     transform: translateX(-40px);
   }
   to {
-    transform: translateX(800px);
+    transform: translateX(760px);
   }
 }
 

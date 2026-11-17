@@ -1,19 +1,16 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 
-const Corner = ({ className }: { className: string }) => (
-  <span
-    aria-hidden
-    className={cn(
-      "absolute z-10 h-[3px] w-[3px] bg-foreground opacity-40",
-      className
-    )}
-  />
+/** The dotted-texture strip that separates one section from the next. */
+export const Gutter = () => (
+  <div className="rule-y" aria-hidden>
+    <div className="frame bg-dots h-6" />
+  </div>
 );
 
 /**
- * Full-bleed striped band with the section title sitting in the frame column.
- * Use `as="h1"` once per page.
+ * Section title row: lowercase serif title left, a quiet mono aside right,
+ * closed by a full-bleed dotted rule. Use `as="h1"` once per page.
  */
 export const SectionHeader = ({
   title,
@@ -24,18 +21,17 @@ export const SectionHeader = ({
   aside?: React.ReactNode;
   as?: "h1" | "h2";
 }) => (
-  <div className="w-full border-y border-border bg-stripes">
-    <div className="frame flex min-h-[44px] items-center justify-between gap-4 bg-background px-6 py-2 sm:px-8">
-      <Corner className="left-0 top-0 -translate-x-1/2 -translate-y-1/2" />
-      <Corner className="right-0 top-0 -translate-y-1/2 translate-x-1/2" />
-      <Corner className="bottom-0 left-0 -translate-x-1/2 translate-y-1/2" />
-      <Corner className="bottom-0 right-0 translate-x-1/2 translate-y-1/2" />
-      <Tag className="font-serif text-2xl tracking-wide text-foreground">
-        {title}
-      </Tag>
-      {aside && <div className="flex shrink-0 items-center">{aside}</div>}
+  <>
+    <Gutter />
+    <div className="rule-b">
+      <div className="frame flex min-h-[52px] items-center justify-between gap-4 px-5 py-2 sm:px-6">
+        <Tag className="font-serif text-[28px] leading-none tracking-tight text-foreground">
+          {title}
+        </Tag>
+        {aside && <div className="flex shrink-0 items-center">{aside}</div>}
+      </div>
     </div>
-  </div>
+  </>
 );
 
 export const Frame = ({
@@ -47,7 +43,7 @@ export const Frame = ({
   className?: string;
   flush?: boolean;
 }) => (
-  <div className={cn("frame", !flush && "px-6 py-8 sm:px-8", className)}>
+  <div className={cn("frame", !flush && "px-5 py-7 sm:px-6", className)}>
     {children}
   </div>
 );
@@ -69,7 +65,7 @@ export const Section = ({
   className?: string;
   flush?: boolean;
 }) => (
-  <section id={id} className="scroll-mt-14">
+  <section id={id} className="scroll-mt-12">
     <SectionHeader title={title} aside={aside} as={as} />
     <Frame className={className} flush={flush}>
       {children}
@@ -77,7 +73,7 @@ export const Section = ({
   </section>
 );
 
-/** Small pill used for statuses (LIVE, SOURCE…). */
+/** Small pill used for statuses (live, source…). */
 export const StatusBadge = ({
   tone = "neutral",
   children,
@@ -87,14 +83,17 @@ export const StatusBadge = ({
 }) => (
   <span
     className={cn(
-      "inline-flex items-center gap-1.5 rounded border px-1.5 py-0.5 font-mono text-[9px] font-medium uppercase leading-4 tracking-[0.12em]",
-      tone === "live" && "border-accent/40 bg-accent/10 text-accent",
-      tone === "warn" && "border-warn/40 bg-warn/10 text-warn",
-      tone === "neutral" && "border-border bg-chip text-muted-foreground"
+      "inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-px font-mono text-[10.5px] lowercase leading-4 text-muted-foreground"
     )}
   >
-    {tone === "live" && (
-      <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden />
+    {tone !== "neutral" && (
+      <span
+        className={cn(
+          "h-1.5 w-1.5 rounded-full",
+          tone === "live" ? "bg-accent" : "bg-warn"
+        )}
+        aria-hidden
+      />
     )}
     {children}
   </span>

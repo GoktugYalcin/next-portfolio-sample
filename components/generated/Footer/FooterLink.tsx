@@ -2,14 +2,14 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowUpRight, Check } from "lucide-react";
+import { ArrowUpRight, Check, Copy } from "lucide-react";
 import { FooterLinkProps } from "@/types";
 
-const FooterLink = ({ siteName, link, label }: FooterLinkProps) => {
+const useCopyMail = (link: string) => {
   const [copied, setCopied] = useState(false);
   const isMail = link.startsWith("mailto:");
 
-  const handleCopy = (e: React.MouseEvent) => {
+  const onClick = (e: React.MouseEvent) => {
     if (!isMail) return;
     e.preventDefault();
     navigator.clipboard.writeText(link.replace("mailto:", ""));
@@ -17,29 +17,67 @@ const FooterLink = ({ siteName, link, label }: FooterLinkProps) => {
     setTimeout(() => setCopied(false), 1500);
   };
 
+  return { copied, isMail, onClick };
+};
+
+/** A bordered pill link; a mail link copies the address instead. */
+const FooterLink = ({ siteName, link }: FooterLinkProps) => {
+  const { copied, isMail, onClick } = useCopyMail(link);
+
   return (
-    <li className="min-w-0 bg-background">
+    <li>
       <Link
         target={isMail ? undefined : "_blank"}
         href={link}
-        onClick={handleCopy}
-        className="group flex h-full flex-col gap-1 px-6 py-3.5 hover:bg-hover sm:px-8"
+        onClick={onClick}
+        className="pill group"
       >
-        <span className="label-mono">{siteName}</span>
-        <span className="flex items-center gap-1.5 text-[13px] font-medium text-foreground">
-          <span className="truncate">{copied ? "Copied" : label}</span>
-          {copied ? (
-            <Check size={12} className="flex-none text-accent" aria-hidden />
-          ) : (
-            <ArrowUpRight
-              size={12}
-              className="flex-none text-soft group-hover:text-foreground"
-              aria-hidden
-            />
-          )}
-        </span>
+        {copied ? "copied" : siteName}
+        {copied ? (
+          <Check size={11} className="text-accent" aria-hidden />
+        ) : isMail ? (
+          <Copy size={11} className="text-soft" aria-hidden />
+        ) : (
+          <ArrowUpRight
+            size={11}
+            className="text-soft group-hover:text-foreground"
+            aria-hidden
+          />
+        )}
       </Link>
     </li>
+  );
+};
+
+/** The big serif address in "say hi"; click to copy. */
+export const MailLine = ({ link }: { link: string }) => {
+  const { copied, onClick } = useCopyMail(link);
+  const address = link.replace("mailto:", "");
+
+  return (
+    <div className="flex flex-wrap items-center gap-3">
+      <a
+        href={link}
+        className="link-dotted break-all font-serif text-[26px] leading-tight text-foreground sm:text-3xl"
+      >
+        {address}
+      </a>
+      <button
+        type="button"
+        onClick={onClick}
+        aria-label="Copy email address"
+        className="grid h-7 w-7 flex-none place-items-center rounded-md border border-border bg-card text-soft hover:bg-hover hover:text-foreground"
+      >
+        {copied ? (
+          <Check size={12} className="text-accent" aria-hidden />
+        ) : (
+          <Copy size={12} aria-hidden />
+        )}
+      </button>
+      <span className="label-mono" aria-live="polite">
+        {copied ? "copied" : ""}
+      </span>
+    </div>
   );
 };
 

@@ -37,7 +37,7 @@ const ProjectsGrid = ({ projects }: { projects: ProjectWithMeta[] }) => {
         <div
           role="group"
           aria-label="Filter projects"
-          className="flex items-center gap-0.5 rounded-md border border-border bg-card p-0.5"
+          className="flex items-center gap-0.5 rounded-md border border-border bg-card p-0.5 font-mono lowercase"
         >
           {FILTERS.map((f) => (
             <button

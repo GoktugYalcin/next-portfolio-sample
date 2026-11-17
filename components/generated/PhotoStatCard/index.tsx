@@ -5,7 +5,7 @@ import { PhotoStatCardProps } from "@/types";
 const PhotoStatCard = ({ link, label, stat }: PhotoStatCardProps) => {
   return (
     <div className="flex flex-col items-center gap-1 bg-background px-4 py-5 text-center">
-      <span className="text-lg font-bold tabular-nums text-foreground">
+      <span className="font-serif text-3xl tabular-nums text-foreground">
         {stat?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
       </span>
       <Link

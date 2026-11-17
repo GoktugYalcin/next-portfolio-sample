@@ -37,7 +37,7 @@ export default async function Home() {
         </a>
       }
     >
-      <div className="border-b border-border px-6 py-8 sm:px-8">
+      <div className="border-b border-dotted border-border px-5 py-7 sm:px-6">
         <p className="max-w-[60ch] text-[15px] leading-relaxed text-muted-foreground">
           Writing, indexed by nothing in particular — just what I&apos;ve been
           thinking about frontend development.
@@ -46,7 +46,7 @@ export default async function Home() {
       {items.length ? (
         <Blogs items={items} />
       ) : (
-        <div className="px-6 py-8 sm:px-8">
+        <div className="px-5 py-7 sm:px-6">
           <NotFound whatNotFound={"blog"} />
         </div>
       )}

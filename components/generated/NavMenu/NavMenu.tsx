@@ -18,20 +18,19 @@ const NavMenu = () => {
   const selected = pathname.split("/")[1] || "home";
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur-md">
-      <div className="frame flex items-center justify-between gap-3 px-6 py-2.5 sm:px-8">
+    <header className="sticky top-0 z-40 border-b border-dotted border-border bg-background/90 backdrop-blur-md">
+      <div className="frame flex items-center justify-between gap-3 px-5 py-2 sm:px-6">
         <Link
           href="/"
           aria-label="Göktuğ — home"
-          className="font-serif text-xl tracking-wide text-foreground hover:opacity-80"
+          className="font-serif text-2xl italic leading-none text-foreground hover:opacity-70"
         >
-          <span className="hidden min-[420px]:inline">Göktuğ</span>
-          <span className="min-[420px]:hidden">G.</span>
+          g.
         </Link>
-        <div className="flex items-center gap-4 sm:gap-5">
+        <div className="flex items-center gap-3 sm:gap-4">
           <nav
             aria-label="Main"
-            className="flex items-center gap-4 text-[13px] text-muted-foreground sm:gap-5"
+            className="flex items-center gap-4 text-sm lowercase text-soft sm:gap-5"
           >
             {PAGES.map((page) => (
               <NavItem
@@ -42,6 +41,7 @@ const NavMenu = () => {
               />
             ))}
           </nav>
+          <span className="h-4 w-px bg-border" aria-hidden />
           <ThemeButton />
         </div>
       </div>

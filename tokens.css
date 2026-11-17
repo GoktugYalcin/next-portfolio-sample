@@ -1,42 +1,41 @@
-/* Framed Index · exported from app/globals.css — keep in sync */
+/* Dotted Notebook · exported from app/globals.css — keep in sync */
 :root {
-  --color-bg:      oklch(99% 0.001 106);
+  --color-bg:      oklch(99.3% 0.002 106);
   --color-card:    oklch(100% 0 0);
-  --color-chip:    oklch(96.5% 0.001 286);
-  --color-fg:      oklch(21% 0.006 286);
-  --color-muted:   oklch(44% 0.015 286);
-  --color-soft:    oklch(62% 0.014 286);
-  --color-line:    oklch(0% 0 0 / 0.1);
-  --color-stripe:  oklch(0% 0 0 / 0.055);
+  --color-chip:    oklch(96.5% 0.002 106);
+  --color-fg:      oklch(14.5% 0 0);
+  --color-muted:   oklch(40% 0 0);
+  --color-soft:    oklch(55.5% 0 0);
+  --color-line:    oklch(86% 0.003 106);
+  --color-dots:    oklch(0% 0 0 / 0.11);
   --color-hover:   oklch(0% 0 0 / 0.04);
   --color-accent:  oklch(52% 0.13 162);
-  --color-warn:    oklch(55% 0.13 70);
-  --color-focus:   oklch(21% 0.006 286);
+  --color-warn:    oklch(60% 0.14 60);
 
   --font-display: "Instrument Serif", ui-serif, Georgia, serif;
-  --font-body:    "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono:    "JetBrains Mono", ui-monospace, monospace;
+  --font-body:    "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    "Geist Mono", ui-monospace, monospace;
+  --font-hand:    "Architects Daughter", "Segoe Print", cursive;
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in:  cubic-bezier(0.7, 0, 0.84, 0);
   --dur-short: 220ms;
   --dur-long:  420ms;
 
-  --frame-width: 760px;
-  --radius-card: 0.75rem;
+  --frame-width: 720px;
+  --radius-card: 0.5rem;
 }
 
 :root.dark {
   --color-bg:      oklch(14.5% 0 0);
-  --color-card:    oklch(17% 0 0);
+  --color-card:    oklch(17.5% 0 0);
   --color-chip:    oklch(20% 0 0);
-  --color-fg:      oklch(97% 0.001 106);
-  --color-muted:   oklch(71% 0.013 286);
-  --color-soft:    oklch(50% 0.012 286);
-  --color-line:    oklch(100% 0 0 / 0.1);
-  --color-stripe:  oklch(100% 0 0 / 0.055);
+  --color-fg:      oklch(97% 0.002 106);
+  --color-muted:   oklch(75% 0 0);
+  --color-soft:    oklch(58% 0 0);
+  --color-line:    oklch(30% 0 0);
+  --color-dots:    oklch(100% 0 0 / 0.13);
   --color-hover:   oklch(100% 0 0 / 0.05);
   --color-accent:  oklch(74% 0.15 162);
   --color-warn:    oklch(80% 0.14 80);
-  --color-focus:   oklch(97% 0.001 106);
 }

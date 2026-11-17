@@ -79,7 +79,7 @@ const SpotifyRandomCards: React.FC = async () => {
                 <p className="mt-1 truncate text-[13px] text-muted-foreground">
                   {song.artists.join(", ")}
                 </p>
-                <div className="mt-3 flex items-center justify-between border-t border-border pt-3">
+                <div className="mt-3 flex items-center justify-between border-t border-dotted border-border pt-3">
                   <span className="chip">{song.year}</span>
                   <span className="chip">{song.duration}</span>
                 </div>

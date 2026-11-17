@@ -46,10 +46,10 @@ const IndexRail = ({ items }: { items: IndexItem[] }) => {
   return (
     <nav
       aria-label="On this page"
-      className="fixed left-[calc(50%+404px)] top-1/2 hidden -translate-y-1/2 xl:block"
+      className="fixed left-[calc(50%+388px)] top-1/2 hidden -translate-y-1/2 xl:block"
     >
-      <p className="label-mono mb-3">Index</p>
-      <ul className="flex flex-col gap-2.5 font-mono text-[11px]">
+      <p className="label-mono mb-3">index</p>
+      <ul className="flex flex-col gap-2.5 font-mono text-[11px] lowercase">
         {items.map((item) => {
           const isActive = item.id === active;
           return (

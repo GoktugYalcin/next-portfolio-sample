@@ -2,12 +2,23 @@ import React from "react";
 import FooterLink from "@/components/generated/Footer/FooterLink";
 import air from "@/lib/fetchers/airtable";
 
-const FooterLinkProvider = async () => {
-  const infos = await air.getInfos();
+/** The contact links from Airtable, as a row of pills. */
+const FooterLinkProvider = async ({
+  className,
+  withMail = true,
+}: {
+  className?: string;
+  /** false where the address is already shown in full */
+  withMail?: boolean;
+}) => {
+  const all = await air.getInfos();
+  const infos = withMail
+    ? all
+    : all.filter((i) => !i.url.startsWith("mailto:"));
   if (!infos.length) return null;
 
   return (
-    <ul className="grid grid-cols-2 gap-px border-b border-border bg-border sm:grid-cols-4">
+    <ul className={`flex flex-wrap gap-2 ${className ?? ""}`}>
       {infos.map((i, index) => {
         return (
           <FooterLink

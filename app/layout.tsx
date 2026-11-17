@@ -1,5 +1,10 @@
 import "./globals.css";
-import { Instrument_Serif, Inter, JetBrains_Mono } from "next/font/google";
+import {
+  Architects_Daughter,
+  Geist,
+  Geist_Mono,
+  Instrument_Serif,
+} from "next/font/google";
 import { ViewTransitions } from "next-view-transitions";
 import Footer from "@/components/generated/Footer";
 import NavMenu from "@/components/generated/NavMenu/NavMenu";
@@ -15,15 +20,22 @@ const display = Instrument_Serif({
   display: "swap",
 });
 
-const sans = Inter({
+const sans = Geist({
   subsets: ["latin", "latin-ext"],
   variable: "--font-sans",
   display: "swap",
 });
 
-const mono = JetBrains_Mono({
+const mono = Geist_Mono({
   subsets: ["latin", "latin-ext"],
   variable: "--font-mono",
+  display: "swap",
+});
+
+const hand = Architects_Daughter({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-hand",
   display: "swap",
 });
 
@@ -60,7 +72,7 @@ export default function RootLayout({
     <ViewTransitions>
       <html lang="en" suppressHydrationWarning>
         <body
-          className={`${display.variable} ${sans.variable} ${mono.variable} relative flex min-h-screen flex-col`}
+          className={`${display.variable} ${sans.variable} ${mono.variable} ${hand.variable} relative flex min-h-screen flex-col`}
         >
           <ProviderTheme>
             <KonamiEasterEgg />

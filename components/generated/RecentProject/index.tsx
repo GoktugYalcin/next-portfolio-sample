@@ -3,13 +3,12 @@ import { RecentProjectProps } from "@/types";
 
 const RecentProject = ({ label, description }: RecentProjectProps) => {
   return (
-    <li className="flex gap-3 text-sm leading-relaxed">
-      <span
-        className="mt-[9px] h-1.5 w-1.5 flex-none rounded-full bg-accent"
-        aria-hidden
-      />
+    <li className="flex gap-2.5 text-[15px] leading-relaxed">
+      <span className="select-none text-soft" aria-hidden>
+        –
+      </span>
       <span>
-        <span className="font-mono text-[13px] text-foreground">{`${label}: `}</span>
+        <span className="font-medium lowercase text-foreground">{`${label}: `}</span>
         <span className="text-muted-foreground">{description}</span>
       </span>
     </li>

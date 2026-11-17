@@ -20,35 +20,37 @@ const NowListeningCard = async () => {
   if (!lastListened) return <></>;
 
   return (
-    <div className="flex flex-col gap-3 border-b border-border px-6 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-8">
-      <Link href={"/last-listened"} className="link-arrow flex-none">
-        <FaSpotify className={"text-accent"} size={13} />
-        {lastListened.isNowPlaying
-          ? "I'm listening now"
-          : "I recently listened"}
-        <span aria-hidden>→</span>
-      </Link>
-      <div className="flex min-w-0 items-center gap-3">
-        <Image
-          src={lastListened.img}
-          alt={lastListened.song}
-          width={40}
-          height={40}
-          className="flex-none rounded-md border border-border"
-        />
-        <Link
-          href={lastListened.url}
-          target="_blank"
-          className="group flex min-w-0 flex-col"
-        >
-          <span className="flex items-center text-[13px] font-semibold text-foreground underline-offset-2 group-hover:underline">
-            <EqualizerBars live={lastListened.isNowPlaying} />
-            <span className="truncate">{lastListened.song}</span>
-          </span>
-          <span className="truncate text-xs text-muted-foreground">
-            {lastListened.artists.join(", ")}
-          </span>
+    <div className="w-full border-t border-dotted border-border">
+      <div className="frame flex flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        <Link href={"/last-listened"} className="link-arrow flex-none">
+          <FaSpotify className={"text-accent"} size={13} />
+          {lastListened.isNowPlaying
+            ? "i'm listening now"
+            : "i recently listened"}
+          <span aria-hidden>→</span>
         </Link>
+        <div className="flex min-w-0 items-center gap-3">
+          <Image
+            src={lastListened.img}
+            alt={lastListened.song}
+            width={40}
+            height={40}
+            className="flex-none rounded-md border border-border"
+          />
+          <Link
+            href={lastListened.url}
+            target="_blank"
+            className="group flex min-w-0 flex-col"
+          >
+            <span className="flex items-center text-[13px] font-medium text-foreground underline-offset-2 group-hover:underline">
+              <EqualizerBars live={lastListened.isNowPlaying} />
+              <span className="truncate">{lastListened.song}</span>
+            </span>
+            <span className="truncate text-xs text-muted-foreground">
+              {lastListened.artists.join(", ")}
+            </span>
+          </Link>
+        </div>
       </div>
     </div>
   );

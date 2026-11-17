@@ -40,11 +40,11 @@ export default async function Home() {
         }
       />
       <Frame flush>
-        <p className="px-6 py-8 text-[15px] leading-relaxed text-muted-foreground sm:px-8">
+        <p className="px-5 py-7 text-[15px] leading-relaxed text-muted-foreground sm:px-6">
           From the working archive.
         </p>
         {hasStats && (
-          <div className="grid grid-cols-2 gap-px border-y border-border bg-border">
+          <div className="grid grid-cols-2 gap-px border-y border-dotted border-border bg-border">
             <PhotoStatCard
               stat={stats?.views?.total}
               label={"Total Views"}
@@ -57,7 +57,7 @@ export default async function Home() {
             />
           </div>
         )}
-        <div className="px-6 py-10 sm:px-8">
+        <div className="px-5 py-9 sm:px-6">
           {Array.isArray(photos) && photos.length ? (
             <Photos data={photos} />
           ) : (

@@ -64,6 +64,7 @@ module.exports = {
         sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
         serif: ["var(--font-display)", "ui-serif", "Georgia", "serif"],
         display: ["var(--font-display)", "ui-serif", "Georgia", "serif"],
+        hand: ["var(--font-hand)", "Segoe Print", "cursive"],
         mono: ["var(--font-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
       },
       borderRadius: {

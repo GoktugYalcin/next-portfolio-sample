@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { IBlog } from "@/types";
 
-const MONTHS = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ");
+const MONTHS = "jan feb mar apr may jun jul aug sep oct nov dec".split(" ");
 
 const formatDate = (pubDate: string) => {
   // rss2json returns "YYYY-MM-DD HH:mm:ss" (UTC)
@@ -12,7 +12,7 @@ const formatDate = (pubDate: string) => {
   return `${MONTHS[d.getUTCMonth()]} ${String(d.getUTCDate()).padStart(
     2,
     "0"
-  )}, ${d.getUTCFullYear()}`;
+  )} '${String(d.getUTCFullYear()).slice(2)}`;
 };
 
 const Blogs: React.FC<{ items: IBlog[]; limit?: number }> = ({
@@ -24,17 +24,17 @@ const Blogs: React.FC<{ items: IBlog[]; limit?: number }> = ({
   return (
     <ul className="flex w-full flex-col">
       {list?.map(({ title, pubDate, link, categories }, index) => (
-        <li key={index} className="border-b border-border last:border-b-0">
+        <li
+          key={index}
+          className="reveal border-b border-dotted border-border last:border-b-0"
+        >
           <Link
             href={link}
             target="_blank"
-            className="group flex flex-col gap-1.5 px-6 py-5 hover:bg-hover sm:flex-row sm:items-baseline sm:gap-6 sm:px-8"
+            className="group flex items-baseline gap-4 px-5 py-4 hover:bg-hover sm:px-6"
           >
-            <time className="w-24 flex-none font-mono text-[10px] text-soft">
-              {formatDate(pubDate)}
-            </time>
             <span className="flex min-w-0 flex-1 flex-col gap-2">
-              <span className="font-serif text-xl leading-snug text-foreground">
+              <span className="font-serif text-[22px] leading-snug text-foreground">
                 {title}
               </span>
               {!!categories?.length && (
@@ -47,11 +47,14 @@ const Blogs: React.FC<{ items: IBlog[]; limit?: number }> = ({
                 </span>
               )}
             </span>
-            <ArrowUpRight
-              size={14}
-              aria-hidden
-              className="hidden flex-none translate-y-0.5 text-soft group-hover:text-foreground sm:block"
-            />
+            <time className="flex flex-none items-center gap-1.5 font-mono text-[11px] text-soft">
+              {formatDate(pubDate)}
+              <ArrowUpRight
+                size={11}
+                aria-hidden
+                className="group-hover:text-foreground"
+              />
+            </time>
           </Link>
         </li>
       ))}
