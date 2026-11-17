@@ -1,6 +1,6 @@
 import React from "react";
 import FooterLink from "@/components/generated/Footer/FooterLink";
-import air from "@/lib/fetchers/airtable";
+import { getContacts } from "@/lib/contacts";
 
 /** The contact links from Airtable, as a row of pills. */
 const FooterLinkProvider = async ({
@@ -13,7 +13,7 @@ const FooterLinkProvider = async ({
   /** false where the address is already shown in full */
   withMail?: boolean;
 }) => {
-  const all = await air.getInfos();
+  const all = await getContacts();
   const infos = withMail
     ? all
     : all.filter((i) => !i.url.startsWith("mailto:"));

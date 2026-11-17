@@ -48,6 +48,9 @@ const NavMenu = () => {
             {page.label}
           </Link>
         ))}
+        <a href="#contact" className="nav-link">
+          say hi
+        </a>
         <span className="nav-sep" aria-hidden="true" />
         <ThemeButton />
       </nav>

@@ -8,7 +8,7 @@ import Closing from "@/components/generated/Footer/Closing";
 import Pile from "@/components/generated/Pile";
 import { RollingClock } from "@/components/generated/IstanbulClock";
 import { Band, Section } from "@/components/generated/PageHead";
-import air from "@/lib/fetchers/airtable";
+import { getContacts } from "@/lib/contacts";
 import unsplash from "@/lib/fetchers/unsplash";
 import { IPhoto } from "@/types";
 import Info from "@/infos";
@@ -24,7 +24,7 @@ const stampSrc = (photo: IPhoto) =>
 
 export async function Footer() {
   const [infos, photosRaw] = await Promise.all([
-    air.getInfos(),
+    getContacts(),
     unsplash.getPhotos(8),
   ]);
   const mail = infos.find((i) => i.url.startsWith("mailto:"));

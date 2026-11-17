@@ -1,7 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
-import { ArrowUpRight, Check, Copy, Mail, PenLine, Link2 } from "lucide-react";
+import {
+  ArrowUpRight,
+  Camera,
+  Check,
+  Copy,
+  Mail,
+  PenLine,
+  Link2,
+} from "lucide-react";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa6";
 import { FooterLinkProps } from "@/types";
 
@@ -38,6 +46,7 @@ const iconFor = (name: string, link: string) => {
     );
   if (key.includes("mailto:")) return <Mail className="icon" />;
   if (key.includes("medium")) return <PenLine className="icon" />;
+  if (key.includes("unsplash")) return <Camera className="icon" />;
   return <Link2 className="icon" />;
 };
 
