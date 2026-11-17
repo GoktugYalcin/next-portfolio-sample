@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "next-view-transitions";
+import CoverRain from "./CoverRain";
 
 export type CoverPhoto = { id: string; src: string; alt: string };
 
@@ -426,6 +427,7 @@ const Cover = ({
         ) : (
           <div className="cover-empty" aria-hidden />
         )}
+        <CoverRain />
       </div>
       {photo && (
         <figcaption
