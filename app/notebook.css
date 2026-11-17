@@ -654,13 +654,6 @@ a.sec-meta:hover {
 .cover canvas:focus-visible {
   outline-offset: -4px;
 }
-.cover-rain {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
 .cover-empty {
   position: absolute;
   inset: 0;
