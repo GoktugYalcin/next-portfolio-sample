@@ -15,7 +15,7 @@ import { ProjectLead } from "@/components/generated/ProjectCard";
 import ProjectRows from "@/components/generated/ProjectCard/ProjectRows";
 import { Band, Section } from "@/components/generated/PageHead";
 import { Walking } from "@/components/generated/Walking";
-import air from "@/lib/fetchers/airtable";
+import { getProjects } from "@/lib/projects";
 import medium from "@/lib/fetchers/medium";
 import unsplash from "@/lib/fetchers/unsplash";
 import { getRepoPushedAt } from "@/lib/fetchers/github";
@@ -47,8 +47,8 @@ const Hobby = ({ text, icon }: { text: string; icon: React.ElementType }) => (
 
 export default async function Home() {
   const [currentProjects, showcase, blogs, photosRaw] = await Promise.all([
-    air.getShowcase(1),
-    air.getShowcase(0),
+    getProjects(true),
+    getProjects(false),
     medium.getBlogs(),
     unsplash.getPhotos(8),
   ]);

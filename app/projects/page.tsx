@@ -2,7 +2,7 @@ import ProjectsGrid from "@/components/generated/ProjectsGrid";
 import NotFound from "@/components/generated/NotFound";
 import { Band, PageHead, Section } from "@/components/generated/PageHead";
 import { Metadata } from "next";
-import air from "@/lib/fetchers/airtable";
+import { getProjects } from "@/lib/projects";
 import { getRepoPushedAt } from "@/lib/fetchers/github";
 
 const description =
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 export const revalidate = 86400; //24m
 
 export default async function Home() {
-  const showcase = await air.getShowcase(0);
+  const showcase = await getProjects(false);
   const pushedAtByIndex = await Promise.all(
     showcase.map((project) =>
       project.github ? getRepoPushedAt(project.github) : Promise.resolve(null)

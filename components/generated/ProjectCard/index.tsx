@@ -1,9 +1,9 @@
 import * as React from "react";
 import { ArrowUpRight } from "lucide-react";
-import { AirtableProject } from "@/types/air";
+import { PortfolioProject } from "@/types/portfolio";
 import { formatRelativeTime } from "@/lib/utils";
 
-export type ProjectWithMeta = AirtableProject & { updatedAt?: string | null };
+export type ProjectWithMeta = PortfolioProject & { updatedAt?: string | null };
 
 export const hostOf = (url: string) => {
   try {

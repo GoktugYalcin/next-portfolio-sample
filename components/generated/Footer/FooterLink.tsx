@@ -10,7 +10,7 @@ import {
   PenLine,
   Link2,
 } from "lucide-react";
-import { FaGithub, FaLinkedinIn } from "react-icons/fa6";
+import { FaGithub, FaInstagram, FaLinkedinIn } from "react-icons/fa6";
 import { FooterLinkProps } from "@/types";
 
 const useCopy = (link: string) => {
@@ -33,6 +33,13 @@ const iconFor = (name: string, link: string) => {
   if (key.includes("github"))
     return (
       <FaGithub
+        className="icon"
+        style={{ stroke: "none", fill: "currentColor" }}
+      />
+    );
+  if (key.includes("instagr"))
+    return (
+      <FaInstagram
         className="icon"
         style={{ stroke: "none", fill: "currentColor" }}
       />
