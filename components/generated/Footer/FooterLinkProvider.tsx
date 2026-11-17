@@ -2,7 +2,7 @@ import React from "react";
 import FooterLink from "@/components/generated/Footer/FooterLink";
 import { getContacts } from "@/lib/contacts";
 
-/** The contact links from Airtable, as a row of pills. */
+/** The contact links from data/portfolio.ts, as a row of pills. */
 const FooterLinkProvider = async ({
   className = "",
   style,
