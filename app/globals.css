@@ -100,14 +100,6 @@ html {
   overflow-x: clip;
 }
 
-.photo-figure {
-  transform: rotate(var(--photo-rotate, 0deg));
-}
-
-.photo-figure:hover {
-  transform: rotate(0deg);
-}
-
 .anim {
   display: inline-block;
   width: 32px;
@@ -231,12 +223,12 @@ html {
 /* photos, artwork and emoji would turn into negatives under the blend, so
  * they are lifted above the rain while it falls */
 html:has(.pts-page.is-switching)
-  :is(img, .rain-keep, .rain-lift, .photo-figure) {
+  :is(img, .rain-keep, .rain-lift, .print) {
   z-index: 61;
 }
 
 html:has(.pts-page.is-switching)
-  :is(img:not([data-nimg="fill"]), .rain-keep, .photo-figure) {
+  :is(img:not([data-nimg="fill"]), .rain-keep, .print) {
   position: relative;
 }
 

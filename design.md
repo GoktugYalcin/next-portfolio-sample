@@ -13,6 +13,7 @@ Dotted Notebook — warm paper, dotted rules, lowercase chrome, a few handmade t
 - Sections are separated by a **band** (32px of dot texture), then a title row (`.sec-head`).
 - Home: painted cover → profile (avatar over the cover's edge, name, four facts, link pills) → about → right now → projects (lead entry + accordion rows) → writing.
 - Inner pages: `PageHead` (crumb, big serif title, lede) → band → content.
+- Photos: a masonry wall of polaroid prints (paper frame, hand-written caption, mono date, stable tilt). Prints develop from dark green-black to grey as they come into view, take colour on hover, and open large on click (←/→ to step, esc to close).
 - Footer (every page): say hi (address + copy, photo stamps, pills) → closing line by the visitor's clock → the pile → colophon with a rolling Istanbul clock and the Konami hint.
 
 ## Theme

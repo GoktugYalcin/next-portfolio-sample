@@ -32,7 +32,15 @@ export default async function Home() {
         title="photos"
         lede={
           <>
-            From the working archive.{" "}
+            From the working archive
+            {hasStats && (
+              <>
+                {" "}
+                — {count(stats?.views?.total)} views and{" "}
+                {count(stats?.downloads?.total)} downloads so far
+              </>
+            )}
+            .{" "}
             <a
               className="ext"
               href="https://unsplash.com/@yalcingoktug"
@@ -44,25 +52,15 @@ export default async function Home() {
           </>
         }
       />
-      {hasStats && (
-        <>
-          <Band />
-          <Section title="so far">
-            <dl className="rows">
-              <div>
-                <dt>total views</dt>
-                <dd>{count(stats?.views?.total)}</dd>
-              </div>
-              <div>
-                <dt>total downloads</dt>
-                <dd>{count(stats?.downloads?.total)}</dd>
-              </div>
-            </dl>
-          </Section>
-        </>
-      )}
       <Band />
-      <Section reveal={false} className="photo-wall">
+      <Section
+        title="prints"
+        meta={
+          <span className="sec-meta">
+            {Array.isArray(photos) ? photos.length : 0} · click one
+          </span>
+        }
+      >
         {Array.isArray(photos) && photos.length ? (
           <Photos data={photos} />
         ) : (

@@ -1756,3 +1756,187 @@ html.intro.intro-out::before {
     animation: none;
   }
 }
+
+/* ───────────────────────────── photos ───────────────────────────── */
+
+:root {
+  --pol-paper: #f7f4ec;
+  --pol-caption: #4a4a4a;
+}
+html.dark {
+  --pol-paper: #242320;
+  --pol-caption: #d2cec4;
+}
+
+/* a masonry wall: columns keep each photo's own shape */
+.prints {
+  columns: 3 180px;
+  column-gap: 26px;
+  padding: 10px 2px 6px;
+}
+
+.print {
+  break-inside: avoid;
+  margin: 0 0 30px;
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform 0.5s var(--spring);
+}
+.print:hover,
+.print:focus-within {
+  transform: rotate(0) translateY(-4px) scale(1.03);
+}
+
+.print-frame {
+  display: block;
+  width: 100%;
+  padding: 7% 7% 0;
+  border-radius: 2px;
+  background: var(--pol-paper);
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.18),
+    0 2px 4px -1px rgba(0, 0, 0, 0.18);
+  text-align: left;
+  cursor: zoom-in;
+  transition: box-shadow 0.4s var(--ease-out);
+}
+.print:hover .print-frame {
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.18),
+    0 18px 30px -16px rgba(0, 0, 0, 0.35);
+}
+
+.print-win {
+  position: relative;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  background: #111;
+}
+.print-win img {
+  object-fit: cover;
+  /* undeveloped: almost black, green-tinted */
+  /* every state uses the same filter list, so the browser can blend them */
+  filter: brightness(0.12) sepia(0.7) hue-rotate(60deg) contrast(0.7)
+    grayscale(0);
+  transition: filter 3.4s cubic-bezier(0.3, 0, 0.3, 1);
+}
+.print.developed .print-win img {
+  filter: brightness(1) sepia(0) hue-rotate(0deg) contrast(1) grayscale(1);
+}
+/* once dry, hover brings the colour back quickly */
+.print.dry .print-win img {
+  transition: filter 0.7s var(--ease-out);
+}
+.print.dry:hover .print-win img,
+.print.dry:focus-within .print-win img {
+  filter: brightness(1) sepia(0) hue-rotate(0deg) contrast(1) grayscale(0);
+}
+
+.print-cap {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 1px 9px;
+  font: 400 13px/1.25 var(--font-hand), "Segoe Print", cursive;
+  color: var(--pol-caption);
+}
+.print-cap > span:first-child {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.print-date {
+  flex: none;
+  font: 10.5px/1 var(--font-mono), monospace;
+  opacity: 0.7;
+}
+
+@media (max-width: 560px) {
+  .prints {
+    columns: 2;
+    column-gap: 16px;
+  }
+  .print {
+    margin-bottom: 20px;
+  }
+}
+
+/* the opened photo */
+.pol-view {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: color-mix(in srgb, var(--n-bg) 78%, transparent);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.35s var(--ease-out);
+}
+.pol-view.on {
+  opacity: 1;
+}
+.pol-view-photo {
+  position: fixed;
+  object-fit: cover;
+  border-radius: 4px;
+  background: #111;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12),
+    0 24px 48px -16px rgba(0, 0, 0, 0.35);
+  user-select: none;
+  -webkit-user-drag: none;
+  cursor: zoom-out;
+}
+.pol-view-bar {
+  position: fixed;
+  left: 50%;
+  translate: -50% 0;
+  width: min(920px, 86vw);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px 22px;
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-out) 0.25s;
+}
+.pol-view.on .pol-view-bar {
+  opacity: 1;
+}
+.pol-view-cap {
+  min-width: 0;
+  font: 400 15px/1.4 var(--font-hand), "Segoe Print", cursive;
+  color: var(--n-fg2);
+}
+.pol-view-actions {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  font: 400 13px/1.4 var(--font-mono), monospace;
+}
+.pol-view-count {
+  color: var(--n-soft);
+}
+.pol-view-actions button,
+.pol-view-actions a {
+  padding: 2px 0;
+  color: var(--n-fg2);
+  border-bottom: 1px solid var(--n-line2);
+  transition: border-color 0.2s, color 0.2s;
+}
+.pol-view-actions button:hover,
+.pol-view-actions a:hover,
+.pol-view-actions button:focus-visible {
+  color: var(--n-fg);
+  border-color: var(--n-fg);
+  outline: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .print,
+  .print-win img {
+    transition: none;
+  }
+  .print-win img {
+    filter: brightness(1) sepia(0) hue-rotate(0deg) contrast(1) grayscale(1);
+  }
+}

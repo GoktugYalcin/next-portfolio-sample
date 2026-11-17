@@ -7,6 +7,8 @@ export interface IPhoto {
   width: number;
   height: number;
   blur_hash: string;
+  created_at?: string;
+  likes?: number;
 }
 
 export interface IPhotosWrapper {
