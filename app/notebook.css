@@ -1775,13 +1775,17 @@ html.dark {
 
 /* a masonry wall: columns keep each photo's own shape */
 .prints {
-  columns: 3 180px;
-  column-gap: 26px;
+  display: flex;
+  align-items: flex-start;
+  gap: 26px;
   padding: 10px 2px 6px;
+}
+.prints-col {
+  flex: 1 1 0;
+  min-width: 0;
 }
 
 .print {
-  break-inside: avoid;
   margin: 0 0 30px;
   transform: rotate(var(--tilt, 0deg));
   transition: transform 0.5s var(--spring);
@@ -1858,8 +1862,7 @@ html.dark {
 
 @media (max-width: 560px) {
   .prints {
-    columns: 2;
-    column-gap: 16px;
+    gap: 16px;
   }
   .print {
     margin-bottom: 20px;

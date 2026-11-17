@@ -42,6 +42,7 @@ export const Photo = ({
       <button
         type="button"
         className="print-frame"
+        data-index={index}
         onClick={(e) => onOpen(index, e.currentTarget)}
         aria-label={`open: ${captionFor(photo)}`}
       >
